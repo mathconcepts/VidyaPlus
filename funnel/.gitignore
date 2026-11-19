@@ -1,0 +1,3 @@
+# The funnel is plain JS + a Python build script; the repo-wide *.js and build/ ignores do not apply here.
+!*.js
+!build/

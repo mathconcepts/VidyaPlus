@@ -1,0 +1,146 @@
+{
+ "_how": "Giri: for each item, read the question + options + solution in the preview page (or funnel/site/data/diagnostic.json). If the wording is right and you agree with the key, set reviewed=true and reviewed_at=YYYY-MM-DD. Solve at least 5 on paper first and set hand_solved=true for those. Do not edit fingerprint: if the bank text changes, the fingerprint changes and the review lapses automatically.",
+ "reviewer": "Giri",
+ "items": {
+  "la-001": {
+   "fingerprint": "e6309ac44250",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "la-004": {
+   "fingerprint": "7a7e7f53c7da",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "la-006": {
+   "fingerprint": "3c2ae6570c38",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "la-011": {
+   "fingerprint": "1d4be6ee2e0e",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ca-001": {
+   "fingerprint": "bd1ca08b6c41",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ca-003": {
+   "fingerprint": "93e52964be79",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ca-006": {
+   "fingerprint": "c325652e13ad",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ca-015": {
+   "fingerprint": "41152b1197d5",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "de-002": {
+   "fingerprint": "3ea702671e3c",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "de-009": {
+   "fingerprint": "f90f39407786",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "de-014": {
+   "fingerprint": "5addb9ad3ad9",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "cv-003": {
+   "fingerprint": "7590b1a14970",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "cv-007": {
+   "fingerprint": "876841a8e991",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "cv-009": {
+   "fingerprint": "feed799f5b72",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ps-001": {
+   "fingerprint": "088a86f73cf8",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ps-004": {
+   "fingerprint": "27c29121d427",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ps-005": {
+   "fingerprint": "ff0d19d2a09c",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "ps-015": {
+   "fingerprint": "54e6e1415c6a",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "vc-001": {
+   "fingerprint": "44c76a40bb07",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  },
+  "vc-014": {
+   "fingerprint": "226148b6fc65",
+   "reviewed": false,
+   "reviewed_at": null,
+   "hand_solved": false,
+   "note": ""
+  }
+ }
+}
