@@ -65,7 +65,7 @@
       "question": "Find a basis for the null space of $A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$.",
       "options": {
         "A": "$\\{(1, 1, 0)\\}$",
-        "B": "$\\{(-1, 1, 0)\\}$",
+        "B": "$\\{(0, 1, 1)\\}$",
         "C": "$\\{(1, -1, 0)\\}$",
         "D": "$\\{(1, 0, 0)\\}$"
       },

@@ -58,10 +58,10 @@
         "A": "$\\frac{1}{\\sin(x)}$",
         "B": "$\\frac{\\cos(x)}{\\sin(x)}$",
         "C": "$\\frac{1}{\\cos(x)}$",
-        "D": "$\\cot(x)$"
+        "D": "$\\tan(x)$"
       },
       "correct_answer": "B",
-      "explanation": "Apply chain rule twice. Let $u = \\sin(x)$:\n$$f'(x) = \\frac{1}{u} \\cdot \\frac{du}{dx} = \\frac{1}{\\sin(x)} \\cdot \\cos(x) = \\frac{\\cos(x)}{\\sin(x)} = \\cot(x)$$\n\nNote: $\\frac{\\cos(x)}{\\sin(x)} = \\cot(x)$ are equivalent answers.",
+      "explanation": "Apply the chain rule. Let $u = \\sin(x)$:\n$$f'(x) = \\frac{1}{u} \\cdot \\frac{du}{dx} = \\frac{1}{\\sin(x)} \\cdot \\cos(x) = \\frac{\\cos(x)}{\\sin(x)} = \\cot(x)$$\n\nOption D, $\\tan(x)$, is the reciprocal of the correct answer — a sign of mixing up $\\frac{d}{dx}\\ln(\\sin x)$ with $\\frac{d}{dx}\\ln(\\cos x) = -\\tan(x)$.",
       "difficulty": "medium",
       "marks": 2,
       "negative_marks": -0.67,

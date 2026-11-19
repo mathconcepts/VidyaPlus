@@ -1,0 +1,1823 @@
+{
+  "summary": {
+    "run_id": "eng0-run-001-linear-algebra",
+    "generated_at": "2026-09-02T17:13:40.442078+00:00",
+    "scope": "GATE-EM Linear Algebra: topic bank (29) + 11 concept banks (55)",
+    "total_items": 84,
+    "cas_checked": 70,
+    "cas_verified": 63,
+    "cas_failed": 4,
+    "cas_ambiguous": 3,
+    "conceptual_unverified": 14,
+    "pass_rate_over_cas_checked_pct": 90.0,
+    "pass_rate_over_all_items_pct": 75.0,
+    "wolfram_tier": "skipped \u2014 no WOLFRAM_APP_ID in session; SymPy decisive on all parsed items",
+    "method_tag_layer": "not applicable to file-catalog MCQ banks (topic tags only, no expected-method field); applies to generated items via the practice-item factory",
+    "human_spot_audit_rate_pct": 0.0,
+    "human_spot_audit_note": "no operator review yet \u2014 Giri reviews verification RECORDS (not the maths) per plan; the mathematics gate stays pending for every item",
+    "quarantine_count": 7
+  },
+  "records": [
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-001",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "eigenvalues",
+        "characteristic-equation",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "eigenvalues [2, 4]",
+      "detail": "A \"4 and 2\" iff spectrum {2,4}; B/C/D transcribe to {3},{0,6},{1,4} \u2014 none match",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-002",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "system-of-equations",
+        "consistency",
+        "rank",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank(A)=1, rank([A|b])=1, unknowns=3",
+      "detail": "consistent with rank 1 < 3 unknowns -> infinitely many solutions",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-003",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "rank-nullity",
+        "null-space",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "nullity = 4 - 3 = 1",
+      "detail": "rank-nullity theorem applied (arithmetic)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-004",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "eigenvalues",
+        "determinant",
+        "inverse",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "det(2A^-1) = 8/6 = 4/3",
+      "detail": "options A (8/6) and C (4/3) are the SAME number \u2014 defective option list",
+      "cas_true_options": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-005",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "symmetric-matrix",
+        "eigenvalues",
+        "spectral-theorem",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). spectral theorem: real symmetric => real eigenvalues",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-006",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "determinant",
+        "linear-dependence",
+        "matrices",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 0",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-007",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "basis",
+        "vector-spaces",
+        "linear-independence",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dets: {'A': '0', 'B': '2', 'C': '0', 'D': '0'}",
+      "detail": "basis iff 3 vectors with rank 3 (det != 0)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-008",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "invertible-matrix",
+        "system-of-equations",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). A invertible => unique solution x = A^-1 b",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-009",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "singular-matrix",
+        "eigenvalues",
+        "determinant",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). singular <=> det 0 <=> 0 is an eigenvalue",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-010",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "eigenvalues",
+        "rotation-matrix",
+        "complex-eigenvalues",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "eigenvalues [-I, I]",
+      "detail": "B \"i and -i\"",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-011",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "trace",
+        "eigenvalues",
+        "matrix-powers",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "trace(A^2) = 4+9+25 = 38",
+      "detail": "trace(A^2) = sum of squared eigenvalues",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-012",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "system-of-equations",
+        "consistency",
+        "rank",
+        "singular-matrix",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank(A)=1, rank([A|b])=1, unknowns=2",
+      "detail": "consistent, rank<2 -> infinitely many",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-013",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "orthogonal-matrix",
+        "matrix-inverse",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). definition of orthogonal matrix: Q^T = Q^-1",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-014",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "overdetermined-system",
+        "rank",
+        "column-space",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: C (agrees with key). full column rank: unique solution if b in col space, else none",
+      "llm_single_answer": "C",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-015",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "quadratic-forms",
+        "symmetric-matrix",
+        "matrices",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "X^T[[2,2],[2,2]]X expands to 2x^2+4xy+2y^2 (symmetric form)",
+      "detail": "A [[2,4],[4,2]] gives 2x^2+8xy+2y^2 \u2014 does not match; B is the unique symmetric representer",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-016",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "inner-product",
+        "vectors",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "cos = 1/2, angle = pi/3 rad = 60 deg",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-017",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "inner-product",
+        "orthogonality",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "<u,v> = (169-25-144)/2 = 0",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-018",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "gram-schmidt",
+        "orthogonality",
+        "vector-spaces",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "u2 = [0, 3, 4]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-019",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "gram-schmidt",
+        "vector-spaces",
+        "linear-independence",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). Gram-Schmidt preserves the flag of nested spans",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-020",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "lu-decomposition",
+        "matrices",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "L21 = 2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-021",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "lu-decomposition",
+        "determinant",
+        "matrices",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det(A) = -2 (equals product of stated U diagonals 1*1*-2)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-022",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "positive-definite",
+        "eigenvalues",
+        "symmetric-matrix",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "leading minors [2, 3], eigenvalues [1, 3] \u2014 positive definite",
+      "detail": "A also states the minors (2 and 3) correctly",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-023",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "positive-definite",
+        "eigenvalues",
+        "symmetric-matrix",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 4*k - 4 > 0 iff k > 1 (first minor 4 > 0)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-024",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "svd",
+        "eigenvalues",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "singular values [3, 2]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-025",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "svd",
+        "eigenvalues",
+        "rank",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "nonzero singular value [5]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-026",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "jordan-form",
+        "eigenvalues",
+        "diagonalization",
+        "linear-algebra"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). JNF for lambda=2, alg mult 2, geo mult 1 is the 2x2 Jordan block",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-027",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "jordan-form",
+        "eigenvalues",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "Jordan form [[3, 1], [0, 3]]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-028",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "matrix-norm",
+        "matrices",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "max column sums: |1|+|3|=4, |-2|+|4|=6 -> 6",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "la-029",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "matrix-norm",
+        "svd",
+        "symmetric-matrix",
+        "eigenvalues",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "spectral norm = 2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ch-01",
+      "source_file": "data/courses/gate-em/concepts/cayley-hamilton/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "cayley-hamilton"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "charpoly = lambda**2 - 3*lambda + 2; A^2-3A+2I = [[0, 0], [0, 0]]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ch-02",
+      "source_file": "data/courses/gate-em/concepts/cayley-hamilton/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "cayley-hamilton"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^2 - 5A + 6I = 0  =>  A^2 = 5A - 6I",
+      "detail": "direct rearrangement of the characteristic equation (Cayley-Hamilton)",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ch-03",
+      "source_file": "data/courses/gate-em/concepts/cayley-hamilton/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "cayley-hamilton"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^-1 = [[3, -2], [-1, 1]]; 4I - A = [[3, -2], [-1, 1]]; det(A)=1",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ch-04",
+      "source_file": "data/courses/gate-em/concepts/cayley-hamilton/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "cayley-hamilton"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^3 - 2A^2 + A - 5I = 0  =>  A^3 = 2A^2 - A + 5I",
+      "detail": "direct rearrangement of the characteristic equation",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ch-05",
+      "source_file": "data/courses/gate-em/concepts/cayley-hamilton/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "cayley-hamilton"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^2+I = [[0, 0], [0, 0]]; A^4 = [[1, 0], [0, 1]]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "det-01",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 10",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "det-02",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 4 - 2*k = 0 at k = [2]",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "det-03",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "det = 1",
+      "detail": "true determinant is 1 \u2014 NOT among the options; keyed D (4) is wrong",
+      "cas_true_options": []
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "det-04",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "det(3AB) = 3^2 * 5 * (-2) = -90",
+      "detail": "true value -90 is NOT among the options; keyed A (-30) forgot the scalar rule det(cM)=c^n det(M)",
+      "cas_true_options": []
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "det-05",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "symbolic 3x3 with two identical rows: det = 0",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "dia-01",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "is_diagonalizable = False",
+      "detail": "eigenvalue 1 has algebraic mult 2, geometric mult 1",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "dia-02",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). spectral theorem: symmetric => orthogonally diagonalizable",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "dia-03",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^100 = diag(2^100, 3^100) (computed exactly)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "dia-04",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: C (agrees with key). diagonalizable iff geometric = algebraic multiplicity for every eigenvalue",
+      "llm_single_answer": "C",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "dia-05",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "eigenvalues [-I, I] \u2014 non-real, so not diagonalizable over R but diagonalizable over C",
+      "detail": "keyed B is true; option C (\"Only over C\") is ALSO true \u2014 defective option list",
+      "cas_true_options": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ev-01",
+      "source_file": "data/courses/gate-em/concepts/eigenvalues/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "eigenvalues"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "eigenvalues [1, 2]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ev-02",
+      "source_file": "data/courses/gate-em/concepts/eigenvalues/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "eigenvalues"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A - 3I = [[0, 0], [0, 0]] \u2014 zero matrix, nullspace is all of R^2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ev-03",
+      "source_file": "data/courses/gate-em/concepts/eigenvalues/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "eigenvalues"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A(2,1)^T = [10, 5] = 5*(2,1)^T",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ev-04",
+      "source_file": "data/courses/gate-em/concepts/eigenvalues/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "eigenvalues"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). trace = sum of eigenvalues, det = product",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "ev-05",
+      "source_file": "data/courses/gate-em/concepts/eigenvalues/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "eigenvalues"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 2*5 = 10 != 0 -> rank 2",
+      "detail": "product of eigenvalues nonzero (arithmetic)",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "lt-01",
+      "source_file": "data/courses/gate-em/concepts/linear-transformations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "linear-transformations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "T(0,0) = (1,0) != (0,0) \u2014 linearity fails",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "lt-02",
+      "source_file": "data/courses/gate-em/concepts/linear-transformations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "linear-transformations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "B: additivity and homogeneity verified symbolically",
+      "detail": "A (x^2), C (xy), D (constant 1) each fail additivity \u2014 checked by construction",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "lt-03",
+      "source_file": "data/courses/gate-em/concepts/linear-transformations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "linear-transformations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "[[3,-1],[1,2]](x,y)^T = (3x-y, x+2y)^T",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "lt-04",
+      "source_file": "data/courses/gate-em/concepts/linear-transformations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "linear-transformations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "nullspace basis [-1, -1, 1] \u2014 scalar multiple of (1,1,-1)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "lt-05",
+      "source_file": "data/courses/gate-em/concepts/linear-transformations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "linear-transformations",
+        "rank-nullity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dim Im = 4 - 2 = 2",
+      "detail": "rank-nullity theorem applied (arithmetic)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "minv-01",
+      "source_file": "data/courses/gate-em/concepts/matrix-inverse/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-inverse"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^-1 = [[1, -2], [0, 1]]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "minv-02",
+      "source_file": "data/courses/gate-em/concepts/matrix-inverse/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-inverse"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dets {'A': '6', 'B': '1', 'C': '0', 'D': '-2'} \u2014 only C is singular",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "minv-03",
+      "source_file": "data/courses/gate-em/concepts/matrix-inverse/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-inverse"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A^-1 = [[1, -1], [-2, 3]]; (2,1) entry = -2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "minv-04",
+      "source_file": "data/courses/gate-em/concepts/matrix-inverse/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-inverse"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "(AB)^-1 = [[1/2, -1], [0, 1]]; equals B^-1 A^-1: True",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "minv-05",
+      "source_file": "data/courses/gate-em/concepts/matrix-inverse/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-inverse"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det(A^-1) = 1/det(A) verified on generic symbolic 2x2 and 3x3",
+      "detail": "general-n claim is the standard theorem; CAS checked symbolic generic instances",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "mop-01",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "AB = [[4, 1], [6, 3]]; (1,2) entry = 1",
+      "detail": "true (1,2) entry is 1 (option A); keyed C (4) is the (1,1) entry \u2014 wrong key",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "mop-02",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "transpose of a 2x3 matrix is 3x2",
+      "detail": "shape rule (arithmetic)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "mop-03",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "AB - BA = [[0, -1], [0, 0]]",
+      "detail": "true commutator [[0,-1],[0,0]] is NOT among the options; keyed D ([[0,-2],[0,0]]) is wrong",
+      "cas_true_options": []
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "mop-04",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "(AB)^T (1,1) = 19; (AB)^T == B^T A^T: True",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "mop-05",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations",
+        "eigenvalues"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: C (agrees with key). idempotent: eigenvalues in {0,1}, rank = number of 1s = trace",
+      "llm_single_answer": "C",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "orth-01",
+      "source_file": "data/courses/gate-em/concepts/orthogonality/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "orthogonality"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dot product = 0",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "orth-02",
+      "source_file": "data/courses/gate-em/concepts/orthogonality/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "orthogonality"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "v/||v|| = [3/5, 4/5]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "orth-03",
+      "source_file": "data/courses/gate-em/concepts/orthogonality/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "orthogonality"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "Q^T Q = I: True",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "orth-04",
+      "source_file": "data/courses/gate-em/concepts/orthogonality/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "orthogonality"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). Q^T Q = I => det(Q)^2 = 1 => det = +-1. NOTE: option C (det(Q)=det(Q^T)) is a true statement for all square matrices but does not answer the asked value \u2014 weak distractor, not ambiguity",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "orth-05",
+      "source_file": "data/courses/gate-em/concepts/orthogonality/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "orthogonality"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "e1 = [1, 0], e2 = [0, 1]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "rn-01",
+      "source_file": "data/courses/gate-em/concepts/rank-nullity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "rank-nullity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank = 1",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "rn-02",
+      "source_file": "data/courses/gate-em/concepts/rank-nullity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "rank-nullity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "nullity = 6 - 3 = 3",
+      "detail": "rank-nullity theorem applied (arithmetic)",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "rn-03",
+      "source_file": "data/courses/gate-em/concepts/rank-nullity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "rank-nullity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank = 2",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "rn-04",
+      "source_file": "data/courses/gate-em/concepts/rank-nullity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "rank-nullity",
+        "systems-of-equations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "free variables = 7 - 4 = 3",
+      "detail": "rank-nullity theorem applied (arithmetic)",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "rn-05",
+      "source_file": "data/courses/gate-em/concepts/rank-nullity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "rank-nullity"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). invertible <=> full rank <=> trivial null space",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "sys-01",
+      "source_file": "data/courses/gate-em/concepts/systems-of-equations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "systems-of-equations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank(A)=1, rank([A|b])=1, unknowns=2",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "sys-02",
+      "source_file": "data/courses/gate-em/concepts/systems-of-equations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "systems-of-equations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank(A)=1 < rank([A|b])=2 \u2014 inconsistent",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "sys-03",
+      "source_file": "data/courses/gate-em/concepts/systems-of-equations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "systems-of-equations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "solution {x: 2, y: 0}; x = 2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "sys-04",
+      "source_file": "data/courses/gate-em/concepts/systems-of-equations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "systems-of-equations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank(A)=2, rank([A|b])=2, free variables = 3-2 = 1",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "sys-05",
+      "source_file": "data/courses/gate-em/concepts/systems-of-equations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "systems-of-equations",
+        "rank-nullity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "null space dim = 5 - 3 = 2",
+      "detail": "rank-nullity theorem applied (arithmetic)",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "vs-01",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "C closed under linear combinations (symbolic); A, B, D fail on explicit counterexamples",
+      "detail": "A: (1,0)+(0,1)=(1,1): 1+1=2 != 1 \u2014 not closed; B: (1,0)+(0,1)=(1,1): 1*1=1 != 0 \u2014 not closed; D: (1,0)+(0,1) has norm sqrt(2) != 1 \u2014 not closed (and 0 not in set)",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "vs-02",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dim = 2*3 = 6",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "vs-03",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "rank of the 3 vectors = 2 < 3 \u2014 dependent",
+      "detail": "(2,4,6) = 2*(1,2,3)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "vs-04",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "nullspace basis [-1, 1, 0]",
+      "detail": "B (-1,1,0) and C (1,-1,0) are scalar multiples of each other \u2014 both span the null space; keyed C accepted, but option B is equally correct",
+      "cas_true_options": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-001-linear-algebra",
+      "item_id": "vs-05",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-02T17:13:40.442078+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). non-trivial proper subspace of dim-4 space has dim 1, 2, or 3",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    }
+  ]
+}

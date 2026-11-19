@@ -60,8 +60,8 @@
         "C": "$x \\cos(x) + \\sin(x) + C$",
         "D": "$\\sin(x) - x \\cos(x) + C$"
       },
-      "correct_answer": "A",
-      "explanation": "Let $u = x$, $dv = \\cos(x) dx$.\n\n$du = dx$, $v = \\sin(x)$\n\n$$\\int x \\cos(x) \\, dx = x \\sin(x) - \\int \\sin(x) \\, dx = x \\sin(x) - (-\\cos(x)) + C = x \\sin(x) + \\cos(x) + C$$\n\nWait, that's B. Let me re-check: $\\int \\sin(x) dx = -\\cos(x)$. So $- \\int \\sin(x) dx = -(-\\cos(x)) = \\cos(x)$. Hmm, that's still B. But the answer key says A. Let me recalculate: $-\\int \\sin(x) dx = -(- \\cos(x)) = \\cos(x)$. So the answer is $x \\sin(x) + \\cos(x)$, which is B.\n\nBut the answer marked is A. Let me re-examine the options... Actually option A says $x\\sin(x) - \\cos(x) + C$. That would come from $-\\int \\sin(x) dx = -(-\\cos(x)) - \\cos(x)$? No. I think there's a labeling error. The correct answer should be $x \\sin(x) + \\cos(x) + C$, which is B.",
+      "correct_answer": "B",
+      "explanation": "Let $u = x$, $dv = \\cos(x)\\,dx$, so $du = dx$, $v = \\sin(x)$.\n\n$$\\int x \\cos(x) \\, dx = x \\sin(x) - \\int \\sin(x) \\, dx = x \\sin(x) - (-\\cos(x)) + C = x \\sin(x) + \\cos(x) + C$$\n\nCheck by differentiating: $\\frac{d}{dx}[x\\sin(x) + \\cos(x)] = \\sin(x) + x\\cos(x) - \\sin(x) = x\\cos(x)$. ✓",
       "difficulty": "medium",
       "marks": 2,
       "negative_marks": -0.67,

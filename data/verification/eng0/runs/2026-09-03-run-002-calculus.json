@@ -1,0 +1,2468 @@
+{
+  "summary": {
+    "run_id": "eng0-run-002-calculus",
+    "generated_at": "2026-09-03T17:19:14.499199+00:00",
+    "scope": "GATE-EM Calculus (28-mark common block, slice 1): topic bank (15) + 19 concept banks (95)",
+    "total_items": 110,
+    "cas_checked": 106,
+    "cas_verified": 93,
+    "cas_failed": 5,
+    "cas_ambiguous": 8,
+    "conceptual_unverified": 4,
+    "pass_rate_over_cas_checked_pct": 87.7,
+    "pass_rate_over_all_items_pct": 84.5,
+    "wolfram_tier": "skipped \u2014 no WOLFRAM_APP_ID in session; SymPy decisive on all parsed items",
+    "method_tag_layer": "not applicable to file-catalog MCQ banks (topic tags only, no expected-method field); applies to generated items via the practice-item factory",
+    "human_spot_audit_rate_pct": 0.0,
+    "human_spot_audit_note": "no operator review yet \u2014 Giri reviews verification RECORDS (not the maths) per plan; the mathematics gate stays pending for every item",
+    "quarantine_count": 13
+  },
+  "records": [
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-001",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "limits",
+        "standard-limits",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 3/5",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-002",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "taylor-series",
+        "maclaurin",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "Maclaurin x^3 coefficient of e^(2x) = 2^3/3! = 4/3",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-003",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "integration-by-parts",
+        "definite-integral",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 1",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-004",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "partial-derivatives",
+        "critical-points",
+        "multivariable",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "critical point [{x: 0, y: 0}]; Hessian det = 3 > 0, f_xx = 2 > 0 \u2014 local minimum",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-005",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "double-integral",
+        "iterated-integral",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "double integral = 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-006",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "limits",
+        "lhopital",
+        "taylor-series",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 1/2",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-007",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "differential-calculus",
+        "derivatives",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'''(0) = 2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-008",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "differential-calculus",
+        "maxima-minima",
+        "critical-points",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "critical points [-1, 1]; f''<0 at [-1] \u2014 local maximum there",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-009",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "integral-calculus",
+        "trigonometric-integrals",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = pi/2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-010",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "partial-derivatives",
+        "total-derivative",
+        "multivariable",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f_x = 2*x*y + y*cos(x*y), f_y = x**2 + x*cos(x*y)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-011",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "mean-value-theorem",
+        "differential-calculus",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "2c = 4 -> c = [2]",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-012",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "integral-calculus",
+        "improper-integrals",
+        "substitution",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 1/2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-013",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "partial-derivatives",
+        "mixed-partials",
+        "multivariable",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "mixed partial = 6*x*y**2 (Clairaut: both orders agree)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-014",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "continuity",
+        "differentiability",
+        "limits",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "continuous at 0 (limit 0 = f(0)); left derivative -1 != right derivative 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ca-015",
+      "source_file": "data/courses/gate-em/topics/02-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "integral-calculus",
+        "area-between-curves",
+        "definite-integral",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "area = int_0^1 (x - x^2) dx = 1/6",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "chr-01",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = 3*cos(3*x)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "chr-02",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "exponential"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = 2*exp(2*x)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "chr-03",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "power-root"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = 5/(2*sqrt(5*x + 2))",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "chr-04",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "f' = cos(x)/sin(x) = cot(x)",
+      "detail": "options B (cos(x)/sin(x)) and D (cot(x)) are the SAME function \u2014 defective option list",
+      "cas_true_options": [
+        "B",
+        "D"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "chr-05",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "polynomial"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(0) = 0",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "con-01",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "removable-discontinuity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit at 2 = 4 (finite) while f(2) is undefined (0/0) \u2014 removable discontinuity",
+      "detail": "removable iff the two-sided limit exists finite and the point is not in the domain",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "con-02",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "continuous-everywhere"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "B: |x| continuous. C: piecewise pieces linear, left limit 1 = right limit 1 = f(1) = 1 at the seam \u2014 ALSO continuous everywhere. A (1/x at 0) and D (tan at pi/2) are not",
+      "detail": "keyed B is correct but option C is a continuous-everywhere function too \u2014 defective option list",
+      "cas_true_options": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "con-03",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "piecewise-function"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "continuity at 1: 1 = a + 2 -> a = [-1]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "con-04",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "removable-discontinuity",
+        "standard-limit"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit at 0 = 1 (finite) while f(0) is undefined \u2014 removable discontinuity",
+      "detail": "option D says \"no discontinuity\" \u2014 false as stated (f(0) is undefined), though the function can be extended; A is the accurate classification",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "con-05",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "infinite-discontinuity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "one-sided limits -oo and oo differ (infinite) \u2014 no value of c makes f continuous",
+      "detail": "",
+      "cas_true_options": [
+        "D"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "def-01",
+      "source_file": "data/courses/gate-em/concepts/definite-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "definite-integrals",
+        "fundamental-theorem"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "def-02",
+      "source_file": "data/courses/gate-em/concepts/definite-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "definite-integrals",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "def-03",
+      "source_file": "data/courses/gate-em/concepts/definite-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "definite-integrals",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = log(2)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "def-04",
+      "source_file": "data/courses/gate-em/concepts/definite-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "definite-integrals",
+        "odd-function"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 0 (odd function, symmetric interval)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "def-05",
+      "source_file": "data/courses/gate-em/concepts/definite-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "definite-integrals",
+        "exponential",
+        "area"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "area = -1 + E",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "der-01",
+      "source_file": "data/courses/gate-em/concepts/derivatives-basic/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "derivatives",
+        "power-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = 5*x**4 + 9*x**2 - 2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "der-02",
+      "source_file": "data/courses/gate-em/concepts/derivatives-basic/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "derivatives",
+        "product-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(0) = 1",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "der-03",
+      "source_file": "data/courses/gate-em/concepts/derivatives-basic/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "derivatives",
+        "quotient-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = x**2*(3 - x)*exp(-x)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "der-04",
+      "source_file": "data/courses/gate-em/concepts/derivatives-basic/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "derivatives",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "sec^2(pi/4) = 2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "der-05",
+      "source_file": "data/courses/gate-em/concepts/derivatives-basic/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "derivatives",
+        "fractional-exponent"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(8) = 1/12",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "diff-01",
+      "source_file": "data/courses/gate-em/concepts/differentiability/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "differentiability",
+        "non-differentiable"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "differentiable at 0: {'A': True, 'B': True, 'C': False, 'D': True} \u2014 only |x| is not",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "diff-02",
+      "source_file": "data/courses/gate-em/concepts/differentiability/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "differentiability",
+        "derivative"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(0) via limit definition: left 0 = right 0 = 0",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "diff-03",
+      "source_file": "data/courses/gate-em/concepts/differentiability/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "differentiability",
+        "piecewise-function"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "continuity: a+b=1; smoothness: a=2 -> [{a: 2, b: -1}]",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "diff-04",
+      "source_file": "data/courses/gate-em/concepts/differentiability/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "differentiability",
+        "absolute-value"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "non-differentiable points in (0,3): [1, 2] \u2014 count 2",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "diff-05",
+      "source_file": "data/courses/gate-em/concepts/differentiability/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "differentiability",
+        "continuity",
+        "theorem"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). differentiability at a point implies continuity there (standard theorem)",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "id-01",
+      "source_file": "data/courses/gate-em/concepts/implicit-differentiation/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "implicit-differentiation",
+        "chain-rule",
+        "calculus",
+        "circle"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dy/dx = -x/y",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "id-02",
+      "source_file": "data/courses/gate-em/concepts/implicit-differentiation/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "implicit-differentiation",
+        "product-rule",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dy/dx = -y/x",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "id-03",
+      "source_file": "data/courses/gate-em/concepts/implicit-differentiation/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "implicit-differentiation",
+        "chain-rule",
+        "product-rule",
+        "calculus",
+        "folium"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dy/dx = (-a*y + x**2)/(a*x - y**2)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "id-04",
+      "source_file": "data/courses/gate-em/concepts/implicit-differentiation/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "implicit-differentiation",
+        "second-derivative",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "d2y/dx2 at (0,1) = -1",
+      "detail": "option D states the correct general formula -1/y^3 but is not the asked value at the point \u2014 weak distractor, not ambiguity (run-001 orth-04 precedent)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "id-05",
+      "source_file": "data/courses/gate-em/concepts/implicit-differentiation/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "implicit-differentiation",
+        "tangent-line",
+        "chain-rule",
+        "product-rule",
+        "calculus"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "tangent slope at (1,2) = -4/5; line A carries this slope",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "imp-01",
+      "source_file": "data/courses/gate-em/concepts/improper-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "improper-integrals",
+        "divergence"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = oo \u2014 diverges",
+      "detail": "option D \"ln(oo)\" is not a real value; C is the correct evaluation",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "imp-02",
+      "source_file": "data/courses/gate-em/concepts/improper-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "improper-integrals",
+        "exponential"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = exp(-1) = 1/e",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "imp-03",
+      "source_file": "data/courses/gate-em/concepts/improper-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "improper-integrals",
+        "p-integral"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "p = 1/2 <= 1: integral = oo \u2014 diverges",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "imp-04",
+      "source_file": "data/courses/gate-em/concepts/improper-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "improper-integrals",
+        "discontinuity"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 2 (convergent despite the endpoint singularity)",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "imp-05",
+      "source_file": "data/courses/gate-em/concepts/improper-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "improper-integrals",
+        "gaussian"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "Gaussian integral = sqrt(pi)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "int-01",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "power-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to the integrand",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "int-02",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "exponential",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "on x > 0 both ln(x) and ln|x| differentiate to 1/x",
+      "detail": "options A and C are the SAME antiderivative on the stated domain x > 0 \u2014 defective option list",
+      "cas_true_options": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "int-03",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only B differentiates back to the integrand",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "int-04",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "fractional-exponent"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "int x^(1/3) dx = (3/4)x^(4/3): d/dx of A returns the integrand; keyed B gives x^(-2) + (16/9)x^(1/3)",
+      "detail": "true antiderivative is option A ((3/4) coefficient); keyed B ((4/3) coefficient) is wrong \u2014 power rule divides by n+1 = 4/3",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "int-05",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "antiderivative",
+        "initial-condition"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "F(x) = 2x^3 - 2x^2 + x + 3; F(1) = 4",
+      "detail": "true value is 4 (option B); keyed C (5) is wrong",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ibp-01",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to x sin(x)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ibp-02",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only B differentiates back to ln(x)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ibp-03",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "exponential"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to x^2 e^x",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ibp-04",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "d/dx[x sin(x) + cos(x)] = x cos(x); d/dx of keyed A = x cos(x) + 2 sin(x)",
+      "detail": "true antiderivative is option B (+cos); keyed A (-cos) is wrong \u2014 the standard result is x sin(x) + cos(x) + C",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ibp-05",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "exponential",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to e^x cos(x)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "sub-01",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "exponential"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to the integrand",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "sub-02",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "x^2 + 1 > 0 for all real x, so ln(x^2+1) and ln|x^2+1| are the SAME function",
+      "detail": "options A and C are identical antiderivatives \u2014 defective option list",
+      "cas_true_options": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "sub-03",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only B differentiates back to sin(3x)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "sub-04",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "power"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only B differentiates back to (2x+1)^(-2)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "sub-05",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "root"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "antiderivative check: only A differentiates back to the integrand",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "lim-01",
+      "source_file": "data/courses/gate-em/concepts/limits/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "limits",
+        "standard-limit"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "lim-02",
+      "source_file": "data/courses/gate-em/concepts/limits/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "limits",
+        "rational-function"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 3",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "lim-03",
+      "source_file": "data/courses/gate-em/concepts/limits/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "limits",
+        "indeterminate-form"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 12",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "lim-04",
+      "source_file": "data/courses/gate-em/concepts/limits/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "limits",
+        "rationalization"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 1/2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "lim-05",
+      "source_file": "data/courses/gate-em/concepts/limits/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "limits",
+        "standard-limit",
+        "substitution"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "max-01",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "critical-points"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "critical points [0, 2]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "max-02",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "second-derivative-test"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(1) = 0, f''(1) = 8 > 0 \u2014 local minimum",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "max-03",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "inflection-point"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(0) = 0 but f' > 0 on both sides (3/100, 3/100) \u2014 no extremum; inflection at 0",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "max-04",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "optimization"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "minimum at x = 1, value 2 (f'' = 2 > 0)",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "max-05",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "optimization",
+        "application"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "V(x) = x(100 - x^2)/4; V' = 0 at x = 10*sqrt(3)/3 = 10/sqrt(3) ~ 5.7735",
+      "detail": "true maximiser 10/sqrt(3) is NOT among the options; keyed A (5) is wrong",
+      "cas_true_options": []
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mvt-01",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem",
+        "rolle-theorem"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(c) = 0 at c = [-1, 1]; f'(0) = -3 != 0 so option C is wrong",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mvt-02",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "1/c = 1/(e-1) -> c = -1 + E",
+      "detail": "options B and D are the SAME value e-1 (identical up to spacing) \u2014 defective option list",
+      "cas_true_options": [
+        "B",
+        "D"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mvt-03",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem",
+        "rolle-theorem"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: B (agrees with key). Rolle requires differentiability on (a,b); |x| is not differentiable at 0. Option A states true endpoint values but the wrong conclusion; C is false for the same reason",
+      "llm_single_answer": "B",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mvt-04",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem",
+        "theorem"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). f' = 0 on an interval => f constant is the classic MVT corollary; B reverses the monotonicity conclusion; C and D are unrelated/false as consequences of MVT",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mvt-05",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem",
+        "application"
+      ],
+      "verifier": "llm_single_twin",
+      "verdict": "conceptual-unverified",
+      "computed": "no decisive CAS check for a theorem/definitional MCQ",
+      "detail": "ADVISORY single-LLM solve: A (agrees with key). average speed 50 mph; MVT gives an instant where instantaneous speed EQUALS the average",
+      "llm_single_answer": "A",
+      "llm_agrees_with_key": true
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mul-01",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "iterated"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 3",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mul-02",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "variable-limits"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 1/6",
+      "detail": "",
+      "cas_true_options": [
+        "D"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mul-03",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "volume"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "volume = 15",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mul-04",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "variable-region"
+      ],
+      "verifier": "sympy",
+      "verdict": "failed",
+      "computed": "int_0^1 int_0^x xy dy dx = int_0^1 x^3/2 dx = 1/8",
+      "detail": "true value 1/8 is NOT among the options; keyed A (1/12) is wrong",
+      "cas_true_options": []
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mul-05",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "polar-coordinates"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "polar integral = pi/2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mv-01",
+      "source_file": "data/courses/gate-em/concepts/multivariable-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multivariable",
+        "partial-derivatives"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "df/dx = 3*x**2 + 2*y**2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mv-02",
+      "source_file": "data/courses/gate-em/concepts/multivariable-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multivariable",
+        "chain-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "df/dy = x*exp(x*y)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mv-03",
+      "source_file": "data/courses/gate-em/concepts/multivariable-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multivariable",
+        "critical-points"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "grad f = 0 only at [{x: 0, y: 0}]",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mv-04",
+      "source_file": "data/courses/gate-em/concepts/multivariable-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multivariable",
+        "second-partial"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "mixed partial = 6*x*y**2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "mv-05",
+      "source_file": "data/courses/gate-em/concepts/multivariable-calculus/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "multivariable",
+        "chain-rule"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "dz/dt = 4*t**3 + 2*sin(t)*cos(t)",
+      "detail": "option B (2t + 2y) is not a function of t alone \u2014 not a candidate value",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pf-01",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "apart = -7/(3*(x + 2)) + 7/(3*(x - 1))",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pf-02",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions",
+        "integration"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "apart gives 2/(x+1) + 1/(x+2) -> 2 ln|x+1| + ln|x+2|",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pf-03",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions",
+        "repeated-factors"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "apart = 1/(x - 1) + 4/(x - 1)**2",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pf-04",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions",
+        "integration"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "ln|x| - ln|x+1| and ln|x/(x+1)| are the SAME function where defined",
+      "detail": "options A and C are identical antiderivatives \u2014 defective option list",
+      "cas_true_options": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pf-05",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A = 3/2, B = 1/2; A + B = 2",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pqr-01",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "product-rule",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = log(x) + 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pqr-02",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "quotient-rule",
+        "polynomial"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = (1 - x**2)/(x**4 + 2*x**2 + 1)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pqr-03",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "product-rule",
+        "exponential"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(0) = 1",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pqr-04",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "quotient-rule",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = (x*cos(x) - sin(x))/x**2",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "pqr-05",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "product-rule",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "f'(pi/4) = 2(pi/4)tan(pi/4) + (pi/4)^2 sec^2(pi/4) = pi*(pi + 4)/8",
+      "detail": "options B and C are the SAME sum written in different order \u2014 defective option list",
+      "cas_true_options": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "seq-01",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "convergence"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limits: A oo, B none ((-1)^n oscillates), C 1/2, D oo",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "seq-02",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "limits"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 3",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "seq-03",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "exponential",
+        "classic-limit"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = E; g'(1) = -1/2 + log(2) > 0, g' -> 0, g'' = -1/(x*(x + 1)**2) < 0 for x>0 so g' > 0 throughout \u2014 monotone increasing",
+      "detail": "limit e rules out A and D; monotonicity rules out C (oscillating)",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "seq-04",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "squeeze-theorem"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 0 (squeeze: |sin(n)/n| <= 1/n)",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "seq-05",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "recurrence",
+        "fixed-point"
+      ],
+      "verifier": "sympy",
+      "verdict": "ambiguous",
+      "computed": "a1 = 2, a2 = sqrt(4) = 2 \u2014 the sequence is constant at 2; positive fixed point [2]",
+      "detail": "options A and D are BOTH the value 2 \u2014 duplicate options, defective option list",
+      "cas_true_options": [
+        "A",
+        "D"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ser-01",
+      "source_file": "data/courses/gate-em/concepts/series/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "series",
+        "geometric-series"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "sum = 1",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ser-02",
+      "source_file": "data/courses/gate-em/concepts/series/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "series",
+        "p-series"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "convergence: {'A': False, 'B': False, 'C': True, 'D': False} \u2014 only the p=2 series converges",
+      "detail": "",
+      "cas_true_options": [
+        "C"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ser-03",
+      "source_file": "data/courses/gate-em/concepts/series/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "series",
+        "limit-comparison-test"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit-comparison ratio = 3 (finite, positive); series convergent = True",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ser-04",
+      "source_file": "data/courses/gate-em/concepts/series/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "series",
+        "ratio-test"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "ratio-test limit = exp(-1) = 1/e < 1; series convergent = True",
+      "detail": "",
+      "cas_true_options": [
+        "A"
+      ]
+    },
+    {
+      "run_id": "eng0-run-002-calculus",
+      "item_id": "ser-05",
+      "source_file": "data/courses/gate-em/concepts/series/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-03T17:19:14.499199+00:00",
+      "tags": [
+        "calculus",
+        "series",
+        "alternating-series",
+        "conditional-convergence"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "alternating series convergent = True; absolute series (harmonic) convergent = False \u2014 conditionally convergent",
+      "detail": "",
+      "cas_true_options": [
+        "B"
+      ]
+    }
+  ]
+}

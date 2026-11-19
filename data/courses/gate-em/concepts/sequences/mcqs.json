@@ -74,10 +74,10 @@
         "A": "$2$",
         "B": "$\\sqrt{2}$",
         "C": "$1 + \\sqrt{3}$",
-        "D": "$2$"
+        "D": "$-1$"
       },
       "correct_answer": "A",
-      "explanation": "Assume the sequence converges to some limit $L$. Then both $a_n$ and $a_{n+1}$ approach $L$.\n\nTaking the limit of the recurrence relation $a_{n+1} = \\sqrt{2 + a_n}$:\n$$L = \\sqrt{2 + L}$$\n\nSquare both sides:\n$$L^2 = 2 + L$$\n$$L^2 - L - 2 = 0$$\n$$(L - 2)(L + 1) = 0$$\n\nSo $L = 2$ or $L = -1$.\n\nVerify that the sequence is positive and increasing:\n- $a_1 = 2 > 0$\n- If $a_n > 0$, then $a_{n+1} = \\sqrt{2 + a_n} > 0$\n- $a_2 = \\sqrt{2 + 2} = 2$\n\nSince all terms equal $2$, the sequence is constant, and $\\lim_{n \\to \\infty} a_n = 2$.",
+      "explanation": "Assume the sequence converges to some limit $L$. Then both $a_n$ and $a_{n+1}$ approach $L$.\n\nTaking the limit of the recurrence relation $a_{n+1} = \\sqrt{2 + a_n}$:\n$$L = \\sqrt{2 + L}$$\n\nSquare both sides:\n$$L^2 = 2 + L$$\n$$L^2 - L - 2 = 0$$\n$$(L - 2)(L + 1) = 0$$\n\nSo $L = 2$ or $L = -1$.\n\nVerify that the sequence is positive and increasing:\n- $a_1 = 2 > 0$\n- If $a_n > 0$, then $a_{n+1} = \\sqrt{2 + a_n} > 0$\n- $a_2 = \\sqrt{2 + 2} = 2$\n\nSince all terms equal $2$, the sequence is constant, and $\\lim_{n \\to \\infty} a_n = 2$.\n\nOption D, $L = -1$, is the other root of $L^2 - L - 2 = 0$ — rejected because every term of the sequence is positive, so the limit cannot be negative.",
       "difficulty": "hard",
       "marks": 2,
       "negative_marks": -0.67,

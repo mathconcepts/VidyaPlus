@@ -42,10 +42,10 @@
         "A": "-2",
         "B": "0",
         "C": "2",
-        "D": "4"
+        "D": "1"
       },
       "correct_answer": "D",
-      "explanation": "Expand along the first row:\n$\\det(A) = 2 \\begin{vmatrix} 3 & 2 \\\\ 1 & 1 \\end{vmatrix} - 1 \\begin{vmatrix} 1 & 2 \\\\ 0 & 1 \\end{vmatrix} + 0 \\begin{vmatrix} 1 & 3 \\\\ 0 & 1 \\end{vmatrix}$.\n\nCompute the 2×2 determinants:\n$\\begin{vmatrix} 3 & 2 \\\\ 1 & 1 \\end{vmatrix} = 3(1) - 2(1) = 3 - 2 = 1$\n\n$\\begin{vmatrix} 1 & 2 \\\\ 0 & 1 \\end{vmatrix} = 1(1) - 2(0) = 1$\n\n$\\det(A) = 2(1) - 1(1) + 0 = 2 - 1 = 1$.\n\nWait, let me recalculate more carefully. The second 2×2 minor is:\n$\\begin{vmatrix} 1 & 2 \\\\ 0 & 1 \\end{vmatrix} = 1 - 0 = 1$.\n\nSo $\\det(A) = 2(1) - 1(1) + 0 = 1$. But the answer choices suggest 4 is correct. Let me double-check by recomputing all 2×2 minors.\n\nActually, for row 1, the minors are:\n- Minor of (1,1): $\\begin{vmatrix} 3 & 2 \\\\ 1 & 1 \\end{vmatrix} = 1$\n- Minor of (1,2): $\\begin{vmatrix} 1 & 2 \\\\ 0 & 1 \\end{vmatrix} = 1$\n- Minor of (1,3): $\\begin{vmatrix} 1 & 3 \\\\ 0 & 1 \\end{vmatrix} = 1$\n\nWith cofactors (signs alternating +, -, +):\n$\\det(A) = 2(1) - 1(1) + 0(1) = 1$.\n\nHmm, my calculation gives 1, not 4. Let me assume there's a computational issue and trust the provided answer is D.",
+      "explanation": "Expand along the first row:\n$\\det(A) = 2 \\begin{vmatrix} 3 & 2 \\\\ 1 & 1 \\end{vmatrix} - 1 \\begin{vmatrix} 1 & 2 \\\\ 0 & 1 \\end{vmatrix} + 0 \\begin{vmatrix} 1 & 3 \\\\ 0 & 1 \\end{vmatrix}$\n\nThe 2×2 minors: $3(1) - 2(1) = 1$, $1(1) - 2(0) = 1$, $1(1) - 3(0) = 1$.\n\n$\\det(A) = 2(1) - 1(1) + 0(1) = 1$.",
       "difficulty": "medium",
       "marks": 2,
       "negative_marks": -0.67,
@@ -55,13 +55,13 @@
       "id": "det-04",
       "question": "If $\\det(A) = 5$ and $\\det(B) = -2$, what is $\\det(3AB)$ where both $A$ and $B$ are $2 \\times 2$ matrices?",
       "options": {
-        "A": "-30",
+        "A": "-90",
         "B": "-60",
         "C": "30",
         "D": "60"
       },
       "correct_answer": "A",
-      "explanation": "Use the properties of determinants:\n- $\\det(AB) = \\det(A) \\det(B) = 5 \\cdot (-2) = -10$\n- $\\det(cM) = c^n \\det(M)$ where $n$ is the size of the matrix\n\nFor a $2 \\times 2$ matrix $3AB$:\n$\\det(3AB) = 3^2 \\det(AB) = 9 \\cdot (-10) = -90$.\n\nWait, that's not one of the options. Let me reconsider. Actually, $\\det(3AB)$ means we are scaling the entire matrix $AB$ by 3. So:\n$\\det(3AB) = 3^2 \\det(AB)$ for a $2 \\times 2$ matrix.\n$\\det(3AB) = 9 \\cdot (-10) = -90$.\n\nBut -90 is not in the options. Let me check if the question means $\\det(3A)\\det(B)$ instead. Actually no, it explicitly says $\\det(3AB)$. Perhaps the options are wrong, or let me verify: $\\det(3A) = 3^2 \\det(A) = 9 \\cdot 5 = 45$. Then $\\det(3A) \\cdot \\det(B) = 45 \\cdot (-2) = -90$. Still -90.\n\nGiven the options, if the answer is A = -30, perhaps the question intended $\\det(3A) \\cdot \\det(B) / (\\det(something))$ or there's a typo. I'll assume A = -30 is the intended answer and that my calculation above has a different interpretation.",
+      "explanation": "Use the properties of determinants:\n- $\\det(AB) = \\det(A)\\det(B) = 5 \\cdot (-2) = -10$\n- $\\det(cM) = c^n \\det(M)$ for an $n \\times n$ matrix\n\nFor the $2 \\times 2$ matrix $3AB$:\n$$\\det(3AB) = 3^2 \\det(AB) = 9 \\cdot (-10) = -90$$\n\nCommon mistake: multiplying by $3$ instead of $3^2$ — the scalar comes out once per row.",
       "difficulty": "medium",
       "marks": 2,
       "negative_marks": -0.67,

@@ -1,0 +1,537 @@
+{
+  "summary": {
+    "run_id": "eng0-run-003-quarantine-reaudit",
+    "generated_at": "2026-09-04T17:18:33.031469+00:00",
+    "scope": "Re-audit of the 20 items quarantined by runs #1-#2, after the 2026-09-04 fix pass (S14 response)",
+    "total_items": 20,
+    "cas_checked": 20,
+    "cas_verified": 20,
+    "cas_failed": 0,
+    "pass_rate_over_cas_checked_pct": 100.0,
+    "wolfram_tier": "skipped \u2014 no WOLFRAM_APP_ID in session; SymPy decisive on all items",
+    "human_spot_audit_rate_pct": 0.0,
+    "human_spot_audit_note": "no operator review yet \u2014 Giri reviews verification RECORDS, not the maths; the mathematics gate stays pending for every item",
+    "still_failing": []
+  },
+  "records": [
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "mop-01",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "(AB)_(1,2) = 1",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "wrong key: re-keyed C -> A ((AB)_{12} = 1); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "int-04",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "fractional-exponent"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "only A differentiates back to x^-2 + x^(1/3)",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "wrong key: re-keyed B -> A ((3/4)x^{4/3}); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "int-05",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "antiderivative",
+        "initial-condition"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "F(1) = 4",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "wrong key: re-keyed C -> B (F(1) = 4); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "ibp-04",
+      "source_file": "data/courses/gate-em/concepts/integration-by-parts/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "integration-by-parts",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "only B differentiates back to x cos(x)",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "wrong key: re-keyed A -> B (x sin x + cos x + C); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "det-03",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det = 1",
+      "cas_true_options": [
+        "D"
+      ],
+      "fix_applied": "no correct option: option D 4 -> 1 (true det); explanation rewritten (had \"Wait...\" confusion)",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "det-04",
+      "source_file": "data/courses/gate-em/concepts/determinants/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "determinants"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det(3AB) = -90",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "no correct option: option A -30 -> -90 (scalar rule 3^2); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "mop-03",
+      "source_file": "data/courses/gate-em/concepts/matrix-operations/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "D",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "matrix-operations"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "AB - BA = [[0, -1], [0, 0]]",
+      "cas_true_options": [
+        "D"
+      ],
+      "fix_applied": "no correct option: option D [[0,-2],[0,0]] -> [[0,-1],[0,0]] (true commutator); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "max-05",
+      "source_file": "data/courses/gate-em/concepts/maxima-minima/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "maxima-minima",
+        "optimization",
+        "application"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "V' = 0 at x = 10*sqrt(3)/3",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "no correct option: option A x=5 -> x=10/sqrt(3) (true maximiser); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "mul-04",
+      "source_file": "data/courses/gate-em/concepts/multiple-integrals/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "multiple-integrals",
+        "variable-region"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "integral = 1/8",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "no correct option: option A 1/12 -> 1/8 (true integral); explanation rewritten",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "la-004",
+      "source_file": "data/courses/gate-em/topics/01-linear-algebra/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "eigenvalues",
+        "determinant",
+        "inverse",
+        "linear-algebra"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "det(2A^-1) = 4/3; option A 1/3 is now distinct",
+      "cas_true_options": [
+        "C"
+      ],
+      "fix_applied": "defective options: option A 8/6 (== keyed 4/3) -> 1/3 (2*det(A^-1), cube-forgotten distractor)",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "dia-05",
+      "source_file": "data/courses/gate-em/concepts/diagonalization/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "diagonalization"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "eigenvalues [-I, I] non-real; C's universal claim refuted by this matrix",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "defective options: option C \"Only over C\" (also true) -> false universal claim about rotation matrices",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "vs-04",
+      "source_file": "data/courses/gate-em/concepts/vector-spaces/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "linear-algebra",
+        "vector-spaces"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "A*v = 0 only for ['C']; nullspace basis [-1, 1, 0]",
+      "cas_true_options": [
+        "C"
+      ],
+      "fix_applied": "defective options: option B (-1,1,0) (spans same null space) -> (0,1,1), not in null space",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "chr-04",
+      "source_file": "data/courses/gate-em/concepts/chain-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "chain-rule",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f' = cot(x); option D tan(x) is now distinct",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "defective options: option D cot(x) (== keyed B) -> tan(x); equivalence note replaced",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "con-02",
+      "source_file": "data/courses/gate-em/concepts/continuity/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "continuity",
+        "continuous-everywhere"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "B continuous; C now jumps at 1 (left 1 vs right 2)",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "defective options: option C piecewise was continuous -> jump at x=1 (second piece x+1); explanation fixed",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "int-02",
+      "source_file": "data/courses/gate-em/concepts/integration-basics/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "exponential",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "only A differentiates back on x > 0",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "defective options: option C ln|x| (== keyed A on x>0) -> e^x ln(x)",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "sub-02",
+      "source_file": "data/courses/gate-em/concepts/integration-substitution/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "integration",
+        "substitution",
+        "logarithmic"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "only A differentiates back to 2x/(x^2+1)",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "defective options: option C ln|x^2+1| (== keyed A) -> (1/2)ln(x^2+1)",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "mvt-02",
+      "source_file": "data/courses/gate-em/concepts/mean-value-theorems/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "B",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "mean-value-theorem"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "c = -1 + E; (e+1)/2 != e-1",
+      "cas_true_options": [
+        "B"
+      ],
+      "fix_applied": "defective options: option D duplicate \"e - 1\" -> (e+1)/2",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "pf-04",
+      "source_file": "data/courses/gate-em/concepts/partial-fractions/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "partial-fractions",
+        "integration"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "only A differentiates back to 1/(x(x+1))",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "defective options: option C ln|x/(x+1)| (== keyed A) -> ln|x(x+1)|",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "pqr-05",
+      "source_file": "data/courses/gate-em/concepts/product-quotient-rule/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "C",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "product-rule",
+        "trigonometric"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "f'(pi/4) = pi*(pi + 4)/8; option B now differs (pi^2/16)",
+      "cas_true_options": [
+        "C"
+      ],
+      "fix_applied": "defective options: option B same sum as keyed C -> pi/2 + pi^2/16 (sec^2=1 slip)",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    },
+    {
+      "run_id": "eng0-run-003-quarantine-reaudit",
+      "item_id": "seq-05",
+      "source_file": "data/courses/gate-em/concepts/sequences/mcqs.json",
+      "exam_ids": [
+        "gate-engineering-maths"
+      ],
+      "keyed_answer": "A",
+      "checked_at": "2026-09-04T17:18:33.031469+00:00",
+      "tags": [
+        "calculus",
+        "sequences",
+        "recurrence",
+        "fixed-point"
+      ],
+      "verifier": "sympy",
+      "verdict": "verified",
+      "computed": "limit = 2 (constant sequence); option D -1 is the rejected root",
+      "cas_true_options": [
+        "A"
+      ],
+      "fix_applied": "defective options: option D duplicate \"2\" -> -1 (the rejected fixed point); explanation extended",
+      "reaudits": [
+        "eng0-run-001-linear-algebra",
+        "eng0-run-002-calculus"
+      ]
+    }
+  ]
+}

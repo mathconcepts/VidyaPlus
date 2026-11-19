@@ -71,13 +71,13 @@
       "id": "max-05",
       "question": "A box with no top has a square base of side $x$ and height $h$. If the surface area is $A = x^2 + 4xh = 100$, find the value of $x$ that maximizes the volume $V = x^2 h$.",
       "options": {
-        "A": "$x = 5$",
+        "A": "$x = \\frac{10}{\\sqrt{3}}$",
         "B": "$x = 10$",
         "C": "$x = \\sqrt{50}$",
         "D": "$x = 4$"
       },
       "correct_answer": "A",
-      "explanation": "From $x^2 + 4xh = 100$, solve for $h$: $h = (100 - x^2)/(4x)$.\n\nVolume: $V = x^2 h = x^2 \\cdot \\frac{100 - x^2}{4x} = \\frac{x(100 - x^2)}{4} = \\frac{100x - x^3}{4}$.\n\n$\\frac{dV}{dx} = \\frac{100 - 3x^2}{4} = 0 \\Rightarrow x^2 = 100/3 \\Rightarrow x = 10/\\sqrt{3}$.\n\nWait, let me recalculate. Actually, $dV/dx = (100 - 3x^2)/4 = 0 \\Rightarrow 3x^2 = 100 \\Rightarrow x = \\sqrt{100/3} \\approx 5.77$.\n\nHmm, the answer key says $x = 5$. Let me verify: if $x = 5$, $h = (100 - 25)/(20) = 3.75$, $V = 25(3.75) = 93.75$.\n\nActually, for this specific constraint, $x = 5$ gives a critical value. The answer is A.",
+      "explanation": "From $x^2 + 4xh = 100$: $h = \\frac{100 - x^2}{4x}$.\n\nVolume: $V = x^2 h = \\frac{x(100 - x^2)}{4} = \\frac{100x - x^3}{4}$.\n\n$$\\frac{dV}{dx} = \\frac{100 - 3x^2}{4} = 0 \\Rightarrow x^2 = \\frac{100}{3} \\Rightarrow x = \\frac{10}{\\sqrt{3}} \\approx 5.77$$\n\n$V'' = -\\frac{3x}{2} < 0$ there, so this is the maximum.",
       "difficulty": "hard",
       "marks": 2,
       "negative_marks": -0.67,

@@ -25,11 +25,11 @@
       "options": {
         "A": "$\\ln(x^2 + 1) + C$",
         "B": "$\\frac{x^2}{x^2 + 1} + C$",
-        "C": "$\\ln|x^2 + 1| + C$",
+        "C": "$\\frac{1}{2}\\ln(x^2 + 1) + C$",
         "D": "$2\\ln(x^2 + 1) + C$"
       },
       "correct_answer": "A",
-      "explanation": "Let $u = x^2 + 1$, so $du = 2x \\, dx$.\n\n$$\\int \\frac{2x}{x^2 + 1} \\, dx = \\int \\frac{1}{u} \\, du = \\ln|u| + C = \\ln|x^2 + 1| + C$$\n\nSince $x^2 + 1 > 0$ always, $\\ln|x^2 + 1| = \\ln(x^2 + 1)$.",
+      "explanation": "Let $u = x^2 + 1$, so $du = 2x \\, dx$ — the numerator is exactly $du$.\n\n$$\\int \\frac{2x}{x^2 + 1} \\, dx = \\int \\frac{1}{u} \\, du = \\ln|u| + C = \\ln(x^2 + 1) + C$$\n\n(No absolute value needed: $x^2 + 1 > 0$ always.)\n\nOption C ($\\frac{1}{2}\\ln$) would follow from forgetting that the $2x$ in the numerator already matches $du$.",
       "difficulty": "easy",
       "marks": 1,
       "negative_marks": -0.33,

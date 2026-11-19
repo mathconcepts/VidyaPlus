@@ -25,11 +25,11 @@
       "options": {
         "A": "$f(x) = \\frac{1}{x}$",
         "B": "$f(x) = |x|$",
-        "C": "$f(x) = \\begin{cases} x & \\text{if } x \\leq 1 \\\\ 2 - x & \\text{if } x > 1 \\end{cases}$",
+        "C": "$f(x) = \\begin{cases} x & \\text{if } x \\leq 1 \\\\ x + 1 & \\text{if } x > 1 \\end{cases}$",
         "D": "$f(x) = \\tan(x)$"
       },
       "correct_answer": "B",
-      "explanation": "Check each function:\n\nA) $f(x) = 1/x$: Discontinuous at $x = 0$ (undefined, infinite discontinuity).\n\nB) $f(x) = |x|$: Continuous everywhere. At $x = 0$:\n- $\\lim_{x \\to 0^-} |x| = 0$\n- $\\lim_{x \\to 0^+} |x| = 0$\n- $|0| = 0$\n\nAll three conditions for continuity are satisfied at every point.\n\nC) The piecewise function: At $x = 1$, $\\lim_{x \\to 1^-} f(x) = 1$ but $\\lim_{x \\to 1^+} f(x) = 2 - 1 = 1$. Actually continuous at $x = 1$. But this was a distraction.\n\nD) $f(x) = \\tan(x)$: Discontinuous at $x = \\pi/2 + n\\pi$ (infinite discontinuity).\n\nThe answer is B.",
+      "explanation": "Check each function:\n\nA) $f(x) = 1/x$: discontinuous at $x = 0$ (infinite discontinuity).\n\nB) $f(x) = |x|$: continuous everywhere. At $x = 0$: $\\lim_{x \\to 0^-} |x| = \\lim_{x \\to 0^+} |x| = |0| = 0$.\n\nC) The piecewise function: at $x = 1$, $\\lim_{x \\to 1^-} f(x) = 1$ but $\\lim_{x \\to 1^+} f(x) = 2$ — a jump discontinuity.\n\nD) $f(x) = \\tan(x)$: discontinuous at $x = \\pi/2 + n\\pi$.\n\nThe answer is B.",
       "difficulty": "easy",
       "marks": 1,
       "negative_marks": -0.33,

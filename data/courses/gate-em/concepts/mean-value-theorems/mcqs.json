@@ -26,7 +26,7 @@
         "A": "$c = 1$",
         "B": "$c = e-1$",
         "C": "$c = e/2$",
-        "D": "$c = e - 1$"
+        "D": "$c = \\frac{e+1}{2}$"
       },
       "correct_answer": "B",
       "explanation": "By MVT, $f'(c) = \\frac{f(e) - f(1)}{e - 1}$.\n\nCompute:\n$$\\frac{f(e) - f(1)}{e - 1} = \\frac{\\ln(e) - \\ln(1)}{e - 1} = \\frac{1 - 0}{e - 1} = \\frac{1}{e-1}$$\n\nSince $f'(x) = 1/x$, we need:\n$$\\frac{1}{c} = \\frac{1}{e-1} \\Rightarrow c = e - 1$$\n\nSince $e - 1 \\approx 1.718 \\in (1, e)$, this is valid.",

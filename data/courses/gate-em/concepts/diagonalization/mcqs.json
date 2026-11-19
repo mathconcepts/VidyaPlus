@@ -85,7 +85,7 @@
       "options": {
         "A": "Yes, with real eigenvalues",
         "B": "No, it has complex eigenvalues",
-        "C": "Only over $\\mathbb{C}$",
+        "C": "Yes, because every rotation matrix is diagonalizable over $\\mathbb{R}$",
         "D": "Cannot determine"
       },
       "correct_answer": "B",

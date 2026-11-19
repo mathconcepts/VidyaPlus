@@ -57,11 +57,11 @@
       "options": {
         "A": "$\\ln|x| - \\ln|x+1| + C$",
         "B": "$\\ln|x| + \\ln|x+1| + C$",
-        "C": "$\\ln|x/(x+1)| + C$",
+        "C": "$\\ln|x(x+1)| + C$",
         "D": "$\\ln|(x+1)/x| + C$"
       },
       "correct_answer": "A",
-      "explanation": "Decompose: $\\frac{1}{x(x+1)} = \\frac{A}{x} + \\frac{B}{x+1}$\n\n$1 = A(x+1) + Bx$\n\nAt $x = 0$: $1 = A \\Rightarrow A = 1$\nAt $x = -1$: $1 = -B \\Rightarrow B = -1$\n\n$$\\int \\frac{1}{x} dx - \\int \\frac{1}{x+1} dx = \\ln|x| - \\ln|x+1| + C$$",
+      "explanation": "Decompose: $\\frac{1}{x(x+1)} = \\frac{A}{x} + \\frac{B}{x+1}$\n\n$1 = A(x+1) + Bx$. At $x = 0$: $A = 1$. At $x = -1$: $B = -1$.\n\n$$\\int \\frac{1}{x} dx - \\int \\frac{1}{x+1} dx = \\ln|x| - \\ln|x+1| + C$$\n\n(Equivalently $\\ln\\left|\\frac{x}{x+1}\\right| + C$.) Option C, $\\ln|x(x+1)|$, is the SUM of the two logs — the sign of $B$ matters.",
       "difficulty": "medium",
       "marks": 2,
       "negative_marks": -0.67,

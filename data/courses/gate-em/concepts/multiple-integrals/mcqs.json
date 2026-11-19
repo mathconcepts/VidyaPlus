@@ -55,13 +55,13 @@
       "id": "mul-04",
       "question": "Evaluate $\\iint_R xy \\, dA$ where $R$ is the region bounded by $y = 0$, $y = x$, $x = 1$.",
       "options": {
-        "A": "$1/12$",
+        "A": "$1/8$",
         "B": "$1/6$",
         "C": "$1/4$",
         "D": "$1/2$"
       },
       "correct_answer": "A",
-      "explanation": "Region: $0 \\leq x \\leq 1$, $0 \\leq y \\leq x$.\n\n$$\\iint_R xy \\, dA = \\int_0^1 \\int_0^x xy \\, dy \\, dx$$\n\nInner (w.r.t. $y$):\n$$\\int_0^x xy \\, dy = x[\\frac{y^2}{2}]_0^x = \\frac{x^3}{2}$$\n\nOuter (w.r.t. $x$):\n$$\\int_0^1 \\frac{x^3}{2} \\, dx = \\frac{1}{2}[\\frac{x^4}{4}]_0^1 = \\frac{1}{8}$$\n\nWait, that's $1/8$, not $1/12$. Let me recalculate... Actually $\\frac{1}{2} \\cdot \\frac{1}{4} = \\frac{1}{8}$. Hmm, but the answer says A is $1/12$. Let me check if I set up the integral correctly. The region bounded by $y=0$, $y=x$, $x=1$ means: for $0 \\leq x \\leq 1$, $0 \\leq y \\leq x$. So the integral is set up correctly. $\\int_0^1 \\frac{x^3}{2} dx = \\frac{x^4}{8}|_0^1 = \\frac{1}{8}$. The answer should be B ($1/8$), but that's not listed. The closest is A at $1/12$. There may be an error in the problem setup.",
+      "explanation": "Region: $0 \\leq x \\leq 1$, $0 \\leq y \\leq x$.\n\nInner integral (w.r.t. $y$):\n$$\\int_0^x xy \\, dy = x \\cdot \\frac{x^2}{2} = \\frac{x^3}{2}$$\n\nOuter integral (w.r.t. $x$):\n$$\\int_0^1 \\frac{x^3}{2} \\, dx = \\frac{1}{2} \\cdot \\frac{1}{4} = \\frac{1}{8}$$",
       "difficulty": "hard",
       "marks": 2,
       "negative_marks": -0.67,
