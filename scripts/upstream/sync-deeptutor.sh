@@ -15,7 +15,7 @@ old=$(sed -n 's/^tag=//p' upstream/deeptutor.lock)
 
 git diff --quiet && git diff --cached --quiet || { echo "Working tree not clean; commit or stash first." >&2; exit 2; }
 
-git fetch -q --depth 1 "$repo" "refs/tags/$tag:refs/upstream-tmp/deeptutor"
+git fetch -q --depth 1 "$repo" "+refs/tags/$tag:refs/upstream-tmp/deeptutor"
 commit=$(git rev-parse "refs/upstream-tmp/deeptutor^{commit}")
 tree=$(git rev-parse "refs/upstream-tmp/deeptutor^{tree}")
 
