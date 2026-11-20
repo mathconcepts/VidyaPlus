@@ -1,0 +1,6 @@
+# Pinned DeepTutor release. Written only by scripts/upstream/sync-deeptutor.sh.
+repo=https://github.com/HKUDS/DeepTutor
+tag=v1.7.3
+commit=4c1e000d8563c5ac3b231baaaf149dc4dc4d2406
+tree=e6a676f5faaabd8a4ddbb1417f88e4cbe30032d5
+license=Apache-2.0

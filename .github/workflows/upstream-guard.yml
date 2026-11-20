@@ -1,0 +1,45 @@
+name: DeepTutor upstream guard
+
+# Keeps upstream/deeptutor/ a byte-identical copy of the pinned DeepTutor release,
+# proves the Vidhya layer (patches + branding) still applies on top of it, and
+# opens an issue when DeepTutor publishes a newer release.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"   # Mondays 08:47 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  pristine-and-assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: upstream/deeptutor/ is pristine
+        run: scripts/upstream/check-pristine.sh
+      - name: Vidhya layer applies on the pinned release
+        run: scripts/upstream/assemble.sh "$RUNNER_TEMP/vidhya-app"
+
+  newer-release:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Open an issue if DeepTutor has a newer release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pinned=$(sed -n 's/^tag=//p' upstream/deeptutor.lock)
+          latest=$(gh api repos/HKUDS/DeepTutor/releases/latest --jq .tag_name)
+          echo "pinned=$pinned latest=$latest"
+          [ "$pinned" = "$latest" ] && exit 0
+          title="Sync DeepTutor $pinned -> $latest"
+          gh issue list --state open --search "$title in:title" --json number --jq 'length' | grep -qx 0 || exit 0
+          gh issue create --title "$title" --body "DeepTutor $latest is out ([release notes](https://github.com/HKUDS/DeepTutor/releases/tag/$latest)).
+
+          Run \`scripts/upstream/sync-deeptutor.sh $latest\` on a branch, fix any patch that no longer applies, run the smoke tests, open a PR."
