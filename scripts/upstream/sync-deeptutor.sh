@@ -41,6 +41,11 @@ scripts/upstream/check-pristine.sh --staged
 out=$(mktemp -d)
 scripts/upstream/assemble.sh "$out/deeptutor"   # fails if any vidhya patch no longer applies
 
+# The Exam Brain reads GET /api/auth/status with the dt_token cookie (plan T15).
+if ! python3 -I scripts/upstream/check-auth-contract.py upstream/deeptutor; then
+  echo "STOP: DeepTutor $tag changed the auth contract the Exam Brain depends on. Update vidhya/brain/src/session before syncing." >&2; exit 4
+fi
+
 git commit -q -m "Sync DeepTutor $old -> $tag (${commit:0:8})
 
 Upstream: $repo/releases/tag/$tag

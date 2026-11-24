@@ -13,6 +13,7 @@ export type BrainErrorCode =
   | 'SessionMissing'
   | 'AuthUpstreamUnavailable'
   | 'AuthContractBroken'
+  | 'AuthDisabled'
   | 'UnknownStudent'
   | 'StoreSchemaMismatch';
 
