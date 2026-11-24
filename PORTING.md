@@ -8,9 +8,11 @@ Status: `todo` · `in progress` · `done` · `parked` (with the reason) · `drop
 |---|---|---|---|---|
 | `data/courses/gate-em/` + patch-stack ledger | Verified GATE EM bank, explainers | Exam pack in a private content repo, imported into DeepTutor practice | Content | todo |
 | `funnel/` (branch `funnel/gate-diagnostic-v0`) | Diagnostic site, Apps Script webhook | `vidhya/funnel/` (static site, deployed separately) | Standalone | in progress |
-| `src/verification/` (SymPy, Wolfram tiers) | CAS answer checks with receipts | `vidhya/plugins/vidhya-exam` tool `cas_check` | Plugin | todo |
-| `src/scoring/deterministic-scorer.ts` | GATE marking (MCQ, MSQ, NAT, negative marks) | `vidhya-exam` tool `check_answer` | Plugin | todo |
-| `src/readiness/diagnostic-warmup.ts`, `mock-to-marks.ts` | Placement and mock analysis | `vidhya-exam` HTTP routes | Plugin | todo |
+| `src/verification/verifiers/` (SymPy, Wolfram) | CAS answer checks with receipts | `vidhya/brain/src/verify/` (`cas_check`, offline only; `tiered-orchestrator.ts` not ported) | Standalone | in progress |
+| `src/scoring/deterministic-scorer.ts`, `src/exams/marking-constants.ts` | GATE marking (MCQ, MSQ, NAT, negative marks) | `vidhya/brain/src/scoring/` (`check_answer`, HTTP + MCP) | Standalone | in progress |
+| `src/readiness/diagnostic-warmup.ts`, `mock-to-marks.ts` | Placement and mock analysis | `vidhya/brain/src/readiness/` (B4 planner, B5 mock) | Standalone | todo |
+| (new) | Exam app: Today card, NAT practice, mock, marks, report | `vidhya/brain/web/`, served at `/exam` behind Caddy, session from `dt_token` → `/api/auth/status` | Standalone | todo |
+| (new) | Tutor tools: `check_answer`, `get_verified_item`, `explain_receipt`, `report_item` | Brain MCP server, granted per student via `grants.mcp_tools` | Configuration | todo |
 | `src/constants/concept-graph.ts`, `data/curriculum/` | Concept graph, prerequisites, weightage | Exam pack metadata | Content | todo |
 | Brand: "Vidhya" name, logo | Product identity | `vidhya/branding/` | Branding | in progress (UI text done) |
 | `design/clarity/`, `DESIGN-SYSTEM.md` | Clarity design tokens | Theme patch on DeepTutor's Tailwind config, if still wanted | Patch | parked until after 30 Dec |

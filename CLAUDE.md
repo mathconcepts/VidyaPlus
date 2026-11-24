@@ -23,7 +23,7 @@ These hold for every change. If a task seems to need breaking one, stop and ask.
 ```
 upstream/deeptutor/        DeepTutor release, untouched (Apache-2.0)
 upstream/deeptutor.lock    pinned tag, commit and tree hash
-vidhya/                    the Vidhya layer: branding/, patches/deeptutor/, plugins/
+vidhya/                    the Vidhya layer: branding/, patches/deeptutor/, brain/, sync/
 scripts/upstream/          check-pristine, sync-deeptutor, assemble, install-hooks
 PORTING.md                 legacy → vidhya/ ledger
 src/ frontend/ supabase/   legacy project-vidhya app: read-only source for porting
