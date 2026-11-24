@@ -9,12 +9,13 @@ const SIZES = {
 const TONE = {
   mastery: { solid: 'var(--green)', press: 'var(--green-press)', tint: 'var(--green-tint)', ink: 'var(--green-ink)' },
   tutor: { solid: 'var(--indigo)', press: 'var(--indigo-press)', tint: 'var(--indigo-tint)', ink: 'var(--indigo-ink)' },
+  action: { solid: 'var(--action-solid)', press: 'var(--action-press)', tint: 'var(--green-tint)', ink: 'var(--green-ink)' },
   neutral: { solid: 'var(--ink)', press: 'var(--ink)', tint: 'var(--surface-fill)', ink: 'var(--text-primary)' },
 } as const;
 
 export interface ButtonProps {
   variant?: 'filled' | 'tinted' | 'grey' | 'plain';
-  tone?: 'mastery' | 'tutor' | 'neutral';
+  tone?: 'mastery' | 'tutor' | 'neutral' | 'action';
   size?: 'sm' | 'md' | 'lg';
   full?: boolean;
   disabled?: boolean;
@@ -24,6 +25,8 @@ export interface ButtonProps {
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
   style?: React.CSSProperties;
+  ariaLabel?: string;
+  ariaKeyShortcuts?: string;
 }
 
 export function Button({
@@ -38,6 +41,8 @@ export function Button({
   children,
   type = 'button',
   style,
+  ariaLabel,
+  ariaKeyShortcuts,
 }: ButtonProps) {
   const s = SIZES[size] ?? SIZES.md;
   const t = TONE[tone] ?? TONE.mastery;
@@ -45,7 +50,7 @@ export function Button({
 
   const skin =
     variant === 'filled'
-      ? { background: down ? t.press : t.solid, color: 'var(--text-on-accent)', border: 'none' }
+      ? { background: down ? t.press : t.solid, color: tone === 'action' ? 'var(--on-action)' : 'var(--text-on-accent)', border: 'none' }
       : variant === 'tinted'
       ? { background: t.tint, color: t.ink, border: 'none' }
       : variant === 'grey'
@@ -56,6 +61,8 @@ export function Button({
     <button
       type={type}
       disabled={disabled}
+      aria-label={ariaLabel}
+      aria-keyshortcuts={ariaKeyShortcuts}
       onClick={onClick}
       onPointerDown={() => setDown(true)}
       onPointerUp={() => setDown(false)}

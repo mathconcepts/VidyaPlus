@@ -4,11 +4,15 @@ export interface TabBarProps {
   items: Array<{ value: string; label: string; icon?: ReactNode }>;
   value?: string;
   onChange?: (value: string) => void;
+  ariaLabel?: string;
+  /** Active-tab colour. 'ink' for /exam, where indigo is reserved for the tutor (DR13). */
+  activeTone?: 'indigo' | 'ink';
 }
 
-export function TabBar({ items = [], value, onChange }: TabBarProps) {
+export function TabBar({ items = [], value, onChange, ariaLabel, activeTone = 'indigo' }: TabBarProps) {
   return (
     <nav
+      aria-label={ariaLabel}
       style={{
         display: 'flex',
         alignItems: 'stretch',
@@ -38,7 +42,7 @@ export function TabBar({ items = [], value, onChange }: TabBarProps) {
               border: 'none',
               background: 'transparent',
               cursor: 'pointer',
-              color: active ? 'var(--indigo-ink)' : 'var(--text-secondary)',
+              color: active ? (activeTone === 'ink' ? 'var(--text-primary)' : 'var(--indigo-ink)') : 'var(--text-secondary)',
               fontFamily: 'var(--font-sans)',
               fontSize: 'var(--text-caption2)',
               fontWeight: active ? 'var(--weight-semibold)' : 'var(--weight-medium)',

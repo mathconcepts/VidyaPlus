@@ -63,13 +63,19 @@ named exception below (2026-09-05).
 Content backed by a receipt object sits on a white surface with a 1px
 `rgba(52,199,89,.45)` inset border, radius 12, and a small ✓ disc caption reading
 "Verified · <source>". **No receipt object, no border.** Enforced by construction in
-`frontend/src/components/ui/ReceiptBorder.tsx`. An optional `tone` prop
+`vidhya/ui/components/ReceiptBorder.tsx` (moved from `frontend/` on 2026-11-24). An optional `tone` prop
 (`'positive'` default, `'neutral'`) exists for exactly one case: a receipt
 nested inside a wrong-answer card, where the usual green ink/mark/border
 would read as a correctness signal it isn't meant to send. `'neutral'`
 keeps the same "Verified · <source>" claim in `--text-secondary` /
 `--text-tertiary` / `--separator` instead of green — it never changes
-whether the border renders, only its color when it does.
+whether the border renders, only its color when it does. A third tone,
+`'pending'` (DR9, 2026-11-24), is for an item under re-check: orange-ink text,
+a 45% orange inset border (`--receipt-pending-line`), a "…" disc and the copy
+"Re-checking · one engine disagreed. You can still practise it." It takes a
+`PendingReceipt` from `receiptFromRecheck`, never a verified receipt, so the
+law holds. Withdrawn and locked items have no receipt object and render as
+plain text on the sunken grey with no border.
 
 ## Spacing & shape
 - 4px base: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64.
@@ -122,3 +128,8 @@ marketing site, blog & messaging channels.
 | 2026-08-01 | Confetti and streak surfaces deleted | Celebration now names the specific win, per the repo's own principle 3 |
 | 2026-08-01 | Receipt law preserved verbatim | The one signature worth keeping; only its material changed |
 | 2026-09-05 | Added a 4-hue atom-kind tag palette (teal/purple/mint/brown), eyebrow-label + icon only | `/ui-ux-pro-max` request for "more colours, Amazon psychology" on lesson content; real e-commerce/education palettes checked and found to use 2-3 accents, never a rainbow — this is the constrained middle ground the user picked, not a reversal of the two-accent law |
+| 2026-11-24 | Receipt tone `pending` (orange) added; withdrawn and locked are plain text | DR9: an item under re-check is neither verified nor withdrawn. The border still needs a receipt object, so pending has its own `PendingReceipt` type |
+| 2026-11-24 | In /exam, a selected option is an ink ring (2px inset `--ink`) on the sunken fill with a filled ink radio or checkbox glyph; the active tab is ink | DR13: indigo stays tutor-only. `TabBar activeTone="ink"` and `TextField ring="ink"` exist for this; the legacy default is still indigo |
+| 2026-11-24 | `--action-solid` / `--on-action` tokens and `Button tone="action"` | DR17: white on `--green` is about 2.2:1. The /exam primary button needs 4.5:1, in light and dark |
+| 2026-11-24 | /exam raises `--text-secondary` to 78% alpha | DR17: the 60% Apple secondary label is about 3.3:1 on white; text a student reads must reach 4.5:1 |
+| 2026-11-24 | Clarity tokens and ui components live in `vidhya/ui` (`@vidhya/ui`) | Repo rule 4 and the eng re-check: one package for /exam and the legacy frontend, React as a peer dependency |

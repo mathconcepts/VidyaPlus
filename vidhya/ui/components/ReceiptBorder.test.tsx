@@ -11,6 +11,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ReceiptBorder } from './ReceiptBorder';
+import { receiptFromRecheck, receiptFromItemRecord } from '../lib/receipt';
 
 describe('ReceiptBorder', () => {
   it('renders no border/checkmark when receipt is null', () => {
@@ -116,5 +117,74 @@ describe('ReceiptBorder', () => {
     const wrapper = container.firstElementChild as HTMLElement;
     expect(wrapper.getAttribute('style')).not.toContain('--receipt-line');
     expect(wrapper.getAttribute('style')).toContain('--separator');
+  });
+
+  // DR9 (plan section 21): the third tone, for an item under re-check.
+  describe("tone='pending'", () => {
+    const pending = receiptFromRecheck({ status: 'rechecking' });
+
+    it('draws the orange border, the ... disc and the Re-checking copy for a pending receipt', () => {
+      const { container } = render(
+        <ReceiptBorder receipt={pending} tone="pending">
+          <span>Item body</span>
+        </ReceiptBorder>,
+      );
+      const wrapper = container.firstElementChild as HTMLElement;
+      expect(wrapper.getAttribute('style')).toContain('--receipt-pending-line');
+      expect(wrapper.getAttribute('style')).not.toContain('--receipt-line)');
+      const disc = screen.getByText('…');
+      expect(disc.getAttribute('style')).toContain('--orange)');
+      expect(screen.getByText(/Re-checking · one engine disagreed\. You can still practise it\./)).toBeInTheDocument();
+      expect(screen.getByText(/Re-checking/).getAttribute('style')).toContain('--orange-ink');
+      expect(screen.queryByText('✓')).not.toBeInTheDocument();
+      expect(screen.queryByText(/Verified/)).not.toBeInTheDocument();
+    });
+
+    it('a pending receipt is pending whatever tone the caller passes', () => {
+      render(
+        <ReceiptBorder receipt={pending}>
+          <span>Item body</span>
+        </ReceiptBorder>,
+      );
+      expect(screen.getByText('…')).toBeInTheDocument();
+      expect(screen.queryByText('✓')).not.toBeInTheDocument();
+    });
+
+    it('no receipt, no border: a null pending receipt renders the children bare', () => {
+      const { container } = render(
+        <ReceiptBorder receipt={receiptFromRecheck({ status: 'verified' })} tone="pending">
+          <span>Item body</span>
+        </ReceiptBorder>,
+      );
+      expect(container.firstElementChild?.tagName).toBe('SPAN');
+      expect(screen.queryByText('…')).not.toBeInTheDocument();
+    });
+
+    it("a verified receipt asked to wear 'pending' stays a green verified receipt, never an orange one", () => {
+      render(
+        <ReceiptBorder receipt={{ verified: true, source: 'cas_verifier' }} tone="pending">
+          <span>Item body</span>
+        </ReceiptBorder>,
+      );
+      expect(screen.getByText('✓')).toBeInTheDocument();
+      expect(screen.queryByText('…')).not.toBeInTheDocument();
+    });
+
+    it('a record that is not under re-check mints no pending receipt', () => {
+      expect(receiptFromRecheck(null)).toBeNull();
+      expect(receiptFromRecheck({ status: 'verified' })).toBeNull();
+    });
+  });
+
+  // Rule 6, "receipts never lie": a verified receipt needs a record whose fingerprint matches the item.
+  describe('receiptFromItemRecord', () => {
+    const rec = { status: 'verified', source: 'SymPy + Wolfram agree', recordFingerprint: 'abc' };
+    it('mints a receipt only when the record is verified and its fingerprint matches the item', () => {
+      expect(receiptFromItemRecord(rec, 'abc')).toEqual({ verified: true, source: 'SymPy + Wolfram agree' });
+      expect(receiptFromItemRecord(rec, 'xyz')).toBeNull();
+      expect(receiptFromItemRecord({ ...rec, status: 'disputed' }, 'abc')).toBeNull();
+      expect(receiptFromItemRecord(null, 'abc')).toBeNull();
+      expect(receiptFromItemRecord(rec, '')).toBeNull();
+    });
   });
 });

@@ -89,6 +89,51 @@ export function receiptFromServerGrade(
 }
 
 /**
+ * A receipt that is being re-checked (DR9, plan section 21): one engine
+ * disagreed, so the item is not verified but the student can still practise
+ * it. It is a distinct type so `{ verified: false }` can never be rendered
+ * with a border by accident. Only `receiptFromRecheck` mints one.
+ */
+export interface PendingReceipt {
+  pending: true;
+  /** What is being re-checked, shown after "Re-checking · ". */
+  note: string;
+}
+
+export function isPendingReceipt(r: unknown): r is PendingReceipt {
+  return !!r && typeof r === 'object' && (r as PendingReceipt).pending === true;
+}
+
+/** A pending receipt from the brain's re-check record. Null unless an item is actually under re-check. */
+export function receiptFromRecheck(
+  record: { status: string; note?: string } | null | undefined,
+): PendingReceipt | null {
+  if (!record || record.status !== 'rechecking') return null;
+  return { pending: true, note: record.note || 'one engine disagreed. You can still practise it.' };
+}
+
+/**
+ * A verified receipt for a published item (plan rule 6, "receipts never lie"):
+ * the verification record must say `verified` AND its fingerprint must equal
+ * the item's own fingerprint, so an edited item can never keep an old receipt.
+ */
+export interface ItemVerificationRecord {
+  status: string;
+  /** Human line, e.g. "SymPy + Wolfram agree · 20 Nov v1". */
+  source: string;
+  recordFingerprint: string;
+}
+
+export function receiptFromItemRecord(
+  record: ItemVerificationRecord | null | undefined,
+  itemFingerprint: string,
+): Receipt | null {
+  if (!record || record.status !== 'verified' || !record.source) return null;
+  if (!itemFingerprint || record.recordFingerprint !== itemFingerprint) return null;
+  return { verified: true, source: record.source };
+}
+
+/**
  * Explicitly no receipt. Use where a surface once claimed backing it never had,
  * so the absence reads as a decision in review rather than an oversight.
  */

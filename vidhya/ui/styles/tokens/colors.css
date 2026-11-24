@@ -77,6 +77,11 @@
   --focus-ring: rgba(88, 86, 214, 0.45);
   --receipt-line: rgba(52, 199, 89, 0.45);
   --receipt-mark: var(--green);
+  --receipt-pending-line: rgba(255, 159, 10, 0.45); /* DR9: item under re-check */
+  /* Primary action with text at >= 4.5:1 (DR17). --green fill carries white at only ~2.2:1. */
+  --action-solid: #1f7a37;
+  --action-press: #19672e;
+  --on-action: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -133,4 +138,8 @@
   --separator-opaque: #38383a;
   --receipt-line: rgba(48, 209, 88, 0.5);
   --receipt-mark: var(--green);
+  --receipt-pending-line: rgba(255, 214, 10, 0.5);
+  --action-solid: #30d158;
+  --action-press: #28b74c;
+  --on-action: #000000;
 }

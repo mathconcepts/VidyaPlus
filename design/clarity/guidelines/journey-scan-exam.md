@@ -27,7 +27,7 @@ through ("Type it instead").
 | # | Touchpoint | One job | Notes |
 |---|---|---|---|
 | M1 | Brief | Set expectations honestly | Two numbers (minutes, questions), one sentence on calibration, four rules as plain lines. One button. |
-| M2 | Question | Nothing but the question | Sticky timer + "12 of 65" only. Options are 52px rows; selection is an indigo fill, not a border. |
+| M2 | Question | Nothing but the question | Sticky timer + "12 of 65" only. Options are 52px rows; selection is ink (2px inset ink ring, sunken fill, filled ink radio or checkbox glyph); indigo is tutor-only (DR13, changed 24 Nov 2026). |
 | M3 | Palette | Get anywhere fast | A grid, revealed on tap — not permanently on screen eating a third of it. Answered = green, current = ink, untouched = grey. |
 | M4 | Last 10 minutes | Warn once | Timer turns red at 10:00. No banner, no toast, no shake. |
 | M5 | Submit | Confirm what is unfinished | "3 unanswered" stated plainly before the button. |

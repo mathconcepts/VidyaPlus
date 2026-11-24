@@ -7,16 +7,16 @@
  * never wears this border — enforced by construction. No receipt object, no border.
  */
 import type { ReactNode } from 'react';
-import type { Receipt } from '../lib/receipt';
+import { isPendingReceipt, type PendingReceipt, type Receipt } from '../lib/receipt';
 
 // The Receipt type and its constructors live in `@/lib/receipt` — that module
 // is the only place a receipt may be minted, and `source` is required there so
 // a bare `{ verified: true }` can no longer type-check at a call site. Re-
 // exported here for the many components that import it alongside the border.
-export type { Receipt };
+export type { Receipt, PendingReceipt };
 
 interface ReceiptBorderProps {
-  receipt: Receipt | null | undefined;
+  receipt: Receipt | PendingReceipt | null | undefined;
   children: ReactNode;
   className?: string;
   /**
@@ -31,19 +31,32 @@ interface ReceiptBorderProps {
    * "Verified · {source}" claim (still real, still shown) but stops
    * dressing it in the color that means "correct" everywhere else in the
    * app.
+   *
+   * 'pending' (DR9): orange-ink text, 45% orange inset border, a "..." disc,
+   * for an item under re-check. It needs a `PendingReceipt` (minted by
+   * `receiptFromRecheck`); a verified receipt asked to wear 'pending', or a
+   * pending receipt with any other tone, renders as the tone its receipt
+   * kind allows, never as a green tick. Withdrawn and locked states have no
+   * receipt object at all, so they render as plain text, not through here.
    */
-  tone?: 'positive' | 'neutral';
+  tone?: 'positive' | 'neutral' | 'pending';
 }
 
 export function ReceiptBorder({ receipt, children, className, tone = 'positive' }: ReceiptBorderProps) {
-  const verified = !!(receipt?.verified);
-  if (!verified) return <>{children}</>;
-  const inkColor = tone === 'neutral' ? 'var(--text-secondary)' : 'var(--green-ink)';
-  const markBackground = tone === 'neutral' ? 'var(--text-tertiary)' : 'var(--receipt-mark)';
+  const pending = isPendingReceipt(receipt);
+  const verified = !pending && !!(receipt as Receipt | null | undefined)?.verified;
+  if (!verified && !pending) return <>{children}</>;
+  const label = pending ? `Re-checking · ${(receipt as PendingReceipt).note}` : `Verified · ${(receipt as Receipt).source}`;
+  const shownTone = pending ? 'pending' : tone === 'pending' ? 'positive' : tone;
+  const inkColor =
+    shownTone === 'pending' ? 'var(--orange-ink)' : shownTone === 'neutral' ? 'var(--text-secondary)' : 'var(--green-ink)';
+  const markBackground =
+    shownTone === 'pending' ? 'var(--orange)' : shownTone === 'neutral' ? 'var(--text-tertiary)' : 'var(--receipt-mark)';
   // `--receipt-line` is green — the outer card border must follow tone too,
   // or a wrong-answer receipt still wears a green-bordered card even after
   // the ink/mark stop being green (found by /ship's review army, 2026-09-02).
-  const borderColor = tone === 'neutral' ? 'var(--separator)' : 'var(--receipt-line)';
+  const borderColor =
+    shownTone === 'pending' ? 'var(--receipt-pending-line)' : shownTone === 'neutral' ? 'var(--separator)' : 'var(--receipt-line)';
 
   return (
     <div
@@ -82,9 +95,9 @@ export function ReceiptBorder({ receipt, children, className, tone = 'positive' 
             justifyContent: 'center',
           }}
         >
-          ✓
+          {pending ? '…' : '✓'}
         </span>
-        Verified · {receipt.source}
+        {label}
       </span>
       {children}
     </div>

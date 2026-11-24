@@ -3,6 +3,9 @@ export interface SegmentedControlProps {
   value?: string;
   onChange?: (value: string) => void;
   full?: boolean;
+  ariaLabel?: string;
+  /** 'lg' = 48px segments, the /exam tap-target floor. */
+  size?: 'md' | 'lg';
 }
 
 export function SegmentedControl({
@@ -10,10 +13,13 @@ export function SegmentedControl({
   value,
   onChange,
   full = false,
+  ariaLabel,
+  size = 'md',
 }: SegmentedControlProps) {
   return (
     <div
       role="tablist"
+      aria-label={ariaLabel}
       style={{
         display: full ? 'grid' : 'inline-grid',
         gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))`,
@@ -32,7 +38,7 @@ export function SegmentedControl({
             aria-selected={active}
             onClick={() => onChange?.(o.value)}
             style={{
-              height: 34,
+              height: size === 'lg' ? 48 : 34,
               padding: '0 14px',
               border: 'none',
               cursor: 'pointer',
