@@ -1620,6 +1620,13 @@ feature answers: none asked (DR3–DR20 stand; handwriting stays first in the cu
 
 Scope Challenge result: scope accepted as-is (smaller arrangement, no feature cut).
 
+### Amendment, 24 Nov 18:40: where /exam lives (repo rule 4)
+The repo's `CLAUDE.md` rule 4 forbids new code in the legacy folders, `frontend/` included, which the scope record above (structure B) would have broken. **Giri chose: `vidhya/exam` + port.** This supersedes the location in the scope record; one React and no copies are kept.
+- `/exam` is a Vite app in `vidhya/exam/` (`base: '/exam/'`), built into the brain image.
+- The Clarity token CSS and the `ui` components /exam needs move to a workspace package `vidhya/ui/` (React as a **peer** dependency, hoisted by npm workspaces, so every app loads one React). A `PORTING.md` row records it, and the moved files are deleted from `frontend/` in the same PR. The legacy frontend's imports are repointed to `vidhya/ui` (a path change, no new code), so the old app still builds and tests.
+- E4's shared parser stays at `vidhya/shared/nat-input.ts`. E10 now reads: CI builds and tests `vidhya/exam` on any change to `vidhya/ui/**`, `vidhya/shared/**` or `vidhya/exam/**`; the public frontend deploy never includes /exam.
+- T25 grows by the port: human ~2.5 d / Claude ~2 h.
+
 ## Decision ledger (re-check)
 
 ### E2: how the handwriting pad recognises digits
@@ -1737,7 +1744,7 @@ Each was asked as its own question (re-check D6–D13) and answered by Giri on 2
 | CEO Review | `/plan-ceo-review` | Scope & strategy | 1 (not persisted: gstack runtime absent) | ISSUES OPEN | 6 proposals, 6 accepted, 0 deferred · 11 sections run from gstack `review-sections.md` · 12 review decisions (R1–R7, O1–O5) answered |
 | Outside Review | native fallback, Claude subagents (Codex not installed) | Independent 2nd opinion | 4 (CEO, eng, design, eng re-check) | unavailable (native completed) | CEO: 16 findings · Eng: 12 · Design: 13 (3 critical, 7 high, 3 medium) · Eng re-check: 8 (2 critical), 6 decided (E6–E13), 2 resolved factually; all dispositioned; no completed external review |
 | Spec Review | Claude subagent (spec review loop) | Doc quality | 2 | DONE | Round 1 6/10, 20 issues; Round 2 7/10, 12 issues; all fixed or recorded |
-| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 2 (logs not persisted: gstack runtime absent) | CLEAR (PLAN) | Run 1: smaller arrangement; 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11); R12–R23; 18 decisions; T18–T24; 1 TODO. Run 2 (focused re-check of T25–T36, §22): smaller arrangement (exam entry inside frontend/); 6 issues, 3 critical (two React copies, close-vs-sync window, shared-phone queue); 13 decisions (structure + E2–E13), 0 unresolved; T25, T28–T31 amended, T37 added |
+| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 2 (logs not persisted: gstack runtime absent) | CLEAR (PLAN) | Run 1: smaller arrangement; 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11); R12–R23; 18 decisions; T18–T24; 1 TODO. Run 2 (focused re-check of T25–T36, §22): smaller arrangement, then moved to `vidhya/exam` + `vidhya/ui` port by repo rule 4 (Giri, 18:40); 6 issues, 3 critical (two React copies, close-vs-sync window, shared-phone queue); 13 decisions (structure + E2–E13), 0 unresolved; T25, T28–T31 amended, T37 added |
 | Design Review | `/plan-design-review` | UI/UX gaps | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | score: 4/10 → 9/10, 19 decisions (DR3–DR20); 12 tasks (T25–T36); 0 unresolved |
 | DX Review | `/plan-devex-review` | Developer experience gaps | 0 | — | not run |
 | Retro | `/retro` (plan + SSOT reconciliation) | Plan vs reality vs user evidence | 1 | DONE | 2 commits in 7 days (upstream import only); 0 feature code; 4 changes from the SSOT (D9–D12); 3 tasks added (T0, T16, T17); 1 decision added (D-C) |
