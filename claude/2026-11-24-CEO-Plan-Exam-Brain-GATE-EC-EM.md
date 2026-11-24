@@ -1613,20 +1613,137 @@ All rated passes are 9/10. The plan is design-complete; run `/design-review` aft
 
 **Review log / task JSONL:** not persisted; the gstack runtime isn't installed in this session. The content is in this section.
 
+## 22. Eng re-check of the design tasks, 24 Nov (`/plan-eng-review`, T25–T36 only)
+
+### Scope record
+feature answers: none asked (DR3–DR20 stand; handwriting stays first in the cut order); structure: B, Smaller arrangement (Giri, re-check D1, 24 Nov); accepted scope: /exam is a second Vite entry inside `frontend/` (`frontend/exam.html`, `frontend/src/exam/`), built by its own config (`vite.exam.config.ts`, script `build:exam`) to `frontend/dist/exam/` and copied into the brain image, which serves it at `/exam`. One React, the existing tsconfig/vitest, and the 150 KB budget checked in frontend CI. The exam entry is not in the default `vite build`, so the public frontend deploy never publishes it. The brain keeps the KaTeX renderer (`vidhya/brain/src/render/katex.ts`). `vidhya/brain/web/` is not created. pending remedies: E2, E3, E4.
+
+Scope Challenge result: scope accepted as-is (smaller arrangement, no feature cut).
+
+## Decision ledger (re-check)
+
+### E2: how the handwriting pad recognises digits
+Finding: #2, high, confidence 8/10, plan §21 DR15b / T31, reviewer: primary. "A small digit model" has no named runtime. TF.js or ONNX web runtimes are 300 KB–1 MB+ and still need character segmentation for "−2.5".
+Plan baseline: DR15b approved (on-device, lazy-loaded, practice only, confirm before Check, ≥95% on 50 samples, first to cut). Recogniser unspecified.
+Runtime evidence: no recogniser exists in the repo (unknown beyond that).
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| E2 recogniser | unspecified | $P point-cloud stroke matcher, ~5 KB, templates for 12 symbols, strokes grouped into characters by x-gap | small CNN (MNIST-style) on TF.js/ONNX, 300 KB–1 MB+ lazy, plus a segmenter |
+| DR15b contract | approved | unchanged | unchanged |
+| If < 95% on 50 samples | unspecified | T31 is cut (no switch to B) | retrain/tune |
+State: approved
+Actual answer: B) Small neural net (Giri, re-check D2, 24 Nov)
+Accepted scope: a small MNIST-style digit network run with TF.js or ONNX web, 300 KB–1 MB+ loaded only on the first tap of Write (outside the 150 KB first-load budget), plus a segmenter that splits strokes into characters for 0–9, "−" and "."; tuned until it reaches ≥95% exact reads on the 50-sample check. DR15b otherwise unchanged (practice only, confirm before Check, first in the cut order). T31 effort becomes human ~3 d / Claude ~3 h.
+History: none
+
+### E3: mock answers still queued offline when the timer ends
+Finding: #3, high, confidence 8/10, plan §14 "Slow 4G" + R21 autosave + DR5, reviewer: primary. §14 promises "a slow network never costs time", but answers queued offline that arrive after the server deadline would be refused, so a student on bad 4G at the end loses them.
+Plan baseline: server-authoritative timer (approved, §14/B5); autosave on entry (R21, approved). Late-arriving queued answers: unspecified.
+Runtime evidence: no mock code yet (unknown).
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| E3 late queued answers | unspecified | accepted if they reach the server within 2 min of the deadline; logged `late_sync`; counted | refused after the deadline |
+| Offline indicator in the mock | unspecified | "Offline · N answers waiting" in the title bar while the queue is non-empty | same |
+| Server timer, R21 autosave/reset | approved | unchanged | unchanged |
+State: approved
+Actual answer: A) 2-min sync window (Giri, re-check D3, 24 Nov)
+Accepted scope: the brain accepts a mock answer that reaches it within 2 min after the attempt's server deadline, logs it as `late_sync`, and counts it; the result shows nothing different. After 2 min, answers are refused. While answers are queued, the mock title bar shows "Offline · N answers waiting". Server timer and R21 unchanged. Tests: an answer at deadline + 90 s counts; one at + 150 s is refused; the `late_sync` flag is written.
+History: none
+
+### E4: one NAT parser for "Reads as" and for grading
+Finding: #4, medium, confidence 9/10, `vidhya/brain/src/scoring/nat-input.ts:10` (`parseNatInput`, imports only `BrainError`) vs DR15 "Reads as <value> shows what will be graded", reviewer: primary. A second parser in the keypad would drift from the grader; "Reads as" would then lie.
+Plan baseline: DR15 approved; parser placement unspecified.
+Runtime evidence: `parseNatInput` exists in the brain (18 lines, one import).
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| E4 parser source | brain only | move to a dependency-free shared module `vidhya/shared/nat-input.ts`; the brain re-exports it and the keypad imports it by path alias; the brain wraps errors in `BrainError` | the keypad gets its own parser, plus a golden parity test against the brain's |
+State: approved
+Actual answer: A) One shared parser (Giri, re-check D4, 24 Nov)
+Accepted scope: `parseNatInput` moves to `vidhya/shared/nat-input.ts` with no imports; the brain re-exports it and wraps failures in `BrainError` (`NatParseError` unchanged); the exam entry imports it by path alias. The existing 52-case parity golden runs against the shared module. Folded into T30.
+History: none
+
+### E5: when the brain renders KaTeX
+Finding: #5, medium, confidence 8/10, plan §21 DR14 / T25 (`vidhya/brain/src/render/katex.ts`), reviewer: primary. Rendering every stem, option and solution on each request costs CPU on the 4 GB box during the mock, when all students hit it at once, and the output never changes for a given item version.
+Plan baseline: DR14 approved (brain pre-renders KaTeX + MathML). Timing unspecified.
+Runtime evidence: no renderer yet (unknown).
+Comparison grid:
+| Choice | Current | A | B |
+|---|---|---|---|
+| E5 render time | unspecified | once per item version at `vidhya sync`/pack load, stored in SQLite keyed by `fingerprint`; requests read stored HTML | on each request, with an in-memory LRU cache |
+| DR14 contract | approved | unchanged | unchanged |
+State: approved
+Actual answer: A) At sync, stored (Giri, re-check D5, 24 Nov)
+Accepted scope: KaTeX (output `htmlAndMathml`) runs once per item version during `vidhya sync` / pack load; the HTML is stored in SQLite keyed by `fingerprint`, so an errata re-renders automatically. Requests read stored HTML only. A render failure fails the sync for that item and names it. Folded into T25 (+ a migration for the rendered-HTML table).
+History: none
+
+### E6–E13: outside-voice findings (native Claude subagent; Codex not installed)
+Each was asked as its own question (re-check D6–D13) and answered by Giri on 24 Nov. Plan baseline for each: unspecified unless noted. Runtime evidence: no /exam code yet.
+
+| ID | Finding (severity, confidence) | Answer | Accepted scope | Folded into |
+|---|---|---|---|---|
+| E6 | Close can run while E3's 2-min window is open, and a modified client can keep typing (critical, 8) | A) Guard close + lock | `vidhya mock close` refuses until every attempt's deadline + 2 min has passed; the app locks answer input at the server deadline. Test: close during a window is refused. | T29 |
+| E7 | Offline queue sends A's answers under B's login on a shared phone (critical, 8) | A) Tag + server check | Each queued answer carries `student_id` + `attempt_id`. The app sends only the signed-in student's entries; the server rejects entries whose attempt isn't theirs. Logout happens in DeepTutor, so when /exam loads under a different student it shows "N answers from another login not sent" and holds them, not sending or deleting, until that student returns. Any offline worker is scoped to `/exam/`. Switch-user replay test. | T28 |
+| E8 | Stored KaTeX HTML inserted raw can carry a script (high, 7) | A) Clean + CSP | KaTeX `trust:false`, strict, `maxExpand` cap; allowlist cleaner at sync, and an item that changes when cleaned fails the sync by name; the storage key includes the KaTeX version; `/exam` CSP: `script-src 'self'`, no inline scripts, `object-src 'none'`. The DR20 theme script is an external file. The E2 network uses TF.js's WebGL/CPU backend, so the CSP isn't loosened. Hostile-fixture tests. | T25 |
+| E9 | Personal API responses cacheable; login return URL is an open redirect (high, 7) | A) Headers + allowlist | API `Cache-Control: private, no-store`; `exam.html` `no-cache`; hashed assets `immutable`. The return path is accepted only under `/exam/`, otherwise `/exam/`. CSRF stays as R7; DeepTutor's cookie isn't touched. Tests. | T25, T34 |
+| E10 | Frontend changes can break /exam unnoticed; asset path clash; deploys during the mock (high, 8) | A) CI + same commit | `base: '/exam/'`; frontend CI runs `build:exam` + the exam tests on any `frontend/src/**` change; the brain image is built from the same commit and copies that build; the API reports a build id for the refresh banner. Runbook: no brain code deploys from mock open (13 Dec) to close + 2 min (20 Dec), except fixes for the mock itself. Pack syncs are data and continue. | T25, RUNBOOK |
+| E11 | Budget ignores CSS and fonts (medium, 7) | A) 250 KB total load | **≤250 KB gzipped total first-load transfer (JS + CSS + fonts)** on Today + one question, measured in CI; replaces DR14's 150 KB JS-only figure. Component imports go file by file (no index files). Only the KaTeX fonts the pack uses ship, with `font-display: swap`. The E2 model stays outside the budget (loads on tap). | T25 |
+| E12 | Offline practice answers arriving after `entitled_until` (medium, 6) | A) By served time | A practice answer counts if the server served the item before `entitled_until`, whenever the answer arrives; items served after are refused with the DR7 banner. Mock answers follow DR7 + E3. Test. | T28 |
+| E13 | Migrations run at boot; a failure takes /exam down (medium, 6) | A) Separate step | Deploy runs `vidhya migrate` (backup, then migrate) as its own step. The new brain starts only if it passes, and refuses to start if the schema is behind. On failure the old brain keeps serving and Giri gets an alert with the fix command. | new T37 |
+
+**Outside voice, no question needed:**
+- #3 (mock keys through Tutor MCP or practice) is already covered by X1 (`MockItemRefused` on every tutor tool) and gate K2 (pools can't overlap). The fix is to extend the T29 no-leak contract test to every route, including Tutor MCP, Marks, report replies and stored solution HTML.
+- #6's stale paths are a factual correction: T25 no longer touches `vidhya/brain/web/` or `brain.yml` (see the scope record).
+
+### Task changes (re-check)
+- **T25** now: exam entry in `frontend/` (`exam.html`, `src/exam/`, `vite.exam.config.ts`, `build:exam`), `base: '/exam/'`; brain `src/render/katex.ts` renders at sync with the E8 safety rules and stores HTML by fingerprint + KaTeX version (E5); headers (E9); CI budget 250 KB total (E11) in frontend CI with exam tests on `frontend/src/**` changes; same-commit brain image + build id (E10). **Effort:** human ~2 d / Claude ~1.5 h.
+- **T28** adds E7 (owner-tagged queue, hold-not-send for another login) and E12 (served-time rule). Human ~1 d / Claude ~40 min.
+- **T29** adds E3 (2-min window, `late_sync`), E6 (close guard, input lock) and the every-route no-leak test (outside voice #3). Human ~1.5 d / Claude ~1 h.
+- **T30** adds E4 (shared `vidhya/shared/nat-input.ts`).
+- **T31** is now E2 B: small neural net (TF.js WebGL/CPU), human ~3 d / Claude ~3 h; still first in the cut order.
+- [ ] **T37 (P1, human ~2 h / Claude ~15 min)** `vidhya migrate` as its own deploy step; the brain refuses to start on an old schema; on failure the old brain keeps serving and an alert carries the fix command. *E13.* Verify: a deliberately broken migration leaves the old brain serving.
+- **RUNBOOK:** mock-week deploy freeze (E10) and the `vidhya mock close` guard (E6).
+
+### Failure modes added
+| Failure | Where | Covered by |
+|---|---|---|
+| Two React copies, "Invalid hook call" | build | structure B |
+| Key reveal overlaps the late-sync window | mock close | E6 |
+| A's queued answers credited to B | shared phone | E7 |
+| Script in item content runs under the DeepTutor domain | stored HTML | E8 + CSP |
+| Personal or pre-close response served from a cache | proxy/CDN | E9 |
+| Shared UI change breaks /exam unnoticed | CI | E10 |
+| Fonts make 4G loads slow while CI is green | budget | E11 |
+| Failed migration takes /exam down | deploy | E13 |
+
+### NOT in scope (re-check)
+- A service worker for full offline app shell (only the answer queue persists; E7 scopes any worker to `/exam/`).
+- Changing DeepTutor's cookie flags (upstream, never edited).
+- Proctoring or client-time trust for the mock (it stays "unproctored practice").
+
+### Completion summary (re-check)
+- Step 0: structure B (smaller arrangement), scope accepted as-is.
+- Architecture: 3 findings (1 fixed by structure; E2, E3 decided). Code quality: 1 decision (E4) + 2 recorded implementation notes. Tests: diagram written, no new choices. Performance: 1 decision (E5).
+- Outside voice (native subagent): 8 findings; 6 decided (E6–E13 incl. 2 critical), 2 resolved without a question.
+- Decisions: 13 answered (structure + E2–E13), 0 unresolved. Tasks: T25, T28–T31 amended; T37 added.
+- **Concerns:** the mock-week freeze (E10) stops brain code deploys for about 7 days (13–20 Dec), so B5/T29 must be finished by 13 Dec as planned. T31 grows to ~3 h of Claude build time plus the 50-sample check, and stays first to cut.
+
 ## GSTACK REVIEW REPORT
 
 | Review | Trigger | Why | Runs | Status | Findings |
 |--------|---------|-----|------|--------|----------|
 | CEO Review | `/plan-ceo-review` | Scope & strategy | 1 (not persisted: gstack runtime absent) | ISSUES OPEN | 6 proposals, 6 accepted, 0 deferred · 11 sections run from gstack `review-sections.md` · 12 review decisions (R1–R7, O1–O5) answered |
-| Outside Review | native fallback, Claude subagents (Codex not installed) | Independent 2nd opinion | 3 (CEO, eng, design) | unavailable (native completed) | CEO: 16 findings, all dispositioned · Eng: 12, all dispositioned · Design: 13 (3 critical, 7 high, 3 medium), all dispositioned in §21; 1 tab-set disagreement kept on record; no completed external review |
+| Outside Review | native fallback, Claude subagents (Codex not installed) | Independent 2nd opinion | 4 (CEO, eng, design, eng re-check) | unavailable (native completed) | CEO: 16 findings · Eng: 12 · Design: 13 (3 critical, 7 high, 3 medium) · Eng re-check: 8 (2 critical), 6 decided (E6–E13), 2 resolved factually; all dispositioned; no completed external review |
 | Spec Review | Claude subagent (spec review loop) | Doc quality | 2 | DONE | Round 1 6/10, 20 issues; Round 2 7/10, 12 issues; all fixed or recorded |
-| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | Scope accepted as-is, smaller arrangement (D1). 4 sections: 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11), 0 perf. 12 outside-voice findings resolved (R12–R23). 18 decisions answered, 0 unresolved. 7 tasks (T18–T24). 1 TODO |
+| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 2 (logs not persisted: gstack runtime absent) | CLEAR (PLAN) | Run 1: smaller arrangement; 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11); R12–R23; 18 decisions; T18–T24; 1 TODO. Run 2 (focused re-check of T25–T36, §22): smaller arrangement (exam entry inside frontend/); 6 issues, 3 critical (two React copies, close-vs-sync window, shared-phone queue); 13 decisions (structure + E2–E13), 0 unresolved; T25, T28–T31 amended, T37 added |
 | Design Review | `/plan-design-review` | UI/UX gaps | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | score: 4/10 → 9/10, 19 decisions (DR3–DR20); 12 tasks (T25–T36); 0 unresolved |
 | DX Review | `/plan-devex-review` | Developer experience gaps | 0 | — | not run |
 | Retro | `/retro` (plan + SSOT reconciliation) | Plan vs reality vs user evidence | 1 | DONE | 2 commits in 7 days (upstream import only); 0 feature code; 4 changes from the SSOT (D9–D12); 3 tasks added (T0, T16, T17); 1 decision added (D-C) |
 
-- **OUTSIDE COVERAGE:** Codex isn't installed in any of the three reviews, so there's no completed external review. Native Claude subagents completed for CEO (16 findings), eng (12) and design (13), all dispositioned. Native findings don't count as outside coverage.
-- **VERDICT:** ENG + DESIGN CLEARED (PLAN): every eng and design decision is answered, so X3 can be built from §21. The CEO review still has 3 pending owner decisions. Next: Giri's Sat 28 Nov decisions; then T25–T36 inside X3; then `/design-review` once X3 is live.
+- **OUTSIDE COVERAGE:** Codex isn't installed in any of the four review runs, so there's no completed external review. Native Claude subagents completed for CEO (16 findings), eng (12), design (13) and the eng re-check (8), all dispositioned. Native findings don't count as outside coverage.
+- **VERDICT:** ENG + DESIGN CLEARED (PLAN): every eng and design decision is answered, including the focused re-check of T25–T37 (§22), so X3 can be built from §21 and §22. The CEO review still has 3 pending owner decisions. Next: Giri's Sat 28 Nov decisions; then T25–T37 inside X3; then `/design-review` once X3 is live.
 
 **UNRESOLVED DECISIONS:**
 - D-I cohort date (Giri, by Sat 28 Nov); the plan assumes Mon 7 Dec
