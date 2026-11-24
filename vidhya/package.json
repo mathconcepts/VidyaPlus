@@ -1,0 +1,25 @@
+{
+  "name": "vidhya-workspaces",
+  "private": true,
+  "description": "npm workspaces for the browser code under vidhya/: the shared UI package and the /exam app. vidhya/brain is NOT a workspace member.",
+  "workspaces": ["ui", "exam"],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "axe-core": "^4.10.0",
+    "jsdom": "^24.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.0.12",
+    "vitest": "^1.6.1"
+  }
+}

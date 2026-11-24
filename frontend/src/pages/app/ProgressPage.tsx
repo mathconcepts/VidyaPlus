@@ -11,9 +11,9 @@ import { CountUp } from '@/components/app/CountUp';
 import { ExamReadinessBreakdown } from '@/components/app/ExamReadiness';
 import { ExamCountdownChip } from '@/components/app/ExamCountdownChip';
 import { StatTile } from '@/components/ui/StatTile';
-import { ProgressBar } from '@/components/ui/ProgressBar';
-import { EmptyState } from '@/components/ui/EmptyState';
-import { Button } from '@/components/ui/Button';
+import { ProgressBar } from '@vidhya/ui/components/ProgressBar';
+import { EmptyState } from '@vidhya/ui/components/EmptyState';
+import { Button } from '@vidhya/ui/components/Button';
 import { wilsonLowerBound } from '@/lib/mastery-confidence';
 import { BarChart3, Clock, ChevronRight, Sparkles, Calendar, FileText, BookOpen, Brain, Target } from 'lucide-react';
 

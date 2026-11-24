@@ -18,7 +18,7 @@
 import { useState } from 'react';
 import type { DirectiveProps } from './registry';
 import { CheckCircle2, XCircle, HelpCircle, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 
 interface VerifyAttrs {
   expected?: string;

@@ -53,7 +53,7 @@ import { useMemo, useState } from 'react';
 import { ArrowLeft, Check, CornerUpLeft, RotateCcw, Route } from 'lucide-react';
 import type { BranchLeaf, BranchNode, GuidedWalkthroughSpec } from './types';
 import { MarkdownAtomRenderer } from '../MarkdownAtomRenderer';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 
 /** The label a student sees on a leaf they should not have reached. */
 export const NOT_BEST_HEADING = 'Not the best route here — here’s why';

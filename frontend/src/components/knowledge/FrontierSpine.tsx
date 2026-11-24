@@ -20,8 +20,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GitBranch } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { ListRow } from '@/components/ui/ListRow';
+import { Button } from '@vidhya/ui/components/Button';
+import { ListRow } from '@vidhya/ui/components/ListRow';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { wizardStartNodeForConcept } from '@/data/method-selection-trainers';
 import {

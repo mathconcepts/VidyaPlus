@@ -22,8 +22,8 @@ import { motion } from 'framer-motion';
 import { apiFetch } from '@/hooks/useApi';
 import { useSession } from '@/hooks/useSession';
 import { trackEvent } from '@/lib/analytics';
-import { ReceiptBorder } from '@/components/ui/ReceiptBorder';
-import { NO_RECEIPT, type Receipt } from '@/lib/receipt';
+import { ReceiptBorder } from '@vidhya/ui/components/ReceiptBorder';
+import { NO_RECEIPT, type Receipt } from '@vidhya/ui/lib/receipt';
 import {
   BookOpen, Target, CheckCircle2, RotateCcw, ChevronDown, ChevronRight,
 } from 'lucide-react';

@@ -7,7 +7,7 @@
  * props.
  */
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { buildResultCopy, WARMUP_RESULT_FOOTNOTE, type SpineConcept, type PlacementDot } from '@/lib/warmup-logic';
 
 const DOT_STYLE: Record<PlacementDot, React.CSSProperties> = {

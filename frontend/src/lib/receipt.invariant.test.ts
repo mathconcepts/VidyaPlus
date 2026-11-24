@@ -77,7 +77,7 @@ describe('receipt-border law', () => {
   it('the Receipt type still requires a source', () => {
     // If `source` ever goes optional again, `{ verified: true }` type-checks at
     // every call site and the guard above becomes the only thing standing.
-    const src = fs.readFileSync(path.join(SRC, 'lib/receipt.ts'), 'utf8');
+    const src = fs.readFileSync(path.resolve(SRC, '../../vidhya/ui/lib/receipt.ts'), 'utf8');
     expect(src).toMatch(/source:\s*string;/);
     expect(src).not.toMatch(/source\?:\s*string/);
   });

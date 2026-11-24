@@ -9,7 +9,7 @@ import { useSession } from '@/hooks/useSession';
 import { apiFetch } from '@/hooks/useApi';
 import { trackEvent } from '@/lib/analytics';
 import { FilterPill } from '@/components/ui/FilterPill';
-import { EmptyState } from '@/components/ui/EmptyState';
+import { EmptyState } from '@vidhya/ui/components/EmptyState';
 import { Badge } from '@/components/ui/Badge';
 
 interface NotebookEntry {

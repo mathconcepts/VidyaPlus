@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { Target, TrendingUp, Brain, AlertTriangle, Flame, ChevronDown, ChevronUp } from 'lucide-react';
 import { apiFetch } from '@/hooks/useApi';
 import { MasteryRing } from '@/components/ui/MasteryRing';
-import { ProgressBar } from '@/components/ui/ProgressBar';
+import { ProgressBar } from '@vidhya/ui/components/ProgressBar';
 
 interface ReadinessData {
   score: number;

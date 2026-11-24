@@ -26,7 +26,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
-import { ListRow } from '@/components/ui/ListRow';
+import { ListRow } from '@vidhya/ui/components/ListRow';
 
 interface WalkthroughLegs {
   explanation: { available: boolean; atom_count: number };

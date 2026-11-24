@@ -29,7 +29,7 @@ import type { GuidedWalkthroughSpec } from './types';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useEngagementGate } from '@/hooks/useEngagementGate';
 import { EASE_STANDARD, DUR_FAST_S, framerDuration } from '@/lib/motion-tokens';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { MarkdownAtomRenderer } from '../MarkdownAtomRenderer';
 
 // Re-exported for this component's existing tests; the source of truth now

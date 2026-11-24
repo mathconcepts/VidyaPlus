@@ -1,0 +1,19 @@
+{
+  "name": "@vidhya/exam",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The student-facing /exam app: Today, Mock, Marks. Built into the Exam Brain image and served at /exam.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check-budget": "node scripts/check-budget.mjs"
+  },
+  "dependencies": {
+    "@vidhya/ui": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

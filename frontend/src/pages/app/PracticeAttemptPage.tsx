@@ -26,9 +26,9 @@ import {
   CheckCircle2, XCircle, Loader2, ArrowLeft, SkipForward,
   Target, AlertTriangle, Compass, RefreshCw, GraduationCap, Repeat, GitBranch,
 } from 'lucide-react';
-import { ReceiptBorder } from '@/components/ui/ReceiptBorder';
+import { ReceiptBorder } from '@vidhya/ui/components/ReceiptBorder';
 import { Card } from '@/components/ui/Card';
-import { receiptFromServerGrade } from '@/lib/receipt';
+import { receiptFromServerGrade } from '@vidhya/ui/lib/receipt';
 import { setDemoOutcome } from '@/lib/demoPersona';
 import { MarkdownAtomRenderer } from '@/components/lesson/MarkdownAtomRenderer';
 import { ReadinessDelta, type ReadinessDeltaValue } from '@/components/app/ReadinessDelta';

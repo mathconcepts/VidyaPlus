@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authFetch } from '@/lib/auth/client';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { WARMUP_COMPLETED_KEY } from '@/lib/warmup-logic';
 
 export function WarmupEntryCard() {

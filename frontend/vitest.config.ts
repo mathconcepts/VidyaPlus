@@ -8,7 +8,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@vidhya/ui': path.resolve(__dirname, '../vidhya/ui'),
     },
+    dedupe: ['react', 'react-dom'],
   },
   test: {
     environment: 'jsdom',

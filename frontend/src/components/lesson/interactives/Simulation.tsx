@@ -46,7 +46,7 @@ import {
 import { MarkdownAtomRenderer } from '../MarkdownAtomRenderer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useEngagementGate } from '@/hooks/useEngagementGate';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { IconButton } from '@/components/ui/IconButton';
 import { EASE_STANDARD, DUR_INSTANT_S, framerDuration } from '@/lib/motion-tokens';
 

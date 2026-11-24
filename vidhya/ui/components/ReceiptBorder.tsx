@@ -7,7 +7,7 @@
  * never wears this border — enforced by construction. No receipt object, no border.
  */
 import type { ReactNode } from 'react';
-import type { Receipt } from '@/lib/receipt';
+import type { Receipt } from '../lib/receipt';
 
 // The Receipt type and its constructors live in `@/lib/receipt` — that module
 // is the only place a receipt may be minted, and `source` is required there so

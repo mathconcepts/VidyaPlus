@@ -24,8 +24,8 @@ import { ExamCountdownChip } from '@/components/app/ExamCountdownChip';
 import { CompoundingCard } from '@/components/app/CompoundingCard';
 import { DigestChip } from '@/components/app/DigestChip';
 import { TaskCard } from '@/components/ui/TaskCard';
-import { Button } from '@/components/ui/Button';
-import { EmptyState } from '@/components/ui/EmptyState';
+import { Button } from '@vidhya/ui/components/Button';
+import { EmptyState } from '@vidhya/ui/components/EmptyState';
 import {
   ArrowRight, SkipForward, RefreshCw, MessageCircle, Camera, FileText,
 } from 'lucide-react';

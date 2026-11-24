@@ -23,7 +23,7 @@ import { WalkthroughBar } from '@/components/app/WalkthroughBar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSession } from '@/hooks/useSession';
 import { authFetch } from '@/lib/auth/client';
-import { TabBar } from '@/components/ui/TabBar';
+import { TabBar } from '@vidhya/ui/components/TabBar';
 import { TutorFab } from '@/components/ui/TutorFab';
 import { getActiveRoom, type RoomId } from '@/pages/app/RoomsPage';
 

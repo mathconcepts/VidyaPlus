@@ -14,6 +14,7 @@ Status: `todo` · `in progress` · `done` · `parked` (with the reason) · `drop
 | (new) | Exam app: Today card, NAT practice, mock, marks, report | `vidhya/brain/web/`, served at `/exam` behind Caddy, session from `dt_token` → `/api/auth/status` | Standalone | todo |
 | (new) | Tutor tools: `check_answer`, `get_verified_item`, `explain_receipt`, `report_item` | Brain MCP server, granted per student via `grants.mcp_tools` | Configuration | todo |
 | `src/constants/concept-graph.ts`, `data/curriculum/` | Concept graph, prerequisites, weightage | Exam pack metadata | Content | todo |
+| `frontend/src/styles/tokens/`, `frontend/src/components/ui/{ReceiptBorder,Button,ListRow,TabBar,SegmentedControl,EmptyState,TextField,ProgressBar}`, `frontend/src/lib/receipt` | Clarity tokens + ui components | `vidhya/ui/` (workspace package `@vidhya/ui`, React as a peer dependency). The legacy `frontend/` imports them through a `@vidhya/ui` alias | Standalone | done |
 | Brand: "Vidhya" name, logo | Product identity | `vidhya/branding/` | Branding | in progress (UI text done) |
 | `design/clarity/`, `DESIGN-SYSTEM.md` | Clarity design tokens | Theme patch on DeepTutor's Tailwind config, if still wanted | Patch | parked until after 30 Dec |
 | `src/gbrain/` (Elo, FSRS, student model) | Student model | Plugin capability | Plugin | parked (out of scope until 30 Dec) |

@@ -21,7 +21,7 @@ import { authFetch } from '@/lib/auth/client';
 import { useSession } from '@/hooks/useSession';
 import { trackEvent } from '@/lib/analytics';
 import { AlertTriangle, Flag, Loader2, Play } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { Card } from '@/components/ui/Card';
 import { TimerPrimitive } from '@/components/app/TimerPrimitive';
 import { AttemptCounterfactual, type CounterfactualReportView } from '@/components/app/AttemptCounterfactual';

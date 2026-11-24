@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authFetch } from '@/lib/auth/client';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { ProgressBar } from '@/components/ui/ProgressBar';
+import { ProgressBar } from '@vidhya/ui/components/ProgressBar';
 
 interface XpSummary {
   total_minutes: number;

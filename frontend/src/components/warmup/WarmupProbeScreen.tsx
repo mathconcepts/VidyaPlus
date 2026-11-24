@@ -6,7 +6,7 @@
  */
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import {
   buildSegmentProgress,
   WARMUP_FRAMING_COPY,

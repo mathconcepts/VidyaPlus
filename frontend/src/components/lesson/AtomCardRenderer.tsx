@@ -31,7 +31,7 @@ import {
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useEngagementGate } from '@/hooks/useEngagementGate';
 import { EASE_STANDARD, DUR_BASE_S, DUR_SLOW_S, DUR_FAST_S, framerDuration } from '@/lib/motion-tokens';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@vidhya/ui/components/Button';
 import { IconButton } from '@/components/ui/IconButton';
 
 const VISUAL_PREF_KEY = 'vidhya.show_visually';

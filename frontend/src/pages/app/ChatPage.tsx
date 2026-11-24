@@ -16,7 +16,7 @@ import { streamGroundedChat } from '@/lib/gbrain/client';
 import { extractErrorDetail } from '@/lib/api-error';
 import { splitChatHistoryByRecency } from '@/lib/chat-session-grouping';
 import { ChatBubble } from '@/components/ui/ChatBubble';
-import { EmptyState } from '@/components/ui/EmptyState';
+import { EmptyState } from '@vidhya/ui/components/EmptyState';
 import { MarkdownAtomRenderer } from '@/components/lesson/MarkdownAtomRenderer';
 
 interface ChatMessage {
