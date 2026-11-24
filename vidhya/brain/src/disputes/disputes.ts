@@ -136,6 +136,31 @@ export function fileDispute(db: Db, input: DisputeInput, now: Date, opts: { onSt
   return { ...result, alert_failed };
 }
 
+/**
+ * DR18: a report filed during the mock goes to Giri's queue only. It is identified
+ * (so Giri can see who) but never counted, never hides the item, never reaches
+ * quorum and never quarantines. Returns 'duplicate' when this student already
+ * reported this item at this fingerprint (the caller shows the same reply).
+ */
+export function queueForReview(
+  db: Db,
+  input: { item_id: string; fingerprint: string; student_hash: string; note?: string },
+  now: Date,
+): 'queued' | 'duplicate' {
+  if (!input.item_id || !input.fingerprint || !input.student_hash) {
+    throw new BrainError('InvalidDispute', 'item_id, fingerprint and an identified student are required');
+  }
+  const note = input.note ?? null;
+  if (note !== null && note.length > NOTE_MAX) throw new BrainError('InvalidDispute', `note is ${note.length} chars; the limit is ${NOTE_MAX}`);
+  const r = db
+    .prepare(
+      `INSERT OR IGNORE INTO disputes (item_id, fingerprint, student_hash, channel, note, day, counted, state, created_at)
+       VALUES (?, ?, ?, 'exam', ?, ?, 0, 'giri_queue', ?)`,
+    )
+    .run(input.item_id, input.fingerprint, input.student_hash, note, utcDay(now), now.toISOString());
+  return r.changes === 0 ? 'duplicate' : 'queued';
+}
+
 /** Items this student reported and should no longer see. Notes are never returned. */
 export function hiddenItemIdsFor(db: Db, studentHash: string): Set<string> {
   const rows = db

@@ -21,7 +21,20 @@ export type BrainErrorCode =
   | 'InvalidItemId'
   | 'InvalidRegistryRow'
   | 'UnknownTier'
-  | 'InvalidDispute';
+  | 'InvalidDispute'
+  | 'InvalidMockForm'
+  | 'InvalidMockRequest'
+  | 'MockFormUnknown'
+  | 'MockAlreadyScored'
+  | 'MockLateSubmit'
+  | 'MockAttemptClosed'
+  | 'MockNotSubmitted'
+  | 'MockNotResettable'
+  | 'MockCloseTooEarly'
+  | 'MockClosed'
+  | 'MockItemNotInForm'
+  | 'AttemptNotOwned'
+  | 'AccessEnded';
 
 export class BrainError extends Error {
   readonly code: BrainErrorCode;

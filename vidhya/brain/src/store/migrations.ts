@@ -129,4 +129,59 @@ CREATE TRIGGER overlay_audit_no_delete BEFORE DELETE ON overlay_audit
 BEGIN SELECT RAISE(ABORT, 'overlay_audit is append-only'); END;
 `,
   },
+  {
+    version: 4,
+    name: '004_mock',
+    sql: `
+-- B5 / R15 / R21: the one fixed mock form, its attempts, server-side autosave and an audit trail.
+-- The 'mocks' table from 001 stays the attempt table: state in_progress|scored is the scored
+-- attempt (one per student per form version), practice_only is any later or post-close attempt.
+CREATE TABLE mock_forms (
+  form_version  TEXT PRIMARY KEY,
+  minutes       INTEGER NOT NULL CHECK (minutes > 0),
+  total_marks   REAL    NOT NULL CHECK (total_marks > 0),
+  items_json    TEXT    NOT NULL,   -- frozen [{item_id, fingerprint, grading_fp, marks}] in form order
+  planned_close TEXT CHECK (planned_close IS NULL OR planned_close GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),
+  registered_at TEXT NOT NULL,
+  closed_at     TEXT,               -- set by 'vidhya mock close'; keys, solutions and receipts unlock then
+  closed_by     TEXT
+);
+ALTER TABLE mocks ADD COLUMN minutes INTEGER;
+ALTER TABLE mocks ADD COLUMN items_json TEXT;   -- the form's items, frozen at start
+ALTER TABLE mocks ADD COLUMN submit_reason TEXT CHECK (submit_reason IS NULL OR submit_reason IN ('submit','auto'));
+CREATE INDEX mocks_student_form ON mocks (student_hash, form_version);
+
+-- R21: every answer is persisted on entry. Append-only; the latest client_entered_at per item wins.
+CREATE TABLE mock_answers (
+  id                INTEGER PRIMARY KEY,
+  mock_id           INTEGER NOT NULL REFERENCES mocks(id),
+  item_id           TEXT NOT NULL,
+  idempotency_key   TEXT NOT NULL,
+  response_json     TEXT NOT NULL,
+  client_entered_at TEXT NOT NULL,
+  received_at       TEXT NOT NULL,
+  late_sync         INTEGER NOT NULL CHECK (late_sync IN (0,1)),   -- E3
+  queue_owner       TEXT NOT NULL,                                 -- E7
+  UNIQUE (mock_id, item_id, idempotency_key)
+);
+CREATE INDEX mock_answers_mock_item ON mock_answers (mock_id, item_id);
+
+-- R21: resets and closes are audited, append-only (no UPDATE, no DELETE).
+CREATE TABLE mock_audit (
+  id           INTEGER PRIMARY KEY,
+  ts           TEXT NOT NULL,
+  action       TEXT NOT NULL CHECK (action IN ('reset','close')),
+  form_version TEXT NOT NULL,
+  student_hash TEXT,
+  mock_id      INTEGER,
+  actor        TEXT NOT NULL,
+  reason       TEXT,
+  detail       TEXT
+);
+CREATE TRIGGER mock_audit_no_update BEFORE UPDATE ON mock_audit
+BEGIN SELECT RAISE(ABORT, 'mock_audit is append-only'); END;
+CREATE TRIGGER mock_audit_no_delete BEFORE DELETE ON mock_audit
+BEGIN SELECT RAISE(ABORT, 'mock_audit is append-only'); END;
+`,
+  },
 ];
