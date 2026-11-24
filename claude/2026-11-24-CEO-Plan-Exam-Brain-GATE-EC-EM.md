@@ -1737,6 +1737,14 @@ Each was asked as its own question (re-check D6–D13) and answered by Giri on 2
 - Decisions: 13 answered (structure + E2–E13), 0 unresolved. Tasks: T25, T28–T31 amended; T37 added.
 - **Concerns:** the mock-week freeze (E10) stops brain code deploys for about 7 days (13–20 Dec), so B5/T29 must be finished by 13 Dec as planned. T31 grows to ~3 h of Claude build time plus the 50-sample check, and stays first to cut.
 
+## 23. Build status, 24 Nov evening (implemented by Sonnet workers, verified and merged)
+Built on `brain/w0-prep` with synthetic fixtures only (no bank, no DeepTutor instance):
+- **Brain:** T19 (invalid picks refused), T20 (item schema, `grading_fp` + `fingerprint`, ledger tag, servable rule), T24 (registry, `entitled_until`, per-student flags), T37 (`runMigrations` with online backup, `SchemaBehind`), T7 (disputes: quorum of 2, 3/day cap, storm pause, MCP queue, audited overlay), E4 (shared NAT parser in `vidhya/shared/`), and the mock backend (B5 form + one scored attempt, R21 autosave and audited reset, E3 2-min late-sync window, E6 close guard and input lock, E7 owner check, E12 served-time rule, DR11 pre-close view, DR18 queue-only reports, a no-leak contract test). 279 tests pass.
+- **/exam app:** `vidhya/ui` (Clarity tokens + components moved from `frontend/`, React as a peer, legacy imports repointed; legacy 4136 tests and build pass), `vidhya/exam` (all §21 screens on a `FakeExamApi`, ReceiptBorder `pending` tone, GATE keypad, dark mode, laptop layout, axe in light and dark, 62 KB first load against the 250 KB budget, `exam.yml` CI). 258 tests pass.
+- **Contrast fix found while building:** Clarity's `--text-secondary` and `--green-ink` fall below 4.5:1 for /exam text, and white on green buttons is about 2.2:1. /exam overrides them and adds `--action-solid`; logged in `DESIGN-SYSTEM.md`.
+
+**Not yet built:** the brain HTTP `/v1` + MCP + `/health` and the real `ExamApi` client; KaTeX pre-render at sync (E5, E8); `vidhya mock close` / `mock reset` and `vidhya migrate` CLI wrappers and the boot-time `assertSchemaCurrent` call; the `mock` tier flag check in `startAttempt`; the ≥15-item form floor; marks range and taxonomy (B5 analytics); handwriting (T31); everything that needs the bank (A-027) or a running DeepTutor (T2, T3, T4, T21, T34 pre-fill check); Playwright at real viewports and the TalkBack pass. **Known gap:** a report filed during the mock blocks that student's later counted dispute on the same item (unique index); fix before the mock opens.
+
 ## GSTACK REVIEW REPORT
 
 | Review | Trigger | Why | Runs | Status | Findings |
