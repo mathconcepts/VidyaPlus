@@ -1,0 +1,792 @@
+{
+ "source": "upstream/deeptutor/deeptutor/services/practice/answers.py",
+ "cases": [
+  {
+   "kind": "mcq",
+   "key": [
+    0
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "choice",
+   "dt_key": "A",
+   "dt_answer": "A",
+   "dt_correct": true
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    0
+   ],
+   "sel": [
+    1
+   ],
+   "dt_type": "choice",
+   "dt_key": "A",
+   "dt_answer": "B",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    0
+   ],
+   "sel": [
+    2
+   ],
+   "dt_type": "choice",
+   "dt_key": "A",
+   "dt_answer": "C",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    0
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "choice",
+   "dt_key": "A",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    1
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "choice",
+   "dt_key": "B",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    1
+   ],
+   "sel": [
+    1
+   ],
+   "dt_type": "choice",
+   "dt_key": "B",
+   "dt_answer": "B",
+   "dt_correct": true
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    1
+   ],
+   "sel": [
+    2
+   ],
+   "dt_type": "choice",
+   "dt_key": "B",
+   "dt_answer": "C",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    1
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "choice",
+   "dt_key": "B",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    2
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "choice",
+   "dt_key": "C",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    2
+   ],
+   "sel": [
+    1
+   ],
+   "dt_type": "choice",
+   "dt_key": "C",
+   "dt_answer": "B",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    2
+   ],
+   "sel": [
+    2
+   ],
+   "dt_type": "choice",
+   "dt_key": "C",
+   "dt_answer": "C",
+   "dt_correct": true
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    2
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "choice",
+   "dt_key": "C",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    3
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "choice",
+   "dt_key": "D",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    3
+   ],
+   "sel": [
+    1
+   ],
+   "dt_type": "choice",
+   "dt_key": "D",
+   "dt_answer": "B",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    3
+   ],
+   "sel": [
+    2
+   ],
+   "dt_type": "choice",
+   "dt_key": "D",
+   "dt_answer": "C",
+   "dt_correct": false
+  },
+  {
+   "kind": "mcq",
+   "key": [
+    3
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "choice",
+   "dt_key": "D",
+   "dt_answer": "D",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    0,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "A,C",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    2,
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "C,A",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    0,
+    1,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "A,B,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    1,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "B,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    3,
+    2,
+    1
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "D,C,B",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "A,B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    2
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,C",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "A,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    2,
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "C,A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    1,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "A,B,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    1,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "B,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "B,C,D",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    3,
+    2,
+    1
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "D,C,B",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "A,B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "B,C,D",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "A,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    2,
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "C,A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    1,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "A,B,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    1,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "B,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    3,
+    2,
+    1
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "D,C,B",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "A,B,C,D",
+   "dt_correct": true
+  },
+  {
+   "kind": "msq",
+   "key": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,B,C,D",
+   "dt_answer": "D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    0,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "A,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    2,
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "C,A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    0
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "A",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    0,
+    1,
+    2
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "A,B,C",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    1,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "B,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    3,
+    2,
+    1
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "D,C,B",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "A,B,C,D",
+   "dt_correct": false
+  },
+  {
+   "kind": "msq",
+   "key": [
+    3,
+    0
+   ],
+   "sel": [
+    3
+   ],
+   "dt_type": "multi_choice",
+   "dt_key": "A,D",
+   "dt_answer": "D",
+   "dt_correct": false
+  }
+ ]
+}
