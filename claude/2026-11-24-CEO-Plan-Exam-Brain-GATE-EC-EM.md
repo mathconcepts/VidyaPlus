@@ -202,7 +202,7 @@ The reason: deleting an item cascades away every student's DeepTutor review stat
 |---|---|---|
 | X1 | Tutor MCP tools (identity-free; granted per student via `grants.mcp_tools`, exact `mcp_<server>_<tool>` names) | `check_answer` (grades only, records nothing), `report_item(item_id, note)` (anonymous; it goes **to Giri's review queue only and never auto-quarantines**, per O2), and `explain_receipt(item_id)` (**method, engines, reviewer and date only, never values**). No `next_item` here, because planning needs identity; it lives in `/exam`. `get_verified_item(concept)` returns **practice-pool MCQ/MSQ stems and options only, never the key, never NAT, never mock items**; the tutor grades through `check_answer`. That closes v5 L4. **Every tutor tool refuses mock-pool items** (`MockItemRefused`). Every synced stem in DeepTutor ends with its ledger id (`[#gate-ec-017]`), so a student can report it by id from the tutor or from the Exam page form. Granted per student via the tier template (L5). |
 | X2 | Routing | Caddy: `/exam/*` → brain static app, `/exam/api/*` → brain `/v1` with session check. Writes require `Origin` = app origin and JSON bodies (CSRF). DeepTutor gets an "Exam" link through `vidhya/branding` (a string/link override); if branding can't add one, the link goes in the welcome message and onboarding. |
-| X3 | Exam app (`/exam`) | Tabs: **Today** (D6.6: one card, "30 min · 4 items · +0.8–1.4 marks, estimate from N attempts"; the marks figure is hidden below 30 attempts unless the mock is done, O5-5), **NAT practice** (numeric keypad, `inputmode=decimal`, tolerance shown after the attempt), **Mock**, **Marks** (range + taxonomy history), and a **Report wrong key** link on every item. KaTeX bundled and served by the brain. Clarity tokens. Works at 360 px. States per §15 Section 11. |
+| X3 | Exam app (`/exam`) | **Amended by the design review (§21): 3 tabs Today · Mock · Marks (DR3), GATE-style NAT keypad (DR15), states and layouts per §21.** Original: Tabs: **Today** (D6.6: one card, "30 min · 4 items · +0.8–1.4 marks, estimate from N attempts"; the marks figure is hidden below 30 attempts unless the mock is done, O5-5), **NAT practice** (numeric keypad, `inputmode=decimal`, tolerance shown after the attempt), **Mock**, **Marks** (range + taxonomy history), and a **Report wrong key** link on every item. KaTeX bundled and served by the brain. Clarity tokens. Works at 360 px. States per §15 Section 11. |
 | X4 | Flags | Per-student flags in `tiers.yaml` (`exam_page`, `nat`, `mock`, `today_card`, `disputes`, `tutor_mcp`), applied by `vidhya tier set`. Off = DeepTutor works exactly as before. The registry holds `entitled_until` (date), which `vidhya tier set` reads, and Giri updates it by CLI after a payment (R23). |
 
 ### L4 Sync and ops (extends v5)
@@ -272,7 +272,7 @@ Weekly (Sunday synthesis, exists) **plus**:
 
 **Mock timing (R12):** the mock form and B5 are built in C→C+7 and the mock opens by Sun 13 Dec, at least 7 days before the pay ask.
 
-**Planned cut line (if behind by C+7):** B7 → taxonomy → B5 marks range (mock score stays), as in rule (b). The Today card is no longer cut (D9).
+**Planned cut line (if behind by C+7):** T31 handwriting (DR15b, §21) → B7 → taxonomy → B5 marks range (mock score stays), as in rule (b). The Today card is no longer cut (D9).
 
 **Giri's hours, all on weekends (rule c; O5-6). Restated honestly:**
 
@@ -766,7 +766,7 @@ Mock: intro (time, marks, rules, one scored attempt) ─► running (server time
 - **AI-slop risk:** low. The receipt chip and the marks range are specific, not generic dashboards.
 - **Design system:** Clarity tokens, a 17 px floor, 48 dp targets, 360 px first, a numeric keypad for NAT.
 - **Entry point:** DeepTutor's branding (`vidhya/branding`) adds an "Exam" link (branding rung: a string and link override). If branding can't add a nav link, a pinned link sits in the welcome message and the Telegram onboarding.
-- **Delight (30 min each):**
+- **Delight (30 min each), superseded by DR12 (§21): the ring and the toast are dropped:**
   - the time-left ring on the mock
   - "+0.4 marks" toast after a correct NAT
   - the receipt chip expands to the SymPy line
@@ -1463,21 +1463,170 @@ State: approved · Actual answer: A) Add 'access until' (Giri, D17, 24 Nov) · A
 
 **Review log / test-plan artifact / task JSONL:** not persisted. The gstack state root isn't installed in this session; their content is in this section.
 
+## 21. Design review, 24 Nov (`/plan-design-review`, the `/exam` app)
+
+### Scope record
+- **UI scope:** the `/exam` app (`vidhya/brain/web/`), as in X3 and §15 Section 11. Tutor MCP has no UI and is out of scope.
+- **Design system:** `DESIGN-SYSTEM.md` ("Clarity", Apple HIG light-first) plus the M1–M6 mock journey in `design/clarity/guidelines/journey-scan-exam.md`. Both are carried forward unchanged except where a decision below says otherwise.
+- **Direction (Giri):** Apple is the base. From Netflix: one obvious "continue" and one hero action. From Tesla: one main screen and one gauge read at a glance. From Microsoft Fluent: layout that adapts to window size, visible focus, full keyboard paths.
+- **Wireframes:** `docs/designs/2026-11-24-exam-wireframes.html` (v2, 12 screens, after the decisions below). The gstack designer and Codex aren't installed, so these are HTML wireframes built from the Clarity token values, and the outside voice is a Claude subagent.
+- **Numbering:** decisions here are **DR1–DR20**, so they don't clash with the eng review's D1–D18.
+
+### Decisions (all answered by Giri, 24 Nov)
+| # | Question | Answer |
+|---|---|---|
+| DR1 | Review scope | All 7 passes plus wireframes |
+| DR2 | Outside voice | Claude subagent (Codex not installed) |
+| DR3 | Tabs | **3 tabs: Today · Mock · Marks.** NAT practice by topic lives behind a "Practise a topic" row on Today. The word "Practice" is never a tab, so it doesn't collide with DeepTutor's Practice. The "Pick up" rows are only **Continue …** (when something is in progress) and **Practise a topic**. The mock date is one plain line under the card. |
+| DR4 | Today headline before marks can show (O5-5) | **The GATE weight of today's topics:** large text "Topics worth 4 marks in GATE". Eyebrow: "Starter plan · 30 min · 4 items". Basis line: "<topics> · from GATE topic weights. Your marks estimate appears after the mock or 30 answers." After 30 attempts or the mock it switches to "+0.8–1.4 marks · estimate from N attempts". |
+| DR5 | Check while offline | "Saved · we'll check it when you're back online". Next stays enabled. The result appears in place when the network returns, and Today counts it then. Never a spinner without words. |
+| DR6 | Mock after the close date | Takers: the tab becomes **Review**, each item with key, solution and receipt. Non-takers: "Practice mock · unscored", timed, answers at the end, kept out of the range. "Late answers marked" is deleted, because the server timer closes the attempt. |
+| DR7 | Access ends (R23 `entitled_until`) | Banner: "Your access ended on <date>. Your marks history is still here. Renew on Telegram". Marks and Review stay readable. Today and new items are locked. A mock already started can be finished. |
+| DR8 | Brain down (Caddy static page) | "The Exam page is down for now. Answers you already saved are safe. DeepTutor's Practice and Tutor still work →" with a link to DeepTutor. Replaces "Exam tab is resting" in §7 and §15 S11. |
+| DR9 | Receipt chip states | ReceiptBorder gets a third tone, **`pending`**: orange-ink text, 45% orange inset border, "…" disc. Copy: "Re-checking · one engine disagreed. You can still practise it." Withdrawn ("Withdrawn while we re-check. It won't count against you. #id") and locked ("Receipt unlocks with the answers on <date>") are plain text on the sunken grey with no border, because there's no receipt object to show. The two verified states follow the 19 Nov chip spec. Logged in `DESIGN-SYSTEM.md`. |
+| DR10 | DeepTutor ↔ /exam | The title bar always shows "← Tutor" on the left, and login returns to the exact /exam URL. "Ask the tutor why" opens DeepTutor chat in the **same tab**, pre-filled "Explain #gate-ec-017"; the student presses send. Hidden on mock items until the close date. **Verify in W0:** does DeepTutor chat accept a pre-fill from the URL? (`upstream/` is never edited.) If not, the link copies "Explain #id" to the clipboard, opens chat, and shows "Copied, paste to ask". |
+| DR11 | Mock result before close | Score, the right/wrong/skipped tally, the "unproctored practice mock" label, the unlock date, and one button "Back to today's plan". Topic rows and the taxonomy appear only at close, because the small form would otherwise leak keys by topic. The Today plan doesn't use per-item mock results until close. |
+| DR12 | The planned "delights" | **Both dropped**: the mock time ring and the "+0.4 marks" toast. Instead: the receipt opens to the exact engine lines (already planned), and a correct answer gets a **counted** win line ("Right. That's 3 of 4 eigenvalue items this week"), never an estimate. |
+| DR13 | Selected-option colour | **Ink**: 2px ink inset ring, sunken fill, filled ink radio or checkbox glyph. Indigo stays tutor-only. M2 in `journey-scan-exam.md` is updated and the change is logged in the Clarity decisions. |
+| DR14 | Where /exam gets tokens and components | Vite + React app that imports the token CSS and the `ui` components **straight from `frontend/src`** (path alias, no copies). The brain pre-renders KaTeX to HTML with MathML, so the phone downloads no KaTeX JS. Budget: **≤150 KB gzipped JS** on first load, enforced in CI. New pieces (NAT keypad, banner, `pending` receipt tone, range band, handwriting pad) are added to `frontend/src/components/ui`. |
+| DR15 | NAT input | **GATE-style in-page keypad** (7-8-9 on top, 0, ".", "−", Clear, ⌫). On phones the field is `inputmode="none"`, so the system keyboard never opens. Physical keys work on laptops. Only "." counts as a decimal point. "Reads as <value>" shows what will be graded. |
+| DR15b | Handwriting (Giri's addition) | A "Write" toggle opens a canvas. A small digit model runs **on the phone** and loads only on the first tap (outside the 150 KB budget). The recognised value fills the field for the student to confirm or fix on the keypad, and it never submits by itself. **Practice only**: the mock is keypad-only, like GATE. Accuracy is checked on 50 real samples before release. **First to cut** if Track 2 slips. |
+| DR16 | Laptop layout | Phone layout up to 767 px. From 768 px: one centred 640 px column, and the tab bar becomes a top segmented control. From 1024 px during the mock: the palette is a fixed right panel like GATE's. Shortcuts: 1–4 or A–D to select, N next, F flag, with visible key hints. |
+| DR17 | Accessibility contract | KaTeX pre-rendered with MathML. MCQ is a radiogroup and MSQ a checkbox group. After Check, focus moves to the result line. The timer is announced only at 30, 10 and 5 minutes left. Visible Clarity focus ring on every control. Landmarks: header, main, nav. Text contrast ≥4.5:1 (green, orange and red text use the -ink variants only). Works at 200% zoom and with prefers-reduced-motion. axe in CI, plus one TalkBack pass in the 5–6 Dec phone smoke. |
+| DR18 | Reporting during the mock | Allowed through "⋯ → Report a problem" with one optional note. Reply: "Sent. We review mock reports after the close date. Answer as best you can." Goes to Giri's queue only, never auto-quarantines, and is never answered before close. If Giri voids an item after close, it's removed from everyone's score and the result says so. |
+| DR19 | Wireframes | Redrawn to DR3–DR18, with a laptop mock and a handwriting screen added. Saved in the repo next to the plan. |
+| DR20 | Dark mode | **Build now**: /exam follows `prefers-color-scheme: dark` using Clarity's existing `[data-theme="dark"]` tokens. Contrast pass on the three receipt tones, the red timer and green text in dark. |
+
+### Screen spec (what each screen shows, in order)
+```
+TODAY (first screen, tab 1)
+  1 focal card: eyebrow (plan type · minutes · items) → headline (DR4) → basis line → [Start]
+  2 one line: mock date / status
+  3 rows: Continue … (only if in progress) · Practise a topic ›
+QUESTION     ✕ · "n of N" · marking chip (signed mono) → stem (serif) → options (52 px, ink selection) → [Check] → "Verified set · #id"
+RESULT       answer rows → win line (counted, DR12) → one-line reason → receipt (tone by state) → engine lines on tap → [Next] → Ask the tutor why · Report wrong key
+NAT          field + [Write] → "Reads as" line → GATE keypad → [Check]
+MOCK         brief (M1 + 4 rules) → running (M2, autosave "Saved", ⋯ report) → palette (M3) → red-ink timer < 10:00 (M4) → submit (M5) → result before close (DR11) → Review / unscored practice after close (DR6)
+MARKS        range band "a–b of 15" + basis line + last week → "Why marks are lost" rows incl. Unclassified
+```
+
+### Interaction states (replaces the table in §15 Section 11)
+| Feature | Loading | Empty | Error | Success | Partial |
+|---|---|---|---|---|---|
+| Today | static skeleton of the card (no shimmer) | "You've cleared today's best items. Take the mock" (before close) / "Practise a topic" (after) | outage page (DR8) | plan card | some items withdrawn → shorter plan + "1 item withdrawn while we re-check" |
+| Practise a topic | static skeleton list | per topic: "No NAT items in this topic yet" + nearest topic link | inline NatParseError under the field | tolerance + solution + receipt | — |
+| Check (any item) | "Checking…" inline under the button, never a lone spinner; past 2.5 s: "Still checking. Your answer is saved." | — | offline: DR5 | result + receipt | — |
+| Mock | timer starts only after items load | before open: "Opens Sun 13 Dec" | resume prompt after an outage (R21) | before close: DR11; after close: Review | unanswered listed at submit (M5) |
+| Marks | static skeleton of the gauge | "Take the mock to see your marks range" | outage page | range + taxonomy | "Unclassified" shown openly |
+| Receipt | — | — | — | verified (2 kinds) | pending / withdrawn / locked (DR9) |
+| Access | — | — | — | — | ended: DR7 |
+| Release | — | — | — | — | "Content updated. Refresh to get the new version. Your answers are kept." |
+
+One banner slot, directly under the title bar: one sentence, one action, never a modal and never `alert()`.
+
+### Journey storyboard
+| Step | Student does | Feels | Plan specifies |
+|---|---|---|---|
+| 1 | Taps "Exam" in DeepTutor | "Is this the same app?" | "← Tutor" title bar; login returns to the exact URL (DR10) |
+| 2 | First Today, no data | "What's worth my time?" | GATE-weight headline + basis (DR4) |
+| 3 | Answers, taps Check on bad 4G | Anxious | "Saved · we'll check it when you're back online" (DR5) |
+| 4 | Sees result + receipt | "The key is right, and I can see why" | Engine lines; counted win line (DR12) |
+| 5 | Mock day: brief, then the sitting | Focused, not watched | M1–M5; timer red-ink at 10:00 only; autosave "Saved" |
+| 6 | Submits before close | "How did I do?" | Score + tally + unlock date (DR11) |
+| 7 | Close day | Curious, comes back | Review with receipts; non-takers get an unscored mock (DR6) |
+| 8 | Access ends | Wary | History stays readable; renew line (DR7) |
+
+### Pass results
+| Pass | Before | After | Remaining gap |
+|---|---|---|---|
+| 1 Information architecture | 6 | 9 | — (laptop handled in Pass 6) |
+| 2 Interaction states | 5 | 9 | Real copy for each topic's empty state comes with the pack |
+| 3 Journey | 6 | 9 | DeepTutor pre-fill is unverified (W0 check; clipboard fallback) |
+| 4 AI slop | 7 | 9 | Logged exception: the system font stack is the deliberate Clarity/Apple choice, against gstack's "system-ui as primary font" rule |
+| 5 Design system | 6 | 9 | New components need Clarity specimen cards |
+| 6 Responsive & a11y | 4 | 9 | TalkBack pass and handwriting accuracy are only proven on 5–6 Dec |
+
+**Litmus (Claude subagent + primary, after fixes):** product unmistakable on the first screen YES (DR4) · one visual anchor YES · scannable by headings YES · one job per section YES (DR3) · cards necessary YES (one focal card) · motion improves hierarchy YES (decorative motion removed, DR12) · premium without shadows YES. Hard rejections: none. Classifier: OPERATE (app UI).
+
+**Outside voice disagreement kept on record:** the subagent proposed tabs "Today · Practice · Mock & Marks". Giri chose Today · Mock · Marks (DR3).
+
+### NOT in scope (design)
+- A proctored mock or lockdown browser (eng NOT-in-scope stands).
+- A share image of the score (§13, deferred to after 20 diagnostics).
+- Telegram delivery of the Today card (§13).
+- Restyling DeepTutor itself: only the branding string and link (X2), never `upstream/`.
+- Celebration, streaks or confetti (Clarity law).
+
+### What already exists (reused)
+- `DESIGN-SYSTEM.md` (Clarity) and the token CSS in `frontend/src/styles/tokens/`, imported directly (DR14).
+- `frontend/src/components/ui`: ReceiptBorder (gains `pending`), ListRow, Button, TabBar, SegmentedControl, EmptyState, TextField, ProgressBar.
+- The M1–M6 mock journey (M2 selection colour changed, DR13).
+- The 19 Nov receipt chip spec (two verified states).
+- The UX-100x trust laws: ambient trust, agency before diagnosis, honest pending states, protected honest copy.
+
+### Implementation tasks added by the design review
+- [ ] **T25 (P1, human ~1 d / Claude ~30 min)** /exam app shell: Vite + React, token CSS and `ui` imported from `frontend/src` (no copies), brain pre-renders KaTeX + MathML, CI fails over 150 KB gzipped first-load JS. *DR14.* Files: `vidhya/brain/web/`, `vidhya/brain/src/render/katex.ts`, `.github/workflows/brain.yml`. Verify: CI size check; one item renders on a 360 px phone with no KaTeX JS.
+- [ ] **T26 (P1, human ~4 h / Claude ~20 min)** Today: 3 tabs, the DR4 headline in both states, Continue / Practise a topic rows, mock line. *DR3, DR4.* Verify: component tests for both headline states.
+- [ ] **T27 (P1, human ~3 h / Claude ~15 min)** ReceiptBorder `pending` tone + the five receipt states + ink selection; update `DESIGN-SYSTEM.md` and M2 in `journey-scan-exam.md`. *DR9, DR13.* Verify: `ReceiptBorder.test.tsx` gains pending/withdrawn/locked cases; the "no receipt, no border" lint still passes.
+- [ ] **T28 (P1, human ~4 h / Claude ~20 min)** States: offline check, the four banners, Caddy static outage page, access-expiry behaviour. *DR5, DR7, DR8.* Verify: e2e with the network throttled to offline; `entitled_until` in the past.
+- [ ] **T29 (P1, human ~1 d / Claude ~40 min)** Mock lifecycle: brief copy from the form, pre-close result, Review after close, unscored practice for non-takers, "Report a problem" during the mock. *DR6, DR11, DR18.* Verify: contract tests that nothing key-shaped (keys, topic rows) is served before `vidhya mock close`.
+- [ ] **T30 (P1, human ~4 h / Claude ~20 min)** GATE-style NAT keypad, `inputmode="none"`, "." only, "Reads as". *DR15.* Verify: parser unit tests (−0.5, .5, 3., "3,5" refused); manual test on a Gboard phone.
+- [ ] **T31 (P2, human ~2 d / Claude ~2 h)** Handwriting pad, lazy-loaded on-device digit model, practice only. *DR15b.* Verify: ≥95% exact read on 50 real samples before release; **first item in the cut order.**
+- [ ] **T32 (P1, human ~4 h / Claude ~20 min)** Laptop: 640 px column, segmented control, mock side palette from 1024 px, keyboard shortcuts. *DR16.* Verify: Playwright at 360, 768, 1280.
+- [ ] **T33 (P1, human ~4 h / Claude ~30 min)** Accessibility contract + axe in CI + TalkBack pass in the 5–6 Dec phone smoke. *DR17.* Verify: axe 0 serious; TalkBack script ticked.
+- [ ] **T34 (P2, human ~2 h / Claude ~15 min)** Tutor hand-off: "← Tutor", same-tab pre-fill or clipboard fallback, hidden on mock items before close. *DR10.* Verify: W0 check of DeepTutor's pre-fill; e2e for both paths.
+- [ ] **T35 (P2, human ~1 h / Claude ~10 min)** Counted win line on correct answers; time ring and toast removed from the spec. *DR12.* Verify: copy test, never a marks estimate.
+- [ ] **T36 (P2, human ~4 h / Claude ~30 min)** Dark mode through Clarity's dark tokens; contrast pass on the receipt tones, red timer and green text. *DR20.* Verify: axe in both schemes.
+
+**Timeline effect:** T25–T36 are build work inside X3 (C → C+7). Giri's hours rise by about 0.5 h in the 5–6 Dec slot, for the TalkBack pass and the 50 handwriting samples. **Cut order (rule b) is now:** T31 handwriting → B7 → taxonomy → B5 marks range. The never-cut list is unchanged.
+
+## Design Review Completion Summary
+```
++====================================================================+
+|         DESIGN PLAN REVIEW — COMPLETION SUMMARY                    |
++====================================================================+
+| System Audit         | DESIGN-SYSTEM.md (Clarity) found; UI = /exam |
+| Step 0               | 5/10; focus: all 7 passes + wireframes       |
+| Pass 1  (Info Arch)  | 6/10 → 9/10 after fixes                      |
+| Pass 2  (States)     | 5/10 → 9/10 after fixes                      |
+| Pass 3  (Journey)    | 6/10 → 9/10 after fixes                      |
+| Pass 4  (AI Slop)    | 7/10 → 9/10 after fixes                      |
+| Pass 5  (Design Sys) | 6/10 → 9/10 after fixes                      |
+| Pass 6  (Responsive) | 4/10 → 9/10 after fixes                      |
+| Pass 7  (Decisions)  | 1 resolved (DR18), 0 deferred                |
++--------------------------------------------------------------------+
+| NOT in scope         | written (5 items)                            |
+| What already exists  | written                                      |
+| TODOS.md updates     | 0 (dark mode built now, DR20)                |
+| Approved Mockups     | 0 generated (designer absent); 12 HTML       |
+|                      | wireframes, redrawn to the decisions (DR19)  |
+| Decisions made       | 19 added to plan (DR3–DR20, incl. DR15b)     |
+| Decisions deferred   | 0                                            |
+| Overall design score | 4/10 → 9/10                                  |
++====================================================================+
+```
+All rated passes are 9/10. The plan is design-complete; run `/design-review` after X3 is built for visual QA.
+
+**Unresolved design decisions:** none. One check is open, not a decision: DeepTutor chat pre-fill (W0, T34), with the fallback already decided.
+
+**Approved wireframes:** `docs/designs/2026-11-24-exam-wireframes.html` (v2): Today (first visit), Question, Result, NAT keypad, NAT handwriting, Mock brief, Mock running, Mock result before close, Marks, Receipt states, System states, Laptop mock at 1280 px.
+
+**Review log / task JSONL:** not persisted; the gstack runtime isn't installed in this session. The content is in this section.
+
 ## GSTACK REVIEW REPORT
 
 | Review | Trigger | Why | Runs | Status | Findings |
 |--------|---------|-----|------|--------|----------|
 | CEO Review | `/plan-ceo-review` | Scope & strategy | 1 (not persisted: gstack runtime absent) | ISSUES OPEN | 6 proposals, 6 accepted, 0 deferred · 11 sections run from gstack `review-sections.md` · 12 review decisions (R1–R7, O1–O5) answered |
-| Outside Review | native fallback, Claude Plan subagent (Codex not installed) | Independent 2nd opinion | 1 | unavailable (native completed) | 16 findings (native); 16 resolved (5 by Giri's decision, 6 by the O5 bundle, 5 factual); 0 unresolved; no completed external review |
+| Outside Review | native fallback, Claude subagents (Codex not installed) | Independent 2nd opinion | 3 (CEO, eng, design) | unavailable (native completed) | CEO: 16 findings, all dispositioned · Eng: 12, all dispositioned · Design: 13 (3 critical, 7 high, 3 medium), all dispositioned in §21; 1 tab-set disagreement kept on record; no completed external review |
 | Spec Review | Claude subagent (spec review loop) | Doc quality | 2 | DONE | Round 1 6/10, 20 issues; Round 2 7/10, 12 issues; all fixed or recorded |
-| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | Scope accepted as-is, smaller arrangement (D1). 4 sections run: 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11), 0 perf. 12 outside-voice findings (native fallback): 11 resolved by decision (R12–R23), 1 factual. 18 decisions answered (D1–D18), 0 unresolved. 7 tasks added (T18–T24). 1 TODO added |
-| Design Review | `/plan-design-review` | UI/UX gaps | 0 | — | not run; recommended for the `/exam` app (§15 S11) |
+| Eng Review | `/plan-eng-review` | Architecture & tests (required) | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | Scope accepted as-is, smaller arrangement (D1). 4 sections: 2 critical arch (R8, R9), 1 critical code (R10), 1 test placement (R11), 0 perf. 12 outside-voice findings resolved (R12–R23). 18 decisions answered, 0 unresolved. 7 tasks (T18–T24). 1 TODO |
+| Design Review | `/plan-design-review` | UI/UX gaps | 1 (log not persisted: gstack runtime absent) | CLEAR (PLAN) | score: 4/10 → 9/10, 19 decisions (DR3–DR20); 12 tasks (T25–T36); 0 unresolved |
 | DX Review | `/plan-devex-review` | Developer experience gaps | 0 | — | not run |
 | Retro | `/retro` (plan + SSOT reconciliation) | Plan vs reality vs user evidence | 1 | DONE | 2 commits in 7 days (upstream import only); 0 feature code; 4 changes from the SSOT (D9–D12); 3 tasks added (T0, T16, T17); 1 decision added (D-C) |
 
-- **OUTSIDE COVERAGE:** Codex: not installed (`CODEX_MODE: not_installed`), no completed external review. Native fallback: a Claude Plan subagent completed in 71 s with 16 findings, all dispositioned in §16. Native findings don't count as outside coverage.
-- **OUTSIDE COVERAGE (eng):** Codex not installed; the native Claude Plan subagent completed with 12 findings, all dispositioned in §20. Native findings don't count as outside coverage.
-- **VERDICT:** ENG CLEARED (PLAN): every eng decision is answered. The CEO review still has 3 pending owner decisions (D-I, O3 cost, D-C). Next: `/plan-design-review` for the `/exam` app, before T9.
+- **OUTSIDE COVERAGE:** Codex isn't installed in any of the three reviews, so there's no completed external review. Native Claude subagents completed for CEO (16 findings), eng (12) and design (13), all dispositioned. Native findings don't count as outside coverage.
+- **VERDICT:** ENG + DESIGN CLEARED (PLAN): every eng and design decision is answered, so X3 can be built from §21. The CEO review still has 3 pending owner decisions. Next: Giri's Sat 28 Nov decisions; then T25–T36 inside X3; then `/design-review` once X3 is live.
 
 **UNRESOLVED DECISIONS:**
 - D-I cohort date (Giri, by Sat 28 Nov); the plan assumes Mon 7 Dec

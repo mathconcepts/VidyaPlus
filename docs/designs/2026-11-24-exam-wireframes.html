@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/exam wireframes v2 · Clarity · 24 Nov 2026</title>
+<style>
+:root{
+  --canvas:#f5f5f7;--card:#fff;--sunken:#efeff4;--fill:rgba(120,120,128,.12);
+  --ink:#1d1d1f;--sec:rgba(60,60,67,.6);--ter:rgba(60,60,67,.35);--sep:rgba(60,60,67,.16);
+  --green:#34c759;--green-ink:#248a3d;--green-tint:rgba(52,199,89,.12);
+  --indigo:#5856d6;--indigo-ink:#4340b5;--indigo-tint:rgba(88,86,214,.12);
+  --red:#ff3b30;--red-ink:#d70015;--orange:#ff9f0a;--orange-ink:#b25000;--orange-tint:rgba(255,159,10,.14);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter Tight","Segoe UI",system-ui,sans-serif;
+  --serif:ui-serif,"New York",Georgia,serif;--mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:#e5e5ea;font-family:var(--sans);color:var(--ink);letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+::selection{background:var(--green-tint)}
+header.doc{max-width:1180px;margin:0 auto;padding:32px 20px 8px}
+header.doc h1{font-size:28px;letter-spacing:-.018em;margin:0 0 6px}
+header.doc p{font-size:15px;color:var(--sec);margin:0;max-width:760px;line-height:1.45}
+.grid{max-width:1180px;margin:0 auto;padding:20px;display:flex;flex-wrap:wrap;gap:28px}
+figure{margin:0;width:360px}
+figcaption{font-size:13px;color:var(--sec);margin:10px 4px 0;line-height:1.4}
+figcaption b{color:var(--ink);font-weight:600}
+.phone{width:360px;height:740px;background:var(--canvas);border-radius:28px;overflow:hidden;position:relative;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:15px;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--sep)}
+.bar .t{font-weight:600}
+.bar .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.body{flex:1;overflow:hidden;padding:20px}
+.tabs{height:56px;display:flex;border-top:1px solid var(--sep);background:rgba(255,255,255,.72)}
+.tabs div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:var(--sec);gap:3px}
+.tabs div.on{color:var(--ink);font-weight:600}
+.tabs i{width:22px;height:22px;border-radius:6px;border:1.75px solid currentColor;display:block}
+.eyebrow{font-size:13px;color:var(--sec);margin:0 0 6px}
+h2{font-size:22px;letter-spacing:-.018em;margin:0 0 4px;font-weight:600}
+.lede{font-size:17px;color:var(--sec);margin:0 0 20px;line-height:1.4}
+.focal{background:var(--card);border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 6px 18px rgba(0,0,0,.05)}
+.big{font-size:34px;font-weight:600;letter-spacing:-.022em;font-variant-numeric:tabular-nums}
+.btn{display:flex;align-items:center;justify-content:center;height:50px;border-radius:12px;background:var(--green);color:#fff;font-weight:600;font-size:17px;margin-top:16px}
+.btn.ghost{background:var(--fill);color:var(--ink)}
+.row{display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid var(--sep);font-size:17px}
+.row:last-child{border-bottom:0}
+.row .r{color:var(--sec);font-size:15px}
+.label{font-size:13px;color:var(--sec);text-transform:none;margin:30px 0 4px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.stem{font-family:var(--serif);font-size:19px;line-height:1.45;margin:4px 0 18px}
+.opt{display:flex;align-items:center;gap:12px;min-height:52px;padding:0 14px;border-radius:12px;background:var(--card);margin-bottom:8px;font-family:var(--serif);font-size:18px}
+.opt .k{font-family:var(--sans);font-size:15px;color:var(--sec);width:18px}
+.opt.sel{background:var(--sunken);box-shadow:inset 0 0 0 2px var(--ink)}
+.opt .g{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1.75px var(--ter);flex:none}
+.opt.sel .g{box-shadow:inset 0 0 0 5px var(--ink)}
+.opt .g.sq{border-radius:5px}
+.opt.sel .g.sq{box-shadow:none;background:var(--ink)}
+.opt.right{background:var(--green-tint)}
+.opt.wrong{background:rgba(255,59,48,.10)}
+.chip{font-size:13px;color:var(--sec);display:inline-flex;gap:6px;align-items:center}
+.receipt{background:var(--card);border-radius:12px;box-shadow:inset 0 0 0 1px rgba(52,199,89,.45);padding:12px 14px;font-size:13px;color:var(--green-ink);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.receipt .d{width:16px;height:16px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.receipt.neutral{box-shadow:inset 0 0 0 1px var(--sep);color:var(--sec)}
+.receipt.neutral .d{background:var(--ter)}
+.receipt.wait{box-shadow:inset 0 0 0 1px rgba(255,159,10,.45);color:var(--orange-ink)}
+.receipt.wait .d{background:var(--orange)}
+.plain{font-size:13px;color:var(--sec);padding:12px 14px;border-radius:12px;background:var(--sunken);line-height:1.4}
+.expanded{margin-top:8px;padding:12px 14px;background:var(--sunken);border-radius:12px;font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--ink)}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.keypad div{height:52px;border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:22px;font-variant-numeric:tabular-nums}
+.keypad div.fn{background:var(--fill);font-size:17px}
+.field{height:56px;border-radius:12px;background:var(--card);box-shadow:inset 0 0 0 2px var(--ink);display:flex;align-items:center;padding:0 16px;font-family:var(--mono);font-size:24px}
+.ring{width:44px;height:44px}
+.pal{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.pal div{height:44px;border-radius:10px;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:15px;font-variant-numeric:tabular-nums}
+.pal .a{background:var(--green-tint);color:var(--green-ink)}
+.pal .c{background:var(--ink);color:#fff}
+.pal .f{box-shadow:inset 0 0 0 2px var(--orange)}
+.range{height:8px;border-radius:4px;background:var(--fill);position:relative;margin:14px 0 6px}
+.range span{position:absolute;top:0;bottom:0;border-radius:4px;background:var(--green)}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--ter);font-variant-numeric:tabular-nums}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:8px}
+.banner{font-size:15px;padding:12px 14px;border-radius:12px;background:var(--sunken);color:var(--ink);line-height:1.4}
+.tutor{color:var(--indigo-ink);font-size:15px}
+.legend{max-width:1180px;margin:0 auto 48px;padding:0 20px;font-size:13px;color:var(--sec);line-height:1.55}
+.tag{display:inline-block;font-size:11px;font-weight:600;color:var(--orange-ink);background:var(--orange-tint);border-radius:6px;padding:2px 6px;margin-left:6px;vertical-align:2px}
+
+.laptop{width:1120px;height:620px;background:var(--canvas);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);display:flex;flex-direction:column}
+figure.wide{width:1120px}
+.seg{display:inline-flex;background:var(--fill);border-radius:9px;padding:2px;font-size:13px}
+.seg span{padding:5px 14px;border-radius:7px;color:var(--sec)}
+.seg span.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.kbd{font-family:var(--mono);font-size:11px;color:var(--sec);border:1px solid var(--sep);border-radius:4px;padding:0 4px;margin-left:6px}
+.canvas{height:230px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--sep);position:relative}
+.back{color:var(--sec);font-size:15px}
+</style>
+</head>
+<body>
+<header class="doc">
+<h1>/exam · wireframes v2</h1>
+<p>Updated after the design review on 24 Nov. Uses the Clarity tokens (<span class="mono">DESIGN-SYSTEM.md</span>). Each screen notes the decision (D3–D18) behind it. Phone frames are 360 × 740 and the laptop frame is 1280 wide, scaled down. Numbers are placeholders.</p>
+</header>
+<div class="grid">
+
+<!-- 1 TODAY first visit -->
+<figure><div class="phone">
+  <div class="bar"><span class="back">← Tutor</span><span class="t">Today</span><span style="width:52px"></span></div>
+  <div class="body">
+    <div class="focal">
+      <p class="eyebrow" style="margin-bottom:2px">Starter plan · 30 min · 4 items</p>
+      <div class="big" style="font-size:28px;line-height:1.15">Topics worth 4 marks in GATE</div>
+      <p style="font-size:15px;color:var(--sec);margin:8px 0 0">Eigenvalues, Laplace · from GATE topic weights. Your marks estimate appears after the mock or 30 answers.</p>
+      <div class="btn">Start</div>
+    </div>
+    <p style="font-size:15px;color:var(--sec);margin:14px 4px 0">Mock opens Sun 13 Dec</p>
+    <p class="label">Pick up</p>
+    <div class="row"><span>Continue NAT · Laplace</span><span class="r mono">2 of 5</span></div>
+    <div class="row"><span>Practise a topic</span><span class="r">›</span></div>
+  </div>
+  <div class="tabs"><div class="on"><i></i>Today</div><div><i></i>Mock</div><div><i></i>Marks</div></div>
+</div>
+<figcaption><b>Today, first visit</b> (D3, D4). Three tabs. The headline is the GATE weight of today's topics, with its basis underneath. Once a student has 30 attempts or has done the mock, it switches to "+0.8–1.4 marks · estimate from N attempts". The mock date is one plain line, and the only rows are Continue and Practise a topic. "← Tutor" is always there (D10).</figcaption></figure>
+
+<!-- 2 QUESTION -->
+<figure><div class="phone">
+  <div class="bar"><span>✕</span><span class="mono" style="color:var(--sec)">2 of 4</span><span class="chip mono">+1 · −⅓</span></div>
+  <div class="body">
+    <p class="eyebrow">Eigenvalues · 1 mark · MCQ</p>
+    <p class="stem">The eigenvalues of A = [[2, 1], [1, 2]] are</p>
+    <div class="opt"><span class="g"></span><span class="k">A</span>1 and 3</div>
+    <div class="opt sel"><span class="g"></span><span class="k">B</span>2 and 2</div>
+    <div class="opt"><span class="g"></span><span class="k">C</span>0 and 4</div>
+    <div class="opt"><span class="g"></span><span class="k">D</span>−1 and 3</div>
+    <div class="btn" style="margin-top:20px">Check</div>
+    <p style="text-align:center;font-size:13px;color:var(--ter);margin-top:16px">Verified set · <span class="mono">#gate-ec-017</span></p>
+  </div>
+</div>
+<figcaption><b>Question</b> (D13). A selected option gets a 2px ink ring, a sunken fill and a filled radio. Indigo is now tutor-only. Options are a radiogroup for screen readers (D17).</figcaption></figure>
+
+<!-- 3 RESULT correct -->
+<figure><div class="phone">
+  <div class="bar"><span>✕</span><span class="mono" style="color:var(--sec)">3 of 4</span><span class="chip mono" style="color:var(--green-ink)">+1</span></div>
+  <div class="body">
+    <p class="stem" style="font-size:17px;color:var(--sec)">The eigenvalues of A = [[2, 1], [1, 2]] are</p>
+    <div class="opt right"><span class="k">A</span>1 and 3 · yours</div>
+    <p style="font-size:17px;font-weight:600;margin:14px 0 4px">Right. That's 3 of 4 eigenvalue items this week.</p>
+    <p style="font-size:17px;line-height:1.45;margin:0 0 14px">Trace 4, determinant 3, so λ² − 4λ + 3 = 0 and λ = 1, 3.</p>
+    <div class="receipt"><span class="d">✓</span><span>Verified · SymPy + Wolfram agree · <span class="mono">20 Nov v1</span></span></div>
+    <div class="expanded">sympy: Matrix([[2,1],[1,2]]).eigenvals() → {1:1, 3:1}<br>wolfram: eigenvalues {{2,1},{1,2}} → {3, 1}<br>key: A · match</div>
+    <div class="btn">Next</div>
+    <p style="display:flex;justify-content:space-between;font-size:15px;margin-top:14px"><span class="tutor">Ask the tutor why</span><span style="color:var(--sec)">Report wrong key</span></p>
+  </div>
+</div>
+<figcaption><b>Result</b> (D12, D10). The win line is a count, not an estimate, and there's no toast. The receipt opens to the exact engine lines. On a wrong answer the receipt uses the neutral tone. "Ask the tutor why" opens chat in the same tab with "Explain #id" pre-filled, and it's hidden on mock items until close. Focus moves to the result line (D17).</figcaption></figure>
+
+<!-- 4 NAT keypad -->
+<figure><div class="phone">
+  <div class="bar"><span>✕</span><span class="mono" style="color:var(--sec)">3 of 5</span><span class="chip mono">+2 · 0</span></div>
+  <div class="body">
+    <p class="eyebrow">Laplace · 2 marks · numerical answer</p>
+    <p class="stem" style="font-size:18px">The value of f(0⁺) for F(s) = (3s + 2)/(s² + 4s) is ____ (to one decimal place)</p>
+    <div style="display:flex;gap:8px;align-items:center"><div class="field" style="flex:1">3<span style="color:var(--ter)">|</span></div><div class="btn ghost" style="margin:0;width:76px;height:56px;font-size:15px">Write</div></div>
+    <p style="font-size:13px;color:var(--sec);margin:8px 2px 0">Reads as <span class="mono">3</span> · no negative marks · blank counts as skipped</p>
+    <div class="keypad" style="grid-template-columns:repeat(3,1fr)"><div>7</div><div>8</div><div>9</div><div>4</div><div>5</div><div>6</div><div>1</div><div>2</div><div>3</div><div>0</div><div class="fn">.</div><div class="fn">−</div><div class="fn" style="grid-column:span 2">Clear</div><div class="fn">⌫</div></div>
+    <div class="btn">Check</div>
+  </div>
+</div>
+<figcaption><b>NAT, keypad</b> (D15). Laid out like GATE's virtual keypad (7-8-9 on top, minus, point, clear, backspace). The field is <span class="mono">inputmode="none"</span>, so Android's keyboard never opens. Only "." counts as a decimal point, and "Reads as" shows the value that will be graded. Physical keys work on a laptop.</figcaption></figure>
+
+<!-- 4b WRITE -->
+<figure><div class="phone">
+  <div class="bar"><span>✕</span><span class="mono" style="color:var(--sec)">3 of 5</span><span class="chip mono">+2 · 0</span></div>
+  <div class="body">
+    <p class="eyebrow">Write your answer</p>
+    <div class="canvas"><svg width="320" height="230" viewBox="0 0 320 230" fill="none" stroke="#1d1d1f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M70 120 h34"/><path d="M128 82 c20-14 48-4 40 18 c-6 16-30 30-40 52 h46"/><circle cx="196" cy="150" r="3.5" fill="#1d1d1f"/><path d="M262 82 h-36 l-4 30 c18-10 42-2 40 20 c-2 22-30 26-44 14"/></svg></div>
+    <p style="font-size:17px;margin:14px 2px 4px">Reads as <span class="mono" style="font-size:20px;font-weight:600">−2.5</span></p>
+    <p style="font-size:13px;color:var(--sec);margin:0 2px">Wrong? Clear and write again, or fix it on the keypad.</p>
+    <div style="display:flex;gap:8px"><div class="btn ghost" style="flex:1">Clear</div><div class="btn ghost" style="flex:1">Keypad</div></div>
+    <div class="btn">Use −2.5</div>
+  </div>
+</div>
+<figcaption><b>NAT, handwriting</b> (D15b). Practice only; the mock is keypad-only, like GATE. The digit recogniser runs on the phone and loads on the first tap of Write. It fills the field for the student to confirm, and it never submits by itself.</figcaption></figure>
+
+<!-- 5 MOCK BRIEF -->
+<figure><div class="phone">
+  <div class="bar"><span class="back">← Tutor</span><span class="t">Mock</span><span style="width:52px"></span></div>
+  <div class="body">
+    <p class="eyebrow">Engineering Maths · GATE EC pattern</p>
+    <div style="display:flex;gap:28px;margin:6px 0 14px"><div><div class="big mono">54</div><p style="font-size:13px;color:var(--sec);margin:0">minutes</p></div><div><div class="big mono">18</div><p style="font-size:13px;color:var(--sec);margin:0">questions · 30 marks</p></div></div>
+    <p style="font-size:17px;line-height:1.45;margin:0 0 16px">Timed at GATE pace. The score is an unproctored practice mock, so treat it as a guide, not a rank.</p>
+    <div class="row"><span>One scored attempt</span></div>
+    <div class="row"><span>The timer keeps running if you leave</span></div>
+    <div class="row"><span>MCQ −⅓ · MSQ and NAT no negative marks</span></div>
+    <div class="row"><span>Answers unlock for everyone on Sun 20 Dec</span></div>
+    <div class="btn">Start mock</div>
+  </div>
+  <div class="tabs"><div><i></i>Today</div><div class="on"><i></i>Mock</div><div><i></i>Marks</div></div>
+</div>
+<figcaption><b>Mock brief</b> (M1 + R15 + R21). Two numbers and four plain rules. Minutes and counts are read from the form, never hard-coded. After close, non-takers see "Practice mock · unscored" here instead (D6).</figcaption></figure>
+
+<!-- 6 MOCK RUNNING -->
+<figure><div class="phone">
+  <div class="bar"><span class="mono" style="color:var(--sec)">12 of 18</span><span class="mono t">0:31:10</span><span style="font-size:15px">Questions ⋯</span></div>
+  <div class="body">
+    <p class="eyebrow">2 marks · MSQ · select all that apply</p>
+    <p class="stem">Which of the following are true for a real symmetric matrix?</p>
+    <div class="opt sel"><span class="g sq"></span><span class="k">A</span>All eigenvalues are real</div>
+    <div class="opt"><span class="g sq"></span><span class="k">B</span>It is always invertible</div>
+    <div class="opt sel"><span class="g sq"></span><span class="k">C</span>It is orthogonally diagonalisable</div>
+    <div class="opt"><span class="g sq"></span><span class="k">D</span>Its determinant is positive</div>
+    <p style="font-size:13px;color:var(--sec);margin:12px 2px">Saved · no partial credit, no negative marks</p>
+    <div style="display:flex;gap:8px"><div class="btn ghost" style="flex:1">Flag</div><div class="btn" style="flex:2">Next</div></div>
+    <p style="font-size:13px;color:var(--ter);margin:14px 2px 0">⋯ holds "Report a problem": reviewed after the close date, never answered before (D18).</p>
+  </div>
+</div>
+<figcaption><b>Mock, running</b> (M2, D13, D18). Ink selection with checkbox glyphs for MSQ. "Saved" confirms each autosave. The timer is announced only at 30, 10 and 5 minutes left, and it shows in red-ink only under 10:00.</figcaption></figure>
+
+<!-- 7 PRE-CLOSE RESULT -->
+<figure><div class="phone">
+  <div class="bar"><span class="back">← Tutor</span><span class="t">Mock</span><span style="width:52px"></span></div>
+  <div class="body">
+    <p class="eyebrow">Unproctored practice mock · submitted 14 Dec</p>
+    <div class="focal">
+      <div class="big mono">19.67 <span style="font-size:20px;color:var(--sec)">/ 30</span></div>
+      <p style="font-size:15px;color:var(--sec);margin:6px 0 0"><span class="mono">13</span> right · <span class="mono">3</span> wrong · <span class="mono">2</span> skipped</p>
+      <div class="plain" style="margin-top:14px">Topic breakdown, answers, solutions and receipts unlock for everyone on <b>Sun 20 Dec</b>. Your score won't change.</div>
+      <div class="btn">Back to today's plan</div>
+    </div>
+  </div>
+  <div class="tabs"><div><i></i>Today</div><div class="on"><i></i>Mock</div><div><i></i>Marks</div></div>
+</div>
+<figcaption><b>Mock result, before close</b> (D11). The score, the tally and the unlock date, nothing more. Topic rows and the taxonomy wait for close day, so the small form can't leak its keys. On close day this tab becomes "Review" (D6).</figcaption></figure>
+
+<!-- 8 MARKS -->
+<figure><div class="phone">
+  <div class="bar"><span class="back">← Tutor</span><span class="t">Marks</span><span style="width:52px"></span></div>
+  <div class="body">
+    <p class="eyebrow">Engineering Maths · 15 marks in GATE EC</p>
+    <div class="focal">
+      <div class="big">9–12 <span style="font-size:20px;color:var(--sec)">of 15</span></div>
+      <div class="range"><span style="left:60%;width:20%"></span></div>
+      <div class="scale"><span>0</span><span>5</span><span>10</span><span>15</span></div>
+      <p style="font-size:13px;color:var(--sec);margin:10px 0 0">Estimate from the mock and 34 practice attempts. Last week: 8–11.</p>
+    </div>
+    <p class="label">Why marks are lost</p>
+    <div class="row"><span>Setup error</span><span class="r mono">6</span></div>
+    <div class="row"><span>Arithmetic slip</span><span class="r mono">4</span></div>
+    <div class="row"><span>Concept gap</span><span class="r mono">3</span></div>
+    <div class="row"><span>Unclassified</span><span class="r mono">2</span></div>
+  </div>
+  <div class="tabs"><div><i></i>Today</div><div><i></i>Mock</div><div class="on"><i></i>Marks</div></div>
+</div>
+<figcaption><b>Marks.</b> One gauge that names its basis. Empty state: "Take the mock to see your marks range". Loading: a static skeleton of the gauge, with no shimmer.</figcaption></figure>
+
+<!-- 9 RECEIPT STATES -->
+<figure><div class="phone">
+  <div class="bar"><span class="t">Receipt states</span><span></span><span></span></div>
+  <div class="body" style="display:flex;flex-direction:column;gap:12px">
+    <div class="receipt"><span class="d">✓</span><span>Verified · SymPy + Wolfram agree · <span class="mono">20 Nov v1</span></span></div>
+    <div class="receipt"><span class="d">✓</span><span>Verified · SymPy check + reviewed by Giri · <span class="mono">20 Nov v1</span></span></div>
+    <div class="receipt wait"><span class="d">…</span><span>Re-checking · one engine disagreed. You can still practise it.</span></div>
+    <div class="plain">Withdrawn while we re-check. It won't count against you. <span class="mono">#gate-ec-041</span></div>
+    <div class="plain">Receipt unlocks with the answers on Sun 20 Dec.</div>
+    <p style="font-size:13px;color:var(--sec);line-height:1.45;margin:8px 2px 0">ReceiptBorder now has three tones: <span class="mono">positive</span>, <span class="mono">neutral</span> (inside a wrong answer) and <span class="mono">pending</span> (new, D9). Withdrawn and locked have no receipt object, so they get no border.</p>
+  </div>
+</div>
+<figcaption><b>The five receipt states</b> (D9). The new <span class="mono">pending</span> tone gets logged in DESIGN-SYSTEM.md.</figcaption></figure>
+
+<!-- 10 SYSTEM -->
+<figure><div class="phone">
+  <div class="bar"><span class="back">← Tutor</span><span class="t">Today</span><span style="width:52px"></span></div>
+  <div class="body" style="display:flex;flex-direction:column;gap:12px">
+    <div class="banner">Saved · we'll check it when you're back online. <span style="color:var(--sec)">You can keep going.</span></div>
+    <div class="banner">Content updated. <b>Refresh</b> to get the new version. Your answers are kept.</div>
+    <div class="banner">Your access ended on 31 Dec. Your marks history is still here. <b>Renew on Telegram</b></div>
+    <div class="banner">The Exam page is down for now. Answers you already saved are safe. <b>DeepTutor's Practice and Tutor still work →</b></div>
+    <p style="font-size:13px;color:var(--sec);line-height:1.45;margin:8px 2px 0">One banner slot under the title bar: one sentence, one action, never a modal. The outage text is Caddy's static page, not a banner.</p>
+  </div>
+</div>
+<figcaption><b>System states</b> (D5, D7, D8). Offline answers stay saved and Next still works. When access ends, Marks and Review stay readable, new items lock, and a mock already started can be finished.</figcaption></figure>
+
+<!-- 11 LAPTOP MOCK -->
+<figure class="wide"><div class="laptop">
+  <div class="bar" style="height:52px;padding:0 28px"><span class="back">← Tutor</span><span class="seg"><span>Today</span><span class="on">Mock</span><span>Marks</span></span><span class="mono t">0:31:10</span></div>
+  <div style="flex:1;display:flex">
+    <div style="flex:1;padding:32px 48px;display:flex;justify-content:center"><div style="width:640px">
+      <p class="eyebrow">12 of 18 · 2 marks · MSQ · select all that apply</p>
+      <p class="stem" style="font-size:20px">Which of the following are true for a real symmetric matrix?</p>
+      <div class="opt sel"><span class="g sq"></span><span class="k">A</span>All eigenvalues are real<span class="kbd" style="margin-left:auto">1</span></div>
+      <div class="opt"><span class="g sq"></span><span class="k">B</span>It is always invertible<span class="kbd" style="margin-left:auto">2</span></div>
+      <div class="opt sel"><span class="g sq"></span><span class="k">C</span>It is orthogonally diagonalisable<span class="kbd" style="margin-left:auto">3</span></div>
+      <div class="opt"><span class="g sq"></span><span class="k">D</span>Its determinant is positive<span class="kbd" style="margin-left:auto">4</span></div>
+      <p style="font-size:13px;color:var(--sec);margin:12px 2px">Saved · no partial credit, no negative marks</p>
+      <div style="display:flex;gap:8px;width:360px"><div class="btn ghost" style="flex:1">Flag <span class="kbd">F</span></div><div class="btn" style="flex:2">Next <span class="kbd" style="color:#fff;border-color:rgba(255,255,255,.5)">N</span></div></div>
+    </div></div>
+    <div style="width:300px;border-left:1px solid var(--sep);padding:28px 24px;background:#fff">
+      <p class="eyebrow">Questions</p>
+      <div class="pal" style="grid-template-columns:repeat(5,1fr)">
+        <div class="a">1</div><div class="a">2</div><div class="a">3</div><div class="a f">4</div><div class="a">5</div>
+        <div>6</div><div class="a">7</div><div class="a">8</div><div class="a">9</div><div class="a">10</div>
+        <div class="a">11</div><div class="c">12</div><div>13</div><div>14</div><div>15</div>
+        <div>16</div><div>17</div><div>18</div>
+      </div>
+      <p style="font-size:13px;color:var(--sec);margin:16px 0">answered 10 · blank 7 · flagged 1</p>
+      <div class="btn ghost" style="height:44px;font-size:15px">Submit mock</div>
+    </div>
+  </div>
+</div>
+<figcaption><b>Laptop, mock at 1280px</b> (D16). At 768px and up there's one 640px column and the tabs become a top segmented control. At 1024px and up during the mock, the palette is a fixed right panel like GATE's. Keyboard: 1–4 or A–D to select, N for next, F to flag. Key hints are visible and every control has a focus ring.</figcaption></figure>
+
+</div>
+<p class="legend">Apple (Clarity) is the base: one focal block per screen, type-led, a 17px floor, and colour only for meaning. From Netflix: one obvious "continue" row and one hero action. From Tesla: one gauge read at a glance, and every other screen one tap away. From Microsoft Fluent: adapt the layout to the window size, with a visible focus ring, full keyboard paths and MathML for screen readers.</p>
+
+</body>
+</html>
