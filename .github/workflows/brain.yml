@@ -1,0 +1,38 @@
+name: Exam Brain
+
+# vidhya/brain: tests (incl. live SymPy and the DeepTutor parity golden),
+# typecheck, the Fork Test lint, and the DeepTutor auth contract (plan T5, T8, T15).
+on:
+  push:
+    branches: [main]
+    paths: ["vidhya/brain/**", "upstream/**", "scripts/upstream/**", ".github/workflows/brain.yml"]
+  pull_request:
+    paths: ["vidhya/brain/**", "upstream/**", "scripts/upstream/**", ".github/workflows/brain.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  brain:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vidhya/brain
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: vidhya/brain/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "sympy==1.14.0"
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint:fork-test
+      - run: npm test
+      - name: DeepTutor auth contract
+        working-directory: .
+        run: python3 -I scripts/upstream/check-auth-contract.py upstream/deeptutor
