@@ -102,3 +102,28 @@ describe('parseExamMarking', () => {
     expect(() => parseExamMarking(raw)).toThrow(field);
   });
 });
+
+describe('R10: invalid picks are refused, never scored', () => {
+  const cases: [string, ScorableItem, Parameters<typeof scoreAttempt>[1]][] = [
+    ['mcq index past the end', mcq(1), { kind: 'mcq', selectedIndex: 4 }],
+    ['mcq index 7 on 4 options', mcq(1), { kind: 'mcq', selectedIndex: 7 }],
+    ['mcq negative index', mcq(1), { kind: 'mcq', selectedIndex: -1 }],
+    ['mcq fractional index', mcq(1), { kind: 'mcq', selectedIndex: 1.5 }],
+    ['mcq NaN index', mcq(1), { kind: 'mcq', selectedIndex: Number.NaN }],
+    ['msq index out of range', msq(), { kind: 'msq', selectedIndices: [0, 9] }],
+    ['msq negative index', msq(), { kind: 'msq', selectedIndices: [-1, 2] }],
+    ['msq fractional index', msq(), { kind: 'msq', selectedIndices: [0, 2.5] }],
+    ['msq duplicate picks', msq(), { kind: 'msq', selectedIndices: [0, 0, 2] }],
+    ['msq duplicate of the whole key', msq(), { kind: 'msq', selectedIndices: [2, 2] }],
+  ];
+  it.each(cases)('%s -> InvalidResponse', (_name, item, response) => {
+    expect(code(() => scoreAttempt(item, response, M))).toBe('InvalidResponse');
+  });
+  it('the last valid index and a valid MSQ set still score', () => {
+    expect(scoreAttempt(mcq(1), { kind: 'mcq', selectedIndex: 3 }, M).correct).toBe(false);
+    expect(scoreAttempt(msq(), { kind: 'msq', selectedIndices: [2, 0] }, M).correct).toBe(true);
+  });
+  it('a skip is never refused', () => {
+    expect(scoreAttempt(mcq(1), { kind: 'mcq', skipped: true }, M).skipped).toBe(true);
+  });
+});

@@ -8,6 +8,12 @@
  *   - Errors are named `BrainError`s instead of plain `Error`s (plan §7).
  *   - The output is the brain's own `Grade`, not legacy `GradeResult`.
  *
+ * ONE INTENDED BEHAVIOUR CHANGE from the legacy scorer (plan R10, B1): an
+ * MCQ index that is not an integer in [0, options.length), or MSQ indices that
+ * are out of range, non-integer or duplicated, are refused with
+ * `InvalidResponse` instead of being scored. The legacy scorer marked them
+ * wrong and deducted marks. A refused pick is not an attempt; nothing is stored.
+ *
  * Rules (unchanged):
  *   - MCQ correct → +marks; wrong → −penalty(marks); skipped → 0.
  *   - MSQ exact set → +marks; any other set → −msq_negative (often 0).
@@ -79,6 +85,13 @@ export function scoreAttempt(item: ScorableItem, response: StudentResponse, mark
   }
 }
 
+/** R10: a pick must be an integer in [0, optionCount). */
+function assertValidPick(i: unknown, optionCount: number, what: string): asserts i is number {
+  if (typeof i !== 'number' || !Number.isInteger(i) || i < 0 || i >= optionCount) {
+    throw new BrainError('InvalidResponse', `${what} must be an integer in [0, ${optionCount}), got ${String(i)}`);
+  }
+}
+
 function scoreMcq(item: ScorableItem, r: StudentResponse, marking: ExamMarking): Grade {
   if (item.answerIndex === undefined || !item.options || item.options.length === 0) {
     throw new BrainError('InvalidItem', 'mcq item requires answerIndex and non-empty options');
@@ -88,6 +101,7 @@ function scoreMcq(item: ScorableItem, r: StudentResponse, marking: ExamMarking):
   if (r.selectedIndex === undefined) {
     throw new BrainError('InvalidResponse', 'mcq response must set selectedIndex when not skipped');
   }
+  assertValidPick(r.selectedIndex, item.options.length, 'mcq selectedIndex');
   const correct = r.selectedIndex === item.answerIndex;
   return grade(
     correct ? max : -mcqPenalty(max, marking),
@@ -111,6 +125,13 @@ function scoreMsq(item: ScorableItem, r: StudentResponse, marking: ExamMarking):
   if (r.skipped) return grade(0, max, false, SKIPPED, true);
   if (!r.selectedIndices || r.selectedIndices.length === 0) {
     throw new BrainError('InvalidResponse', 'msq response must set selectedIndices when not skipped');
+  }
+  const picks = r.selectedIndices;
+  const seen = new Set<number>();
+  for (const i of picks) {
+    assertValidPick(i, item.options.length, 'msq selectedIndices entry');
+    if (seen.has(i)) throw new BrainError('InvalidResponse', `msq selectedIndices repeats index ${i}`);
+    seen.add(i);
   }
   const want = new Set(item.answerIndices);
   const got = new Set(r.selectedIndices);

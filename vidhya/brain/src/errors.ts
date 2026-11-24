@@ -15,7 +15,13 @@ export type BrainErrorCode =
   | 'AuthContractBroken'
   | 'AuthDisabled'
   | 'UnknownStudent'
-  | 'StoreSchemaMismatch';
+  | 'StoreSchemaMismatch'
+  | 'SchemaBehind'
+  | 'MigrationFailed'
+  | 'InvalidItemId'
+  | 'InvalidRegistryRow'
+  | 'UnknownTier'
+  | 'InvalidDispute';
 
 export class BrainError extends Error {
   readonly code: BrainErrorCode;
