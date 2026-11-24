@@ -92,4 +92,41 @@ CREATE TABLE mocks (
 CREATE UNIQUE INDEX mocks_one_scored ON mocks (student_hash, form_version) WHERE state IN ('in_progress','scored');
 `,
   },
+  {
+    version: 2,
+    name: '002_registry',
+    sql: `
+-- R23 / X4: who a student is (hashed), their tier, and how long access lasts.
+-- Raw Telegram ids and DeepTutor user ids are never stored, only hashes.
+CREATE TABLE registry (
+  student_hash   TEXT PRIMARY KEY,
+  dt_user_hash   TEXT NOT NULL UNIQUE,
+  tier           TEXT NOT NULL,
+  entitled_until TEXT CHECK (entitled_until IS NULL OR entitled_until GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),
+  created_at     TEXT NOT NULL,
+  updated_at     TEXT NOT NULL
+);
+`,
+  },
+  {
+    version: 3,
+    name: '003_overlay_audit',
+    sql: `
+-- B6: every overlay change leaves an append-only audit row (no UPDATE, no DELETE).
+CREATE TABLE overlay_audit (
+  id          INTEGER PRIMARY KEY,
+  ts          TEXT NOT NULL,
+  item_id     TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  action      TEXT NOT NULL CHECK (action IN ('quarantine_quorum','quarantine_admin','restore_admin')),
+  actor       TEXT NOT NULL,
+  detail      TEXT
+);
+CREATE INDEX overlay_audit_item ON overlay_audit (item_id);
+CREATE TRIGGER overlay_audit_no_update BEFORE UPDATE ON overlay_audit
+BEGIN SELECT RAISE(ABORT, 'overlay_audit is append-only'); END;
+CREATE TRIGGER overlay_audit_no_delete BEFORE DELETE ON overlay_audit
+BEGIN SELECT RAISE(ABORT, 'overlay_audit is append-only'); END;
+`,
+  },
 ];

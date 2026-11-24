@@ -3,8 +3,8 @@
  * `.backup` / `VACUUM INTO`, never a raw file copy of a WAL database.
  */
 import Database from 'better-sqlite3';
-import { BrainError } from '../errors.js';
 import { MIGRATIONS } from './migrations.js';
+import { applyPending } from './migrate.js';
 
 export type Db = Database.Database;
 
@@ -19,19 +19,9 @@ export function openStore(file: string): Db {
   return db;
 }
 
+/** Dev and test convenience: apply pending migrations. Production uses `vidhya migrate` (E13). */
 export function migrate(db: Db): void {
-  db.exec('CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, name TEXT NOT NULL, applied_at TEXT NOT NULL)');
-  const current = (db.prepare('SELECT COALESCE(MAX(version), 0) AS v FROM schema_migrations').get() as { v: number }).v;
-  if (current > SCHEMA_VERSION) {
-    throw new BrainError('StoreSchemaMismatch', `database is at schema ${current}, this brain knows up to ${SCHEMA_VERSION}`);
-  }
-  for (const m of MIGRATIONS) {
-    if (m.version <= current) continue;
-    db.transaction(() => {
-      db.exec(m.sql);
-      db.prepare('INSERT INTO schema_migrations (version, name, applied_at) VALUES (?, ?, ?)').run(m.version, m.name, new Date().toISOString());
-    })();
-  }
+  applyPending(db);
 }
 
 /** Online backup of a live WAL database (plan D8, T13). */
