@@ -1,0 +1,53 @@
+name: Exam app
+
+# vidhya/ui + vidhya/exam: typecheck, tests (incl. axe, contrast) and the 250 KB
+# first-load budget (plan T25, T33, E11). The legacy frontend shares vidhya/ui,
+# so its tests and build run on the same changes (E10): a ui change can't break
+# the old app, or /exam, unnoticed. vidhya/brain has its own workflow.
+on:
+  push:
+    branches: [main]
+    paths: ["vidhya/ui/**", "vidhya/shared/**", "vidhya/exam/**", "vidhya/package.json", "vidhya/package-lock.json", "frontend/**", ".github/workflows/exam.yml"]
+  pull_request:
+    paths: ["vidhya/ui/**", "vidhya/shared/**", "vidhya/exam/**", "vidhya/package.json", "vidhya/package-lock.json", "frontend/**", ".github/workflows/exam.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  exam:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vidhya
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: vidhya/package-lock.json
+      - run: npm ci
+      - name: Typecheck (ui, exam)
+        run: npm run typecheck
+      - name: Tests (ui, exam: components, axe light and dark, contrast, guards)
+        run: npm test
+      - name: First-load budget (250 KB gzipped JS + CSS + fonts)
+        run: npm run check-budget --workspace @vidhya/exam
+
+  legacy-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm test
+      - run: npx vite build

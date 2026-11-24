@@ -17,5 +17,9 @@ Never edit `upstream/deeptutor/` directly. CI and the pre-commit hook reject it.
 - `branding/` — brand name, string overrides, assets, the locale rewrite script.
 - `patches/deeptutor/` — the patch queue (empty today).
 - `brain/` — the Exam Brain: GATE marking, CAS checks, `/exam` app, MCP tools (see PORTING.md).
+- `ui/` — `@vidhya/ui`: the Clarity token CSS and the shared ui components (React is a peer dependency). The legacy `frontend/` reaches it through a `@vidhya/ui` alias.
+- `exam/` — the student-facing `/exam` app (Vite + React, `base: '/exam/'`). Talks to the brain only through `src/api/types.ts` (`ExamApi`); `FakeExamApi` serves synthetic data until the HTTP API exists. `npm run check-budget` enforces 250 KB gzipped first load.
+- `shared/` — dependency-free modules both the brain and the browser load (`nat-input.ts`).
+- `package.json` — npm workspaces for `ui` and `exam` only, so one React is hoisted. `brain/` is not a member. Run `npm ci` here, then `npm test`.
 - `sync/` — `vidhya sync`, which keeps each student's DeepTutor practice bank equal to the servable pack.
 - `plugins/` — DeepTutor plugins, if a later need fits that contract (none today).

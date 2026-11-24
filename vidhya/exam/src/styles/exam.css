@@ -3,6 +3,8 @@
   --touch-min: 48px;
   /* DR17: the 60% Apple secondary label is about 3.3:1 on white. Raised to 78% for >= 4.5:1. */
   --text-secondary: rgba(60, 60, 67, 0.78);
+  /* Clarity's #248a3d is 4.4:1 on white and 3.7:1 on its own tint over the canvas. This reaches 5.0:1. */
+  --green-ink: #1c7233;
 }
 [data-theme="dark"] {
   --text-secondary: rgba(235, 235, 245, 0.68);

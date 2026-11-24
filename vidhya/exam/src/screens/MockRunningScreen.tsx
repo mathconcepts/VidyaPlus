@@ -78,7 +78,8 @@ export function MockRunningScreen({ api, attempt, onSubmitted, waiting = 0, unsc
   };
 
   const go = (n: number) => { setI(Math.max(0, Math.min(items.length - 1, n))); setSaved(false); setShowPalette(false); };
-  const next = () => { if (i + 1 >= items.length) setConfirming(true); else go(i + 1); };
+  const openConfirm = () => { setShowPalette(false); setConfirming(true); };
+  const next = () => { if (i + 1 >= items.length) openConfirm(); else go(i + 1); };
 
   useMockShortcuts({
     enabled: !locked && !confirming,
@@ -99,7 +100,7 @@ export function MockRunningScreen({ api, attempt, onSubmitted, waiting = 0, unsc
       <p className="eyebrow">Questions</p>
       <Palette statuses={statuses} current={i} onGo={go} />
       <p className="eyebrow" style={{ margin: '16px 0' }}>answered {counts.answered} · blank {counts.blank} · flagged {counts.flagged}</p>
-      <Button variant="grey" tone="neutral" size="lg" full onClick={() => setConfirming(true)}>Submit mock</Button>
+      <Button variant="grey" tone="neutral" size="lg" full onClick={openConfirm}>Submit mock</Button>
     </>
   );
 
