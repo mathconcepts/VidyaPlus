@@ -208,7 +208,7 @@ The reason: deleting an item cascades away every student's DeepTutor review stat
 ### L4 Sync and ops (extends v5)
 | # | Component | Spec |
 |---|---|---|
-| S-sync | `vidhya sync [--student] [--to <version>] [--dry-run]` (`vidhya/sync/`, R2) | Runs inside the DeepTutor container (`docker exec`) using DeepTutor's own pinned store code, under a `flock` on `/data/vidhya/sync.lock` (a second run exits `SyncAlreadyRunning`). For each enrolled student, it diffs their bank (tag `ledger:<id>@<fp8>`) against **`/v1/servable?pool=practice&type=MCQ,MSQ`**. Then, in **one `BEGIN IMMEDIATE` transaction per student**:
+| S-sync | `vidhya sync [--student] [--to <version>] [--dry-run]` (a brain command per D1; the in-container applier is one Python file that receives finished rows; R2, R9) | Runs inside the DeepTutor container (`docker exec`) using DeepTutor's own pinned store code, under a `flock` on `/data/vidhya/sync.lock` (a second run exits `SyncAlreadyRunning`). For each enrolled student, it diffs their bank (tag `ledger:<id>@<fp8>`) against **`/v1/servable?pool=practice&type=MCQ,MSQ`**. Then, in **one `BEGIN IMMEDIATE` transaction per student**:
 1. **changed items are UPDATEd in place** (R9, gated on S3): same row id, `question_id` and tag rewritten, review state kept, version bumped by DeepTutor's `practice_invalidate_question` trigger; explanation-only changes are a plain UPDATE. If S3 fails, changed items use steps 2–3 instead;
 2. for removed or retired ids: copy their `practice_review_events` rows into `events.jsonl` (idempotent on `request_id`, R20), then delete them (deletes cascade, SF5);
 3. insert new rows;
@@ -286,14 +286,14 @@ Weekly (Sunday synthesis, exists) **plus**:
 
 - K3 review time is Giri time, not CC time: a real engine disagreement on a complex/vector item is budgeted at 10 min, not 3.
 - If disagreements exceed the weekend budget, those items stay quarantined and §5's floors fall back per the K3 ceiling rule.
-- **No weekday Giri hours.** Merges wait for the weekend, and CC prepares each PR so the merge itself is a 5-minute review.
+- **No weekday Giri hours** except dispute handling (R19). Merges wait for the weekend, and CC prepares each PR so the merge itself is a 5-minute review.
 
 | Window | Track 1: cohort-critical (v5) | Track 2: brain + content | Giri |
 |---|---|---|---|
 | **W0** Sat 28 – Sun 29 Nov | A-027 repos private → K1 land ledger → K2 pack build → C1 export from the pack → A-033 import + G0 | **S1–S3 run as the first `brain-integration` CI job (R11).** B1, B2, the session check and the B3 store already exist on `brain/w0-prep` (D11). Measure the MSQ options no-result rate on 20 items (R16). If a spike fails: the §8 fallback | A-027, A-034 spend cap, `WOLFRAM_APP_ID` + **Wolfram commercial terms checked before the first call** (≈1 h) |
-| **C−7 → C** (30 Nov – 6 Dec) | v5 week 1 (host, enroll, KB, L1–L3, smoke) | B3, B6, B8, X1–X2 (Caddy + tutor MCP), X3 (NAT tab + Report), `vidhya sync` + drift; K3 VA + NAT batch 1; K4 started | **Sat–Sun 5–6 Dec:** 10% sample + disagreements + phone smoke (≈2.5 h) |
-| **C → C+7** (7 – 13 Dec) | Cohort live on the pack (MCQ/MSQ + tutor) | Flags on: NAT practice, disputes. B4 planner (prior-based) + Today card. K3 batch 2 + mock form + **B5 mock + marks range (R12)**. **Pack v1.0 release** + changelog. **Mock opens by 13 Dec** | **Sat–Sun 12–13 Dec:** merges + sample + K4 disagreements (≈2.5 h) |
-| **C+7 → C+14** (14 – 20 Dec) | G2 activity check | Taxonomy; B7 calibration nightly (B4 switches to calibrated stats); v1.1 errata release | **Sat–Sun 19–20 Dec:** mock dry-run + remaining disagreements (≈1.5 h) |
+| **C−7 → C** (30 Nov – 6 Dec) | v5 week 1 (host, enroll, KB, L1–L3, smoke) | B3, B6, B8, X1–X2 (Caddy + tutor MCP), X3 (NAT tab + Report), `vidhya sync` + drift; K3 VA + NAT batch 1; K4 started | **Sat–Sun 5–6 Dec:** 10% sample + disagreements + phone smoke + tutor chat smoke + merge and deploy (R12) + 100% mock hand-check (R17) (≈4 h) |
+| **C → C+7** (7 – 13 Dec) | Cohort live on the pack (MCQ/MSQ + tutor) | Flags on: NAT practice, disputes. B4 planner (prior-based) + Today card. K3 batch 2 + mock form + **B5 mock + marks range (R12)**. **Pack v1.0 release** + changelog. **Mock opens by 13 Dec** | **Sat–Sun 12–13 Dec:** merges + sample + K4 disagreements + mock dry-run, mock opens (≈3 h) |
+| **C+7 → C+14** (14 – 20 Dec) | G2 activity check | Taxonomy; B7 calibration nightly (B4 switches to calibrated stats); v1.1 errata release | **Sat–Sun 19–20 Dec:** remaining disagreements (≈1 h) |
 | **Pay ask** (Mon 21 Dec, with C = 7 Dec) | v5 week 4 | K4 complete → receipts show "SymPy + Wolfram agree" | — |
 | **30 Dec** | Decision | Exit interviews add: "did the mock / marks range / Today card change what you studied?" | — |
 
@@ -307,7 +307,7 @@ Weekly (Sunday synthesis, exists) **plus**:
 |---|---|---|---|---|
 | `PackBuildGateFailed` | missing receipt / fingerprint mismatch / weights | `pack build` exit≠0 | nothing (no release) | fix rows; build lists them |
 | `ReceiptFingerprintMismatch` | an item was edited after verification | K2 gate | nothing | re-verify → new receipt |
-| `EngineDisagree` | SymPy ≠ Wolfram ≠ key | K3/K4 | nothing | quarantine → Giri queue |
+| `EngineDisagree` | SymPy ≠ Wolfram ≠ key | K3/K4 | nothing (live item: receipt shows "re-checking") | candidate: quarantine → Giri queue; live item: Giri queue only, Giri decides (R13) |
 | `WolframUnavailable` / `WolframQuotaExceeded` | network/quota | B2 | nothing | retry with backoff; never counts as a disagreement; the batch stays pending |
 | `SyncDrift` | DeepTutor bank ≠ servable set | S-drift | maybe a stale item for ≤1 h | re-run sync for that student; alert if 2 runs fail |
 | `SyncPartialFailure` | API/store error mid-student | sync result row + count verify | old bank (transaction rolled back; nothing changed) | re-run (idempotent) |
@@ -341,7 +341,7 @@ If S1 fails: the brain issues its own login link (a one-time token sent by Teleg
 | K2 | every gate has a failing fixture (incl. overlapping pools, NAT value outside own range, MSQ <2 correct, solution edited after receipt); fingerprint stability (whitespace/LaTeX normalisation) | unit |
 | Overlay | dispute → `/v1/servable` drops item; patch release folds overlay; drift measured against servable, not release | integration |
 | X1 | `get_verified_item` never returns a key, NAT or mock item | contract |
-| Mock integrity | every tutor tool refuses mock items; mock keys/receipts hidden until submit; second attempt is unscored | contract |
+| Mock integrity | every tutor tool refuses mock items; mock keys/receipts hidden until the cohort close date (R15); second attempt is unscored; autosave survives a brain restart; reset is audited (R21) | contract |
 | Storm rule | 12 reports on 2 items → both quarantined, no storm; 6 distinct items → storm pause | unit |
 | K3/K4 | agree / disagree / engine error fixtures; the 10% sample is seeded and reproducible | unit |
 | B1 | ported scorer tests + MCQ/MSQ parity vs DeepTutor `answers.check_answer` (golden set) + NAT boundary (lo, hi, ±1e-9, outside) + negative marks from exam.yaml | unit + golden |
@@ -577,7 +577,7 @@ The LLM failure modes (malformed, empty, schema-invalid and refused) are each na
 | T5 | XSS through dispute notes shown on the public error log | Med | Med | **No → R7:** notes are never public; the error log shows item id, date and status only; the admin view escapes |
 | T6 | CSRF on `/exam/api` writes | Low | Med | **R7:** SameSite cookie (DeepTutor's) + an `Origin` header check + JSON-only bodies |
 | T7 | Secrets: `WOLFRAM_APP_ID` (paid plan per O3), gateway keys | Low | Med | Env only, never in the repo, rotatable; the brain holds no DeepTutor admin credentials (it reads `/api/auth/status` with the student's own cookie) |
-| T8 | New dependencies: `better-sqlite3` (R5), `@modelcontextprotocol/sdk` (already in the repo) | Low | Low | Pinned, `npm audit` in CI |
+| T8 | New dependencies: `better-sqlite3` (R5), `@modelcontextprotocol/sdk` (new to the brain package; not in the root repo, corrected 24 Nov) | Low | Low | Pinned, `npm audit` in CI |
 | T9 | Data classification: attempts and student hashes; no names or phones (constraint 12) | — | — | OK |
 | T10 | Audit trail: overlay changes, re-clears, bulk restores | — | — | Append-only `audit.jsonl` (who, what, why) |
 
@@ -874,7 +874,7 @@ These were left open on purpose, because they conflict with choices Giri made ex
 - `verifiers/sympy.ts` and `wolfram.ts` → B2
 - the ENG-0 ledger and scripts → K1/K3
 - `funnel/` → diagnostic pool
-- `@modelcontextprotocol/sdk` (already a dependency) → B8
+- `@modelcontextprotocol/sdk` → B8. *Correction (24 Nov build): it is **not** yet a repo dependency; it gets added with the brain's MCP server.*
 - DeepTutor practice store, MCP grants and `/api/auth/status` → sync, tutor, identity
 - `sync-deeptutor.sh` → hosts the auth contract test
 - Pain Ledger, Scout and Topic Backlog → L5
