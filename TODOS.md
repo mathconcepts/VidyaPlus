@@ -2864,3 +2864,13 @@ contract-enforced and measured at 169/170 concepts frameable. What is NOT done:
 - **A low-prior-competency register** is now cheap: one more stance value
   plus authored bodies for the two narrative slots, NOT a third copy of the
   corpus. Not authored in this pass (framework before content was the ask).
+
+## Long-lived SymPy worker for verification passes (2026-11-24)
+
+Every Exam Brain SymPy check (`vidhya/brain/src/verify/sympy.ts`) starts a
+fresh `python3` that imports sympy, about 0.7–1 s each, so a full pass over
+the GATE EC EM pack is roughly 15–25 min. It is offline and never on a
+request path, so this is fine for the pilot. A long-lived worker process
+would make passes about 10x faster.
+**Trigger:** more than 3 full verification passes in a week, or one pass
+over 30 min. (Eng review 24 Nov, D18.)
