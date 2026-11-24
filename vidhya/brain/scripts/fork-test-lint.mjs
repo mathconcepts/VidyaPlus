@@ -5,7 +5,9 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 const ENGINE_DIRS = ['src/scoring', 'src/readiness', 'src/model', 'src/verify', 'src/exam'];
-const EXAM_NAMES = /\b(gate|jee|neet|cat|upsc|gre|gmat|sat)\b/i;
+// Upper-case exam names, plus exam ids such as gate-ec or jee_main. Plain
+// lower-case words ("a quality gate") are not exam names.
+const EXAM_NAMES = /\b(GATE|JEE|NEET|CAT|UPSC|GRE|GMAT|SAT)\b|\b(gate|jee|neet)[-_][a-z0-9]/;
 const failures = [];
 
 function walk(dir) {
