@@ -1,0 +1,8 @@
+@import "@vidhya/ui/styles/tokens/fonts.css";
+@import "@vidhya/ui/styles/tokens/colors.css";
+@import "@vidhya/ui/styles/tokens/typography.css";
+@import "@vidhya/ui/styles/tokens/spacing.css";
+@import "@vidhya/ui/styles/tokens/shape.css";
+@import "@vidhya/ui/styles/tokens/motion.css";
+@import "@vidhya/ui/styles/tokens/base.css";
+@import "./exam.css";
