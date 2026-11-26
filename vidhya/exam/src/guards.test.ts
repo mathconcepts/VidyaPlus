@@ -53,4 +53,16 @@ describe('guards', () => {
     const small = [...css.matchAll(/font-size:\s*(\d+)px/g)].map(m => Number(m[1])).filter(n => n < 15);
     expect(small).toEqual([]);
   });
+
+  it('innerHTML is set only from the brain\'s sanitised HTML fields (E8)', () => {
+    const ALLOWED = /dangerouslySetInnerHTML=\{\{\s*__html:\s*(?:item\.stemHtml|o\.html|r\.reasonHtml)\s*\}\}|dangerouslySetInnerHTML:\s*\{\s*__html:\s*r\.reasonHtml\s*\}/g;
+    const bad = prod.filter(f => /dangerouslySetInnerHTML|innerHTML/.test(fs.readFileSync(f, 'utf8').replace(ALLOWED, '').replace(/dangerouslySetInnerHTML:\s*\{\s*__html:\s*string\s*\}/g, '').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '')));
+    expect(bad.map(rel)).toEqual([]);
+  });
+
+  it('production code reaches the fake only through a dynamic import in api/choose.ts', () => {
+    const bad = prod.filter(f => !f.endsWith('fake.ts') && /from\s+'(\.\/|\.\.\/)+(api\/)?fake'/.test(fs.readFileSync(f, 'utf8')));
+    expect(bad.map(rel)).toEqual([]);
+    expect(fs.readFileSync(path.join(SRC, 'api/choose.ts'), 'utf8')).toMatch(/import\('\.\/fake'\)/);
+  });
 });

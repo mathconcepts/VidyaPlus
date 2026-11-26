@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@vidhya/ui/components/Button';
 import type { CheckResult, ExamItem } from '../api/types';
 import { winLine } from '../lib/format';
+import { reasonProps } from '../lib/reason';
 import { ReceiptState } from './ReceiptState';
 import { ReportSheet } from './ReportSheet';
 import { TUTOR_HREF } from './TitleBar';
@@ -43,7 +44,7 @@ export function ResultPanel({ item, result, onNext, nextLabel = 'Next', focusRef
         <span style={{ color: 'var(--text-secondary)' }}>Yours </span><span className="mono">{result.yours || 'blank'}</span>
         <span style={{ color: 'var(--text-secondary)' }}> · Key </span><span className="mono">{result.key}</span>
       </p>
-      <p style={{ margin: 0, fontSize: 'var(--text-body)', lineHeight: 'var(--leading-normal)' }}>{result.reason}</p>
+      <p style={{ margin: 0, fontSize: 'var(--text-body)', lineHeight: 'var(--leading-normal)' }} {...reasonProps(result)} />
       <ReceiptState item={item} verification={result.verification} wrong={wrong} />
       <Button tone="action" size="lg" full onClick={onNext}>{nextLabel}</Button>
       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 'var(--text-body)' }}>

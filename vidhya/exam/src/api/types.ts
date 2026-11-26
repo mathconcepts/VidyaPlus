@@ -27,6 +27,7 @@ export type {
   MockResultPreClose,
   MockReviewRow,
   MarksView,
+  TaxonomyRow,
   ReportContext
 } from '@vidhya/shared/api-contract';
 
@@ -47,6 +48,9 @@ export interface ExamApi {
   getMockResult(attemptId: string): Promise<MockResultPreClose>;
   /** After close, takers only (DR6). */
   getMockReview(): Promise<MockReviewRow[]>;
+
+  /** Answers held on the device while offline (DR5); the shell shows "Offline · N answers waiting". Optional: the fake has none. */
+  onWaiting?(listener: (n: number) => void): () => void;
 
   getMarks(): Promise<MarksView>;
   report(itemId: string, note: string, context: ReportContext): Promise<void>;

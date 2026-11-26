@@ -15,5 +15,8 @@
     "@vidhya/ui": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "katex": "^0.16.47"
   }
 }

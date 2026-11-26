@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { TabBar } from '@vidhya/ui/components/TabBar';
 import { SegmentedControl } from '@vidhya/ui/components/SegmentedControl';
+import { ExamApiError } from './api/errors';
 import type { ExamApi, MockAttempt, MockBrief, TodayItemRef } from './api/types';
 import { BannerSlot, type Banner } from './components/BannerSlot';
 import { TitleBar, TUTOR_HREF } from './components/TitleBar';
@@ -45,13 +46,17 @@ export function App({ api, access, releaseAvailable = false, tutorHref = TUTOR_H
   const [offline, setOffline] = useState(false);
   const [outage, setOutage] = useState(false);
   const [brief, setBrief] = useState<MockBrief | null>(null);
+  const [waiting, setWaiting] = useState(0);
 
-  useEffect(() => { let live = true; api.getMockBrief().then(b => { if (live) setBrief(b); }).catch(() => { if (live) setOutage(true); }); return () => { live = false; }; }, [api, session.kind]);
+  // Answers held on the device while the network is away (DR5, E3).
+  useEffect(() => api.onWaiting?.(setWaiting), [api]);
+
+  useEffect(() => { let live = true; api.getMockBrief().then(b => { if (live) setBrief(b); }).catch((e: unknown) => { if (live && (!(e instanceof ExamApiError) || e.down)) setOutage(true); }); return () => { live = false; }; }, [api, session.kind]);
 
   const banner: Banner | null = outage ? { kind: 'outage', tutorHref }
     : access ? { kind: 'access-ended', endedOn: access.endedOn, renewHref: access.renewHref }
     : releaseAvailable ? { kind: 'release', onRefresh: () => window.location.reload() }
-    : offline ? { kind: 'offline' }
+    : offline || waiting > 0 ? { kind: 'offline' }
     : null;
 
   const onOffline = useCallback((o: boolean) => setOffline(o), []);
@@ -68,7 +73,7 @@ export function App({ api, access, releaseAvailable = false, tutorHref = TUTOR_H
     );
   }
   if (session.kind === 'mock-running') {
-    return <MockRunningScreen api={api} attempt={session.attempt} unscored={session.unscored} tutorHref={tutorHref} onSubmitted={() => setSession({ kind: 'mock-result', attemptId: session.attempt.attemptId, unscored: session.unscored })} />;
+    return <MockRunningScreen api={api} waiting={waiting} attempt={session.attempt} unscored={session.unscored} tutorHref={tutorHref} onSubmitted={() => setSession({ kind: 'mock-result', attemptId: session.attempt.attemptId, unscored: session.unscored })} />;
   }
 
   const startMock = async (unscored: boolean) => setSession({ kind: 'mock-running', attempt: await api.startMock(), unscored });

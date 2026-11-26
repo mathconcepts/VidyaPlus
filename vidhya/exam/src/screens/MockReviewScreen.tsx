@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { ExamApi, MockReviewRow } from '../api/types';
 import { ReceiptState } from '../components/ReceiptState';
+import { reasonProps } from '../lib/reason';
 
 /** After close, for takers (DR6): each item with key, solution and receipt. */
 export function MockReviewScreen({ api }: { api: ExamApi }) {
@@ -18,7 +19,7 @@ export function MockReviewScreen({ api }: { api: ExamApi }) {
               <span style={{ color: 'var(--text-secondary)' }}>Yours </span><span className="mono">{result.yours || 'blank'}</span>
               <span style={{ color: 'var(--text-secondary)' }}> · Key </span><span className="mono">{result.key}</span>
             </p>
-            <p style={{ margin: '0 0 8px' }}>{result.reason}</p>
+            <p style={{ margin: '0 0 8px' }} {...reasonProps(result)} />
             <ReceiptState item={item} verification={result.verification} wrong={result.outcome === 'wrong'} />
           </li>
         ))}
