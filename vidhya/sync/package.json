@@ -1,0 +1,20 @@
+{
+  "name": "@vidhya/sync",
+  "version": "0.1.0",
+  "private": true,
+  "description": "vidhya sync: diff each student's DeepTutor bank against the brain's servable set and apply it with the in-container applier (plan T4, S-sync)",
+  "type": "module",
+  "engines": { "node": ">=20.0.0" },
+  "bin": { "vidhya-sync": "dist/sync/src/cli.js" },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "sync": "node dist/sync/src/cli.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.33",
+    "typescript": "^5.6.3",
+    "vitest": "^1.6.1"
+  }
+}

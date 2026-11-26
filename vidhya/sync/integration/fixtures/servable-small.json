@@ -1,0 +1,77 @@
+{
+ "pack_version": "0.0.4",
+ "items": [
+  {
+   "id": "syn-001",
+   "pool": "practice",
+   "type": "MCQ",
+   "answer_kind": "options",
+   "marks": 1,
+   "topic_id": "synthetic-topic",
+   "concept_id": "synthetic-concept",
+   "stem": "What is 2+2?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "key": 1,
+   "solution": {
+    "text": "2+2 = 4",
+    "checked": true
+   },
+   "status": "verified",
+   "since_version": "0.0.1"
+  },
+  {
+   "id": "syn-002",
+   "pool": "practice",
+   "type": "MSQ",
+   "answer_kind": "options",
+   "marks": 1,
+   "topic_id": "synthetic-topic",
+   "concept_id": "synthetic-concept",
+   "stem": "Select the even numbers.",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "key": [
+    0,
+    2
+   ],
+   "solution": {
+    "text": "2 and 4 are even",
+    "checked": true
+   },
+   "status": "verified",
+   "since_version": "0.0.1"
+  },
+  {
+   "id": "syn-003",
+   "pool": "practice",
+   "type": "MCQ",
+   "answer_kind": "options",
+   "marks": 1,
+   "topic_id": "synthetic-topic",
+   "concept_id": "synthetic-concept",
+   "stem": "What is 3+3?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "key": 1,
+   "solution": {
+    "text": "3+3 = 6",
+    "checked": true
+   },
+   "status": "verified",
+   "since_version": "0.0.1"
+  }
+ ]
+}

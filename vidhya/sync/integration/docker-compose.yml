@@ -1,0 +1,51 @@
+# Integration stack for the brain-integration job (plan T21, R11) and for local
+# runs of the S1-S3 spikes. Nothing under upstream/ is modified: this file only
+# pins the DeepTutor image and supplies its data volume.
+#
+# DeepTutor is pinned by DIGEST. The image's /app/deeptutor tree was verified
+# byte-identical to upstream/deeptutor/deeptutor (v1.7.3) on 24 Nov 2026;
+# integration/verify-image-pin.sh re-checks that on every run, so a retagged
+# image or a bumped upstream/ cannot drift apart unnoticed.
+#
+# Usage (from this directory):
+#   ./up.sh            # prepares ./.run/data, starts the stack, creates the admin + test student
+#   ./down.sh
+#
+# Ports bind to loopback only. The sandbox-runner and PocketBase sidecars of
+# upstream's docker-compose.yml are not started: S3 needs neither, and no
+# tutor-side code execution runs here.
+name: vidhya-it
+services:
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [dt]
+
+  deeptutor:
+    image: ghcr.io/hkuds/deeptutor@sha256:dff6d6ef37bcb433e67addb2cc6fd06e9b504f6acfe66e91a1162c1b0d1ee801
+    container_name: vidhya-it-deeptutor
+    ports:
+      - "127.0.0.1:${DT_BACKEND_PORT:-8001}:8001"
+      - "127.0.0.1:${DT_FRONTEND_PORT:-3782}:3782"
+    volumes:
+      - "${DT_DATA:-./.run/data}:/app/data"
+      - "${VIDHYA_SYNC_DIR:-..}:/vidhya-sync:ro"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health/ready"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 40s
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks: [dt]
+
+networks:
+  dt:
+    driver: bridge
