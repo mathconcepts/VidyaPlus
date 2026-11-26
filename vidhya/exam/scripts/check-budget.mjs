@@ -62,6 +62,21 @@ for (const abs of files.keys()) {
 }
 const kind = f => (/\.js$/.test(f) ? 'js' : /\.css$/.test(f) ? 'css' : /\.(woff2?|ttf|otf)$/.test(f) ? 'font' : 'other');
 for (const [f, gz] of rows) console.log(`  ${kind(f).padEnd(5)} ${(gz / 1024).toFixed(1).padStart(7)} KB gz  ${f}`);
+// T31/E11: the handwriting pad, TF.js and the model load on tap, so none of it may be in the first load.
+const lazyLeak = [...files.keys()].filter(f => /\.js$/.test(f) && /tensorflow|tfjs|backend-webgl|handwriting\/weights/i.test(fs.readFileSync(f, 'utf8')));
+if (lazyLeak.length) {
+  console.error(`FAIL: handwriting code reached the first load: ${lazyLeak.map(f => path.relative(dist, f)).join(', ')}`);
+  process.exit(1);
+}
+const lazyFiles = fs.readdirSync(path.join(dist, 'assets')).map(f => path.join(dist, 'assets', f)).filter(f => /\.js$/.test(f) && !files.has(f))
+  .concat(['weights.json', 'weights.bin'].map(f => path.join(dist, 'handwriting', f)).filter(f => fs.existsSync(f)));
+let lazyTotal = 0;
+for (const f of lazyFiles) {
+  const gz = zlib.gzipSync(fs.readFileSync(f), { level: 9 }).length;
+  lazyTotal += gz;
+  console.log(`  lazy  ${(gz / 1024).toFixed(1).padStart(7)} KB gz  ${path.relative(dist, f)} (loads on tap of Write, outside the budget)`);
+}
+console.log(`on-tap handwriting total: ${(lazyTotal / 1024).toFixed(1)} KB gzipped`);
 const kb = total / 1024;
 console.log(`first load: ${kb.toFixed(1)} KB gzipped (budget ${budgetKb} KB) across ${rows.length} files`);
 if (kb > budgetKb) {

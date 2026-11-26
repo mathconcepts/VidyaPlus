@@ -66,3 +66,26 @@ describe('guards', () => {
     expect(fs.readFileSync(path.join(SRC, 'api/choose.ts'), 'utf8')).toMatch(/import\('\.\/fake'\)/);
   });
 });
+
+describe('handwriting stays out of the first load (T31, E8, E11)', () => {
+  const stripped = (f: string) => fs.readFileSync(f, 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+  /** Static, value-carrying imports (`import type` is erased by the compiler and ships nothing). */
+  const staticImports = (f: string) => Array.from(stripped(f).matchAll(/^\s*import\s+(?!type\b)[^;]*?from\s+'([^']+)'/gm), m => m[1]);
+
+  it('TF.js is imported only by dynamic import(), inside src/handwriting/recognizer.ts', () => {
+    const offenders = prod.filter(f => staticImports(f).some(i => i.startsWith('@tensorflow')));
+    expect(offenders.map(rel)).toEqual([]);
+    const rec = stripped(path.join(SRC, 'handwriting/recognizer.ts'));
+    expect(rec).toContain("import('@tensorflow/tfjs-core')");
+    expect(rec).toContain("import('@tensorflow/tfjs-backend-webgl')");
+    expect(rec).not.toContain('tfjs-backend-wasm'); // WASM needs wasm-unsafe-eval
+    const others = prod.filter(f => rel(f) !== 'handwriting/recognizer.ts' && /import\('@tensorflow/.test(stripped(f)) && !/typeof import\(/.test(stripped(f)));
+    expect(others.map(rel)).toEqual([]);
+  });
+
+  it('the pad is reached only through a dynamic import, never a static one', () => {
+    const importers = prod.filter(f => staticImports(f).some(i => /handwriting\/(HandwritingPad|recognizer|model)$/.test(i) && !/handwriting\//.test(rel(f))));
+    expect(importers.map(rel)).toEqual([]);
+    expect(stripped(path.join(SRC, 'components/NatEntry.tsx'))).toContain("import('../handwriting/HandwritingPad')");
+  });
+});

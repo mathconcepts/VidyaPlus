@@ -132,12 +132,14 @@ describe('MockRunningScreen (M2-M5, DR16, DR18)', () => {
     } finally { vi.useRealTimers(); }
   });
 
-  it('NAT question in the mock is keypad-only: no Write button', async () => {
+  it('NAT question in the mock is keypad-only: no Write button, even with handwriting switched on', async () => {
+    vi.stubEnv('VITE_EXAM_HANDWRITING', '1');
     await start();
     fireEvent.click(screen.getByRole('button', { name: 'Questions' }));
     fireEvent.click(screen.getByRole('button', { name: /^Question 6,/ }));
     expect(await screen.findByLabelText('Your answer')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /Write/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Write|handwriting/i })).not.toBeInTheDocument();
+    vi.unstubAllEnvs();
   });
 
   describe('laptop at 1280px (DR16)', () => {

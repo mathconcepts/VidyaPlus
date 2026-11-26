@@ -1,0 +1,133 @@
+{
+ "version": 1,
+ "classes": "0123456789.-",
+ "input": [
+  28,
+  28,
+  1
+ ],
+ "tensors": [
+  {
+   "name": "conv1/k",
+   "shape": [
+    3,
+    3,
+    1,
+    24
+   ],
+   "dtype": "uint8",
+   "min": -0.5600817203521729,
+   "scale": 0.003970834905026006,
+   "offset": 0
+  },
+  {
+   "name": "conv1/b",
+   "shape": [
+    24
+   ],
+   "dtype": "float32",
+   "offset": 216
+  },
+  {
+   "name": "conv2/k",
+   "shape": [
+    3,
+    3,
+    24,
+    32
+   ],
+   "dtype": "uint8",
+   "min": -0.7854294180870056,
+   "scale": 0.006471096300611309,
+   "offset": 312
+  },
+  {
+   "name": "conv2/b",
+   "shape": [
+    32
+   ],
+   "dtype": "float32",
+   "offset": 7224
+  },
+  {
+   "name": "conv3/k",
+   "shape": [
+    3,
+    3,
+    32,
+    48
+   ],
+   "dtype": "uint8",
+   "min": -0.7582403421401978,
+   "scale": 0.005001285730623731,
+   "offset": 7352
+  },
+  {
+   "name": "conv3/b",
+   "shape": [
+    48
+   ],
+   "dtype": "float32",
+   "offset": 21176
+  },
+  {
+   "name": "conv4/k",
+   "shape": [
+    3,
+    3,
+    48,
+    64
+   ],
+   "dtype": "uint8",
+   "min": -0.8043839335441589,
+   "scale": 0.005532017408632765,
+   "offset": 21368
+  },
+  {
+   "name": "conv4/b",
+   "shape": [
+    64
+   ],
+   "dtype": "float32",
+   "offset": 49016
+  },
+  {
+   "name": "fc1/k",
+   "shape": [
+    1024,
+    64
+   ],
+   "dtype": "uint8",
+   "min": -0.9379103183746338,
+   "scale": 0.0065208890858818504,
+   "offset": 49272
+  },
+  {
+   "name": "fc1/b",
+   "shape": [
+    64
+   ],
+   "dtype": "float32",
+   "offset": 114808
+  },
+  {
+   "name": "fc2/k",
+   "shape": [
+    64,
+    12
+   ],
+   "dtype": "uint8",
+   "min": -1.1045730113983154,
+   "scale": 0.007509113994299196,
+   "offset": 115064
+  },
+  {
+   "name": "fc2/b",
+   "shape": [
+    12
+   ],
+   "dtype": "float32",
+   "offset": 115832
+  }
+ ]
+}
