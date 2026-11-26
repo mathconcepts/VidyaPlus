@@ -4,7 +4,10 @@
  * `entitled_until` by CLI after a payment.
  *
  * DR7: when access has ended, history stays readable (exam_page) while every
- * new-work flag turns off. A null `entitled_until` means no access was ever
+ * new-work flag turns off. ONE exception, owned by src/mock/attempts.ts
+ * (`startAttempt`): a mock attempt already started is resumed and finished after
+ * access ends. `flagsFor` says `mock: false` after expiry, and that governs STARTING
+ * a mock only (`assertMayStartMock` below); resuming never asks the registry. A null `entitled_until` means no access was ever
  * granted, so it is treated as not entitled.
  */
 import { createHash } from 'node:crypto';
@@ -91,4 +94,18 @@ export function flagsFor(student: RegistryRow, now: Date, tierTemplate: TierTemp
   const flags: Flags = { ...base };
   if (!entitledAt(student, now)) for (const f of NEW_WORK_FLAGS) flags[f] = false;
   return flags;
+}
+
+/**
+ * The gate for STARTING a new mock attempt: entitlement first (AccessEnded, DR7), then the
+ * tier's `mock` flag (FeatureNotEnabled). Callers resume an unfinished attempt BEFORE calling
+ * this, which is the one place the "already started can be finished after expiry" exception
+ * lives (mock/attempts.ts `startAttempt`).
+ */
+export function assertMayStartMock(db: Db, studentHash: string, now: Date, tiers: TierTemplate): void {
+  const row = getStudent(db, studentHash);
+  if (!entitledAt(row, now)) {
+    throw new BrainError('AccessEnded', 'access has ended; a new mock cannot be started (an attempt already started can be finished)');
+  }
+  if (!flagsFor(row, now, tiers).mock) throw new BrainError('FeatureNotEnabled', 'the mock is not enabled for this account');
 }

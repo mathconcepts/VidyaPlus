@@ -98,7 +98,10 @@ export function fileDispute(db: Db, input: DisputeInput, now: Date, opts: { onSt
       return { outcome: 'queued_for_review', storm: stormNow() };
     }
 
-    const dup = db.prepare('SELECT 1 FROM disputes WHERE student_hash = ? AND item_id = ? AND fingerprint = ?').get(input.student_hash, input.item_id, input.fingerprint);
+    // A mock-time queue report (giri_queue, counted = 0) is NOT a duplicate: the student may still file a counted dispute.
+    const dup = db
+      .prepare("SELECT 1 FROM disputes WHERE student_hash = ? AND item_id = ? AND fingerprint = ? AND (counted = 1 OR state = 'logged_only')")
+      .get(input.student_hash, input.item_id, input.fingerprint);
     if (dup) return { outcome: 'duplicate', storm: stormNow() };
 
     const used = (db.prepare("SELECT COUNT(*) AS n FROM disputes WHERE student_hash = ? AND day = ? AND counted = 1").get(input.student_hash, day) as { n: number }).n;
@@ -138,26 +141,25 @@ export function fileDispute(db: Db, input: DisputeInput, now: Date, opts: { onSt
 
 /**
  * DR18: a report filed during the mock goes to Giri's queue only. It is identified
- * (so Giri can see who) but never counted, never hides the item, never reaches
+ * (so Giri can see who; `student_hash` null = the anonymous tutor MCP channel) but never counted, never hides the item, never reaches
  * quorum and never quarantines. Returns 'duplicate' when this student already
  * reported this item at this fingerprint (the caller shows the same reply).
  */
 export function queueForReview(
   db: Db,
-  input: { item_id: string; fingerprint: string; student_hash: string; note?: string },
+  input: { item_id: string; fingerprint: string; student_hash: string | null; note?: string },
   now: Date,
 ): 'queued' | 'duplicate' {
-  if (!input.item_id || !input.fingerprint || !input.student_hash) {
-    throw new BrainError('InvalidDispute', 'item_id, fingerprint and an identified student are required');
-  }
+  if (!input.item_id || !input.fingerprint) throw new BrainError('InvalidDispute', 'item_id and fingerprint are required');
+  if (input.student_hash !== null && !input.student_hash) throw new BrainError('InvalidDispute', 'student_hash must be a hash or null (anonymous MCP)');
   const note = input.note ?? null;
   if (note !== null && note.length > NOTE_MAX) throw new BrainError('InvalidDispute', `note is ${note.length} chars; the limit is ${NOTE_MAX}`);
   const r = db
     .prepare(
       `INSERT OR IGNORE INTO disputes (item_id, fingerprint, student_hash, channel, note, day, counted, state, created_at)
-       VALUES (?, ?, ?, 'exam', ?, ?, 0, 'giri_queue', ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, 0, 'giri_queue', ?)`,
     )
-    .run(input.item_id, input.fingerprint, input.student_hash, note, utcDay(now), now.toISOString());
+    .run(input.item_id, input.fingerprint, input.student_hash, input.student_hash === null ? 'mcp' : 'exam', note, utcDay(now), now.toISOString());
   return r.changes === 0 ? 'duplicate' : 'queued';
 }
 

@@ -66,7 +66,7 @@ describe('DR11 / DR6: the result before and after close', () => {
     const { db, ctx, a } = sat();
     const r = resultView(db, ctx, S1, a.attempt_id, at(T0, min(6)));
     expect(r).toEqual({
-      revealed: false, label: LABEL_SCORED, score: 0.333333, max_marks: 6, counts: { right: 1, wrong: 1, skipped: 2 }, unlock_date: '2026-12-20',
+      revealed: false, label: LABEL_SCORED, score: 0.333333, max_marks: 17, counts: { right: 1, wrong: 1, skipped: 13 }, unlock_date: '2026-12-20',
     });
     expect(JSON.stringify(r)).not.toContain(SECRET_KEY_TEXT);
   });
@@ -75,7 +75,7 @@ describe('DR11 / DR6: the result before and after close', () => {
     closeMock(db, ctx, 'f1', 'admin-1', at(T0, min(30)));
     const r = resultView(db, ctx, S1, a.attempt_id, at(T0, min(31))) as PostCloseResult;
     expect(r).toMatchObject({ revealed: true, mode: 'scored', label: LABEL_SCORED, score: 0.333333, withdrawn_count: 0 });
-    expect(r.review).toHaveLength(4);
+    expect(r.review).toHaveLength(15);
     expect(r.review[1]).toMatchObject({ item_id: 'm2', your_answer: mcq(0), key: 2, correct: false, receipt: { verified: true } });
     expect(r.review[1]!.solution).toContain(SECRET_KEY_TEXT);
     expect(r.review[3]).toMatchObject({ item_id: 'm4', your_answer: null });
@@ -85,7 +85,7 @@ describe('DR11 / DR6: the result before and after close', () => {
     closeMock(db, ctx, 'f1', 'admin-1', at(T0, min(30)));
     adminQuarantine(db, { item_id: 'm2', fingerprint: fingerprint(items.get('m2')!), actor: 'admin-1', reason: 'bad key' }, at(T0, min(40)));
     const r = resultView(db, ctx, S1, a.attempt_id, at(T0, min(41))) as PostCloseResult;
-    expect(r).toMatchObject({ score: 1, max_marks: 4, withdrawn_count: 1, counts: { right: 1, wrong: 0, skipped: 2 } });
+    expect(r).toMatchObject({ score: 1, max_marks: 15, withdrawn_count: 1, counts: { right: 1, wrong: 0, skipped: 13 } });
     expect(r.review[1]).toMatchObject({ state: 'withdrawn', marks_max: 0, marks_awarded: 0 });
   });
   it('a student who never sat it gets practice mock · unscored after close: timed, answers at the end, outside the range', () => {
@@ -123,8 +123,8 @@ describe('R21: resetAttempt', () => {
     const later = at(T0, min(40));
     expect(submit(db, ctx, S1, a.attempt_id, later).auto_closed).toBe(true); // nobody could sync; the server closed it
     const r = resetAttempt(db, ctx, { student: S1, form_version: 'f1', reason: 'host outage 09:05-09:40', actor: 'admin-1' }, later);
-    expect(r.minutes_given).toBe(8); // 11 min window minus the 3 min used when the last answer was saved
-    expect(r.deadline_at).toBe(at(later, min(8)).toISOString());
+    expect(r.minutes_given).toBe(28); // 31 min window minus the 3 min used when the last answer was saved
+    expect(r.deadline_at).toBe(at(later, min(28)).toISOString());
     expect(db.prepare('SELECT state, submitted_at, score FROM mocks').get()).toEqual({ state: 'in_progress', submitted_at: null, score: null });
     const audit = db.prepare("SELECT action, actor, reason, student_hash FROM mock_audit WHERE action = 'reset'").get();
     expect(audit).toEqual({ action: 'reset', actor: 'admin-1', reason: 'host outage 09:05-09:40', student_hash: S1 });

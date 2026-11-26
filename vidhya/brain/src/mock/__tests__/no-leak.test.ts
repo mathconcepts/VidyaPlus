@@ -36,7 +36,7 @@ function leaks(value: unknown, trail = '$', seen = new Set<unknown>()): string[]
 }
 
 // Every exported function must be listed in exactly one of these.
-const STUDENT_MOCK = ['startAttempt', 'attemptItems', 'savedAnswers', 'saveAnswer', 'submit', 'resultView', 'reportDuringMock', 'acceptPracticeAnswer'];
+const STUDENT_MOCK = ['startAttempt', 'attemptItems', 'savedAnswers', 'saveAnswer', 'submit', 'resultView', 'reportDuringMock', 'acceptPracticeAnswer', 'savedAnswerState'];
 const ADMIN_MOCK = ['registerForm', 'closeMock', 'resetAttempt', 'sweepDue'];
 const INTERNAL_MOCK = [
   'parseExamTiming', 'formMinutes', 'toScorable', 'freeze', 'studentItemView', 'getForm', 'getMock', 'loadOwned', 'frozenItems', 'isPractice',
@@ -80,6 +80,7 @@ describe('before close, no student-facing function leaks anything key-shaped', (
     note('saveAnswer', mock.saveAnswer(db, ctx, S1, a.attempt_id, 'm1', mcq(1), meta(S1, at(T0, min(1)), at(T0, min(1)), 'x')));
     note('saveAnswer:dup', mock.saveAnswer(db, ctx, S1, a.attempt_id, 'm1', mcq(1), meta(S1, at(T0, min(1)), at(T0, min(1)), 'x')));
     note('savedAnswers', mock.savedAnswers(db, S1, a.attempt_id));
+    note('savedAnswerState', mock.savedAnswerState(db, S1, a.attempt_id));
     note('reportDuringMock', mock.reportDuringMock(db, S1, a.attempt_id, 'm2', 'check the key', at(T0, min(2))));
     note('submit', mock.submit(db, ctx, S1, a.attempt_id, at(T0, min(3))));
     note('resultView', mock.resultView(db, ctx, S1, a.attempt_id, at(T0, min(4))));

@@ -1,5 +1,5 @@
 import { openStore, type Db } from '../../store/db.js';
-import { hashId, upsertStudent } from '../../registry/registry.js';
+import { hashId, upsertStudent, type TierTemplate } from '../../registry/registry.js';
 import { GATE_LIKE } from '../../scoring/__tests__/fixtures.js';
 import type { Item } from '../../item/schema.js';
 import type { MockContext } from '../rows.js';
@@ -24,10 +24,17 @@ export const ITEMS: Item[] = [
   base({ id: 'm2', type: 'MCQ', marks: 2, options: ['a', 'b', 'c', 'd'], key: 2 }),
   base({ id: 'm3', type: 'MSQ', marks: 2, options: ['a', 'b', 'c', 'd'], key: [0, 3] }),
   base({ id: 'm4', type: 'NAT', marks: 1, key: '2', nat_range: [1.9, 2.1] }),
+  // fillers so the form reaches the 15-item floor (B5); each is a 1-mark MCQ whose key is option 0
+  ...Array.from({ length: 11 }, (_, i) => base({ id: `m${i + 5}`, type: 'MCQ', marks: 1, options: ['a', 'b', 'c', 'd'], key: 0 })),
 ];
-// total 6 marks; with 180 min / 100 marks => 10.8 -> 11 minutes
+// total 17 marks; with 180 min / 100 marks => 30.6 -> 31 minutes
 export const TIMING = { total_minutes: 180, total_marks: 100 };
-export const FORM_MINUTES = 11;
+export const FORM_MINUTES = 31;
+export const TOTAL_MARKS = 17;
+export const TIERS: TierTemplate = {
+  pilot: { exam_page: true, nat: true, mock: true, today_card: true, disputes: true, tutor_mcp: true },
+  free: { exam_page: true, nat: false, mock: false, today_card: true, disputes: true, tutor_mcp: false },
+};
 
 export const S1 = hashId('syn-student-1', 'salt');
 export const S2 = hashId('syn-student-2', 'salt');
@@ -42,7 +49,7 @@ export interface World {
 export function world(opts: { entitled_until?: string | null } = {}): World {
   const db = openStore(':memory:');
   const items = new Map(ITEMS.map((i) => [i.id, i]));
-  const ctx: MockContext = { marking: GATE_LIKE, resolveItem: (id) => items.get(id) };
+  const ctx: MockContext = { marking: GATE_LIKE, tiers: TIERS, resolveItem: (id) => items.get(id) };
   for (const [n, s] of [[1, S1], [2, S2], [3, S3]] as const) {
     upsertStudent(db, { student_hash: s, dt_user_hash: hashId(`syn-dt-${n}`, 'salt'), tier: 'pilot', entitled_until: opts.entitled_until === undefined ? '2026-12-31' : opts.entitled_until }, T0);
   }

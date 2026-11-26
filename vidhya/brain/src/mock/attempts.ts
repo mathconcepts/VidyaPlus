@@ -7,7 +7,7 @@
 import { BrainError } from '../errors.js';
 import { isServable, type Item } from '../item/schema.js';
 import { openOverlayRows } from '../disputes/disputes.js';
-import { entitledAt, getStudent } from '../registry/registry.js';
+import { assertMayStartMock } from '../registry/registry.js';
 import { scoreAttempt, type StudentResponse } from '../scoring/scorer.js';
 import { formMinutes, type ExamTiming } from './timing.js';
 import { freeze, studentItemView, toScorable, type StudentItemView } from './items.js';
@@ -18,6 +18,9 @@ import {
 import { settle, settleIfDue } from './settle.js';
 
 // ---------------------------------------------------------------- form (admin)
+
+/** Plan B5: a mock form has at least this many newly authored items. */
+export const MIN_FORM_ITEMS = 15;
 
 export interface FormInput {
   form_version: string;
@@ -30,7 +33,9 @@ export interface FormInput {
 /** ADMIN. Register the one fixed mock form. Idempotent for identical content; a changed form needs a new version (errata). */
 export function registerForm(db: Db, input: FormInput, now: Date): void {
   if (!input.form_version) throw new BrainError('InvalidMockForm', 'form_version is required');
-  if (input.items.length === 0) throw new BrainError('InvalidMockForm', 'a mock form needs items');
+  if (input.items.length < MIN_FORM_ITEMS) {
+    throw new BrainError('InvalidMockForm', `a mock form needs at least ${MIN_FORM_ITEMS} items, got ${input.items.length}`);
+  }
   const overlay = openOverlayRows(db);
   const ids = new Set<string>();
   for (const it of input.items) {
@@ -87,7 +92,8 @@ const view = (row: MockRow, resumed: boolean, notice?: AttemptView['notice']): A
 /**
  * Start (or resume) the student's attempt.
  *  - an unfinished attempt inside its window is resumed, even after access ended (DR7);
- *  - otherwise a NEW attempt needs entitlement (DR7); it is the scored one if the student
+ *  - otherwise a NEW attempt needs entitlement (DR7) and the tier's `mock` flag, both checked by
+ *    the registry's `assertMayStartMock`; it is the scored one if the student
  *    has none for this form and the form is not closed, else practice (never in the range).
  */
 export function startAttempt(db: Db, ctx: MockContext, student: string, formVersion: string, now: Date): AttemptView {
@@ -100,9 +106,9 @@ export function startAttempt(db: Db, ctx: MockContext, student: string, formVers
       if (!isFinished(r)) return view(r, true); // resume
       if (!isPractice(r)) scoredExists = true;
     }
-    if (!entitledAt(getStudent(db, student), now)) {
-      throw new BrainError('AccessEnded', 'access has ended; a new mock cannot be started (an attempt already started can be finished)');
-    }
+    // The resume branch above is the DR7 exception: an attempt already started is finished after
+    // access ends. Everything below is NEW work and goes through the registry's gate.
+    assertMayStartMock(db, student, now, ctx.tiers);
     const practice = scoredExists || form.closed_at !== null;
     const deadline = new Date(now.getTime() + form.minutes * 60_000);
     const id = db
@@ -134,6 +140,17 @@ export function savedAnswers(db: Db, student: string, attemptId: number): { item
   return [...latest].map(([item_id, response]) => ({ item_id, response }));
 }
 
+/** Like `savedAnswers`, plus the "flag for later" mark; the latest entry per item wins. */
+export function savedAnswerState(db: Db, student: string, attemptId: number): { item_id: string; response: StudentResponse; flagged: boolean }[] {
+  const row = loadOwned(db, student, attemptId);
+  const rows = db
+    .prepare('SELECT item_id, response_json, flagged FROM mock_answers WHERE mock_id = ? ORDER BY client_entered_at, id')
+    .all(row.id) as { item_id: string; response_json: string; flagged: number }[];
+  const latest = new Map<string, { response: StudentResponse; flagged: boolean }>();
+  for (const r of rows) latest.set(r.item_id, { response: JSON.parse(r.response_json) as StudentResponse, flagged: r.flagged === 1 });
+  return [...latest].map(([item_id, v]) => ({ item_id, ...v }));
+}
+
 // ---------------------------------------------------------------- autosave
 
 export interface SaveMeta {
@@ -145,6 +162,8 @@ export interface SaveMeta {
   clientEnteredAt: Date;
   /** Who the offline queue says owns this entry (E7); must be the signed-in student. */
   queueOwner: string;
+  /** DR5: the student's "flag for later" mark. Default false. */
+  flagged?: boolean;
 }
 
 export interface SaveResult {
@@ -183,10 +202,10 @@ export function saveAnswer(
   const late = received > deadlineMs(row) ? 1 : 0;
   const r = db
     .prepare(
-      `INSERT INTO mock_answers (mock_id, item_id, idempotency_key, response_json, client_entered_at, received_at, late_sync, queue_owner)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (mock_id, item_id, idempotency_key) DO NOTHING`,
+      `INSERT INTO mock_answers (mock_id, item_id, idempotency_key, response_json, client_entered_at, received_at, late_sync, queue_owner, flagged)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (mock_id, item_id, idempotency_key) DO NOTHING`,
     )
-    .run(row.id, itemId, meta.idempotencyKey, JSON.stringify(response), meta.clientEnteredAt.toISOString(), meta.receivedAt.toISOString(), late, meta.queueOwner);
+    .run(row.id, itemId, meta.idempotencyKey, JSON.stringify(response), meta.clientEnteredAt.toISOString(), meta.receivedAt.toISOString(), late, meta.queueOwner, meta.flagged ? 1 : 0);
   return { status: r.changes === 0 ? 'duplicate' : 'saved' };
 }
 

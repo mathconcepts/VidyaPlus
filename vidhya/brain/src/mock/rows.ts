@@ -3,6 +3,7 @@ import type Database from 'better-sqlite3';
 import { BrainError } from '../errors.js';
 import type { Item } from '../item/schema.js';
 import type { ExamMarking } from '../exam/marking.js';
+import type { TierTemplate } from '../registry/registry.js';
 import type { FrozenItem } from './items.js';
 
 export type Db = Database.Database;
@@ -13,6 +14,8 @@ export const LATE_SYNC_WINDOW_MS = 2 * 60 * 1000;
 /** What the mock needs from the outside: the exam's marking and the pack's items. */
 export interface MockContext {
   marking: ExamMarking;
+  /** Tier template (tiers.yaml): `startAttempt` checks the `mock` flag of a NEW attempt against it. */
+  tiers: TierTemplate;
   /** Current item content by id (the pack release). Undefined when the item left the pack. */
   resolveItem: (id: string) => Item | undefined;
 }

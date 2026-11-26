@@ -34,7 +34,19 @@ export type BrainErrorCode =
   | 'MockClosed'
   | 'MockItemNotInForm'
   | 'AttemptNotOwned'
-  | 'AccessEnded';
+  | 'AccessEnded'
+  | 'FeatureNotEnabled'
+  | 'MockItemRefused'
+  | 'MockNotClosed'
+  | 'ItemNotFound'
+  | 'ItemNotServed'
+  | 'OriginRejected'
+  | 'UnsupportedMediaType'
+  | 'RateLimited'
+  | 'BadRequest'
+  | 'NotFound'
+  | 'MethodNotAllowed'
+  | 'PayloadTooLarge';
 
 export class BrainError extends Error {
   readonly code: BrainErrorCode;

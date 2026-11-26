@@ -184,4 +184,31 @@ CREATE TRIGGER mock_audit_no_delete BEFORE DELETE ON mock_audit
 BEGIN SELECT RAISE(ABORT, 'mock_audit is append-only'); END;
 `,
   },
+  {
+    version: 5,
+    name: '005_http_and_dispute_fix',
+    sql: `
+-- Gap (a): a report filed during the mock (queue only, counted = 0) used to hold the one
+-- unique slot per (student, item, fingerprint), so the same student's later counted dispute
+-- on that item was refused as a duplicate. Uniqueness now applies per kind of row.
+DROP INDEX disputes_one_per_student_item;
+CREATE UNIQUE INDEX disputes_one_counted_per_student_item ON disputes (student_hash, item_id, fingerprint)
+  WHERE student_hash IS NOT NULL AND counted = 1;
+CREATE UNIQUE INDEX disputes_one_queued_per_student_item ON disputes (student_hash, item_id, fingerprint)
+  WHERE student_hash IS NOT NULL AND state = 'giri_queue';
+
+-- E12: the server records when it SERVED a practice item; a late answer is judged by that time.
+CREATE TABLE practice_serves (
+  id           INTEGER PRIMARY KEY,
+  student_hash TEXT NOT NULL,
+  item_id      TEXT NOT NULL,
+  fingerprint  TEXT NOT NULL,
+  served_at    TEXT NOT NULL
+);
+CREATE INDEX practice_serves_student_item ON practice_serves (student_hash, item_id, served_at);
+
+-- DR5: the student's "flag for later" mark on a mock answer.
+ALTER TABLE mock_answers ADD COLUMN flagged INTEGER NOT NULL DEFAULT 0 CHECK (flagged IN (0,1));
+`,
+  },
 ];
