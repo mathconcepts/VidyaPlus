@@ -9,7 +9,7 @@ const STATUS: Record<BrainErrorCode, number> = {
   InvalidDispute: 400, InvalidMockForm: 500, InvalidMockRequest: 400, MockFormUnknown: 404, MockAlreadyScored: 409, MockLateSubmit: 409,
   MockAttemptClosed: 409, MockNotSubmitted: 409, MockNotResettable: 409, MockCloseTooEarly: 409, MockClosed: 409, MockItemNotInForm: 404,
   AttemptNotOwned: 403, AccessEnded: 403, FeatureNotEnabled: 403, MockItemRefused: 403, MockNotClosed: 409, ItemNotFound: 404, ItemNotServed: 409,
-  OriginRejected: 403, UnsupportedMediaType: 415, RateLimited: 429, BadRequest: 400, NotFound: 404, MethodNotAllowed: 405, PayloadTooLarge: 413,
+  OriginRejected: 403, UnsupportedMediaType: 415, RateLimited: 429, BadRequest: 400, NotFound: 404, MethodNotAllowed: 405, PayloadTooLarge: 413, RenderFailed: 503, RenderUnsafe: 503, RenderMissing: 503, InvalidMarksQuery: 400,
 };
 
 export function statusFor(code: BrainErrorCode): number {

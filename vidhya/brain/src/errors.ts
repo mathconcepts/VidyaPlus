@@ -46,7 +46,11 @@ export type BrainErrorCode =
   | 'BadRequest'
   | 'NotFound'
   | 'MethodNotAllowed'
-  | 'PayloadTooLarge';
+  | 'PayloadTooLarge'
+  | 'RenderFailed'
+  | 'RenderUnsafe'
+  | 'RenderMissing'
+  | 'InvalidMarksQuery';
 
 export class BrainError extends Error {
   readonly code: BrainErrorCode;
