@@ -75,10 +75,10 @@ export interface Harness {
   authCalls: string[];
   authMode: { value: 'ok' | 'down' };
   close: () => Promise<void>;
-  call: (method: string, path: string, o?: { as?: keyof typeof USERS | 'nobody' | string; body?: unknown; origin?: string | null; raw?: string; contentType?: string | null }) => Promise<{ status: number; headers: Headers; json: any; text: string }>;
+  call: (method: string, path: string, o?: { as?: keyof typeof USERS | 'nobody' | string; body?: unknown; origin?: string | null; raw?: string; contentType?: string | null; headers?: Record<string, string> }) => Promise<{ status: number; headers: Headers; json: any; text: string }>;
 }
 
-export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockForm?: boolean; render?: boolean } = {}): Promise<Harness> {
+export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockForm?: boolean; render?: boolean; syncToken?: string } = {}): Promise<Harness> {
   const db = openStore(':memory:');
   const pack = opts.pack ?? makePack();
   for (const [k, u] of Object.entries(USERS)) {
@@ -108,7 +108,7 @@ export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockF
     authBase: dtUrl, retryDelayMs: 1, cacheTtlMs: 0,
     lookupStudent: (u) => (lookup.get(hashId(u, SALT)) as { student_hash: string } | undefined)?.student_hash,
   });
-  const config: AppConfig = { appOrigin: ORIGIN, loginPath: '/login', buildId: 'build-test', deeptutorUrl: dtUrl, rateLimitPerMinute: opts.rateLimit };
+  const config: AppConfig = { appOrigin: ORIGIN, loginPath: '/login', buildId: 'build-test', deeptutorUrl: dtUrl, rateLimitPerMinute: opts.rateLimit, syncToken: opts.syncToken };
   const { server } = createApp({ deps, config, resolveSession, now: () => clock.now, log: () => undefined });
   await new Promise<void>((r) => server.listen(0, '127.0.0.1', r));
   const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
@@ -120,6 +120,7 @@ export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockF
       const user = USERS[key]?.user ?? key;
       headers.cookie = `dt_token=tok-${user}`;
     }
+    Object.assign(headers, o.headers);
     if (method !== 'GET' && o.origin !== null) headers.origin = o.origin ?? ORIGIN;
     let body: string | undefined;
     if (o.raw !== undefined) body = o.raw;

@@ -22,6 +22,8 @@ import { getMarks, getToday } from '../service/today.js';
 import * as mock from '../service/mock.js';
 import { toApiError } from './errors.js';
 import { handleMcp } from '../mcp/server.js';
+import { requireInternal, SERVABLE_PATH } from './internal.js';
+import { servableForSync } from '../service/servable.js';
 
 export interface AppConfig {
   /** The one Origin that may write, e.g. https://learn.example.org */
@@ -32,6 +34,8 @@ export interface AppConfig {
   /** DeepTutor base URL, probed by /health. */
   deeptutorUrl: string;
   rateLimitPerMinute?: number;
+  /** Bearer secret for the internal sync route (/v1/servable). Unset: that route is off. */
+  syncToken?: string;
 }
 
 export interface AppDeps {
@@ -153,6 +157,13 @@ export function createApp(app: AppDeps): { server: Server; listener: (req: Incom
         return send(h.status, h.body);
       }
       if (!path.startsWith('/v1/')) throw new BrainError('NotFound', 'no such route');
+
+      if (path === SERVABLE_PATH) {
+        // Internal only: no cookie, no Origin, no student. Keys leave here, so the checks come first.
+        if (req.method !== 'GET') throw new BrainError('MethodNotAllowed', 'GET only');
+        requireInternal(req, config.syncToken);
+        return send(200, servableForSync(deps, { pool: url.searchParams.get('pool'), type: url.searchParams.get('type'), version: url.searchParams.get('version') }));
+      }
 
       if (loginRoute.re.test(path)) {
         if (req.method !== 'GET') throw new BrainError('MethodNotAllowed', 'GET only');

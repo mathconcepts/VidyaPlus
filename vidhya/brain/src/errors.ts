@@ -5,6 +5,10 @@
 
 export type BrainErrorCode =
   | 'InvalidItem'
+  | 'SyncNotConfigured'
+  | 'SyncUnauthorized'
+  | 'SyncForbidden'
+  | 'PackVersionMismatch'
   | 'InvalidResponse'
   | 'NatParseError'
   | 'MsqPartialCreditUnsupported'

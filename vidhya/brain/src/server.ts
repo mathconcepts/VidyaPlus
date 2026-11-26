@@ -1,6 +1,7 @@
 /**
  * `npm start`: the Exam Brain HTTP + MCP server.
  * Env: VIDHYA_DB, PACK_DIR, DEEPTUTOR_URL, VIDHYA_HASH_SALT, APP_ORIGIN (required);
+ *      SYNC_TOKEN (bearer for GET /v1/servable; unset turns that route off);
  *      PORT (8080), HOST (127.0.0.1), LOGIN_PATH (/login), BUILD_ID (dev).
  * It never migrates: run `vidhya migrate` first. On an old schema it refuses to start (E13).
  */
@@ -37,7 +38,7 @@ export async function startServer(env: Env, opts: { fetchImpl?: typeof fetch; lo
     resolveSession,
     log,
     fetchImpl: opts.fetchImpl,
-    config: { appOrigin: need(env, 'APP_ORIGIN'), loginPath: env.LOGIN_PATH ?? '/login', buildId: env.BUILD_ID ?? 'dev', deeptutorUrl },
+    config: { appOrigin: need(env, 'APP_ORIGIN'), loginPath: env.LOGIN_PATH ?? '/login', buildId: env.BUILD_ID ?? 'dev', deeptutorUrl, syncToken: env.SYNC_TOKEN || undefined },
   });
   const host = env.HOST ?? '127.0.0.1';
   await new Promise<void>((resolve, reject) => {

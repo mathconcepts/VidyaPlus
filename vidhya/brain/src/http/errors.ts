@@ -3,6 +3,7 @@ import { BrainError, type BrainErrorCode } from '../errors.js';
 import type { ApiError } from '../../../shared/api-contract.js';
 
 const STATUS: Record<BrainErrorCode, number> = {
+  SyncNotConfigured: 503, SyncUnauthorized: 401, SyncForbidden: 403, PackVersionMismatch: 409,
   InvalidItem: 500, InvalidResponse: 400, NatParseError: 400, MsqPartialCreditUnsupported: 500, InvalidMarking: 500, SympyUnavailable: 503,
   SessionMissing: 401, AuthUpstreamUnavailable: 503, AuthContractBroken: 502, AuthDisabled: 503, UnknownStudent: 403,
   StoreSchemaMismatch: 503, SchemaBehind: 503, MigrationFailed: 500, InvalidItemId: 400, InvalidRegistryRow: 500, UnknownTier: 500,
