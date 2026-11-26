@@ -24,6 +24,10 @@ cat > "$DT_DATA/user/settings/auth.json" <<JSON
 JSON
 # The entrypoint remaps the in-container user to uid/gid 1000 and chowns /app/data.
 chmod -R a+rwX "$DT_DATA" 2>/dev/null || true
+# The brain image runs as `node` (uid 1000); a bind dir docker creates would be root-owned.
+export BRAIN_DATA="${BRAIN_DATA:-$HERE/.run/brain}"
+mkdir -p "$BRAIN_DATA/backups"
+chmod -R a+rwX "$BRAIN_DATA" 2>/dev/null || true
 
 $DOCKER compose up -d
 echo "waiting for DeepTutor /health/ready ..."
