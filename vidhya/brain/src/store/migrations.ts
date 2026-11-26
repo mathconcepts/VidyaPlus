@@ -184,4 +184,27 @@ CREATE TRIGGER mock_audit_no_delete BEFORE DELETE ON mock_audit
 BEGIN SELECT RAISE(ABORT, 'mock_audit is append-only'); END;
 `,
   },
+  {
+    version: 6,
+    name: '006_rendered_items',
+    sql: `
+-- E5 / E8: KaTeX HTML rendered once per item version at sync, never per request.
+-- Keyed by (fingerprint, katex_version): an errata changes the fingerprint and a
+-- KaTeX upgrade changes the version, so either one re-renders automatically.
+-- status 'failed' means the item is unservable (no raw TeX is ever served instead).
+CREATE TABLE rendered_items (
+  fingerprint   TEXT NOT NULL,
+  katex_version TEXT NOT NULL,
+  item_id       TEXT NOT NULL,
+  status        TEXT NOT NULL CHECK (status IN ('ok','failed')),
+  html_json     TEXT,                 -- {stem, options[], solution}; NULL when failed
+  error_code    TEXT,                 -- RenderFailed | RenderUnsafe when failed
+  error_message TEXT,
+  rendered_at   TEXT NOT NULL,
+  PRIMARY KEY (fingerprint, katex_version),
+  CHECK ((status = 'ok' AND html_json IS NOT NULL) OR (status = 'failed' AND html_json IS NULL AND error_code IS NOT NULL))
+);
+CREATE INDEX rendered_items_item ON rendered_items (item_id);
+`,
+  },
 ];
