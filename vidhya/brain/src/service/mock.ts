@@ -14,11 +14,11 @@ import type {
   Answer, CheckResult, ExamItem, MockAnswerRequest, MockAnswerResponse, MockAttempt, MockAutosaveRequest, MockAutosaveResponse, MockBrief,
   MockItemLite, MockResultPreClose, MockReviewRow, MockSubmitResponse, ReportRequest, ReportResponse,
 } from '../../../shared/api-contract.js';
-import { answerToResponse, formatKey, formatNegative, marksOf, optionKey, textToHtml } from './grade.js';
+import { answerToResponse, formatKey, formatNegative, marksOf, optionKey } from './grade.js';
 import { fileDispute } from '../disputes/disputes.js';
 import { fingerprint } from '../item/schema.js';
 import { REPORT_REPLY } from '../mock/report.js';
-import { requireFlag, flagsOf, type Deps } from './deps.js';
+import { requireFlag, flagsOf, renderedOf, type Deps } from './deps.js';
 import { servablePractice, toExamItem } from './practice.js';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -82,11 +82,12 @@ function view(d: Deps, student: string, row: MockRow, now: Date): MockAttempt {
   for (const v of attemptItems(d.db, d.mockCtx, student, row.id)) {
     const item = d.pack.byId.get(v.item_id);
     if (!item || v.unavailable) continue; // a withdrawn item is not shown; it counts on neither side
+    const html = renderedOf(d, item); // a mock item that cannot render fails loudly (503), never shows raw TeX
     const lite: MockItemLite = {
       id: item.id, kind: item.type.toLowerCase() as MockItemLite['kind'], marks: marksOf(item),
-      negative: formatNegative(item, d.pack.marking), stemHtml: textToHtml(item.stem),
+      negative: formatNegative(item, d.pack.marking), stemHtml: html.stem,
     };
-    if (item.options) lite.options = item.options.map((o, i) => ({ key: optionKey(i), html: textToHtml(o) }));
+    if (item.options) lite.options = item.options.map((o, i) => ({ key: optionKey(i), html: html.options[i]! }));
     items.push(lite);
   }
   const saved: MockAttempt['saved'] = {};
@@ -176,11 +177,24 @@ export function getReview(d: Deps, student: string, now: Date): MockReviewRow[] 
     if (!item || r.state === 'withdrawn') {
       const ghost: ExamItem = {
         id: r.item_id, topic: '', topicLabel: '', kind: item ? (item.type.toLowerCase() as ExamItem['kind']) : 'mcq', marks: item ? marksOf(item) : 1, negative: '0',
-        stemHtml: textToHtml(item?.stem ?? 'This question was withdrawn.'), fingerprint: item ? fingerprint(item) : '', verification: { state: 'withdrawn' }, inMock: true,
+        stemHtml: 'This question was withdrawn.', fingerprint: item ? fingerprint(item) : '', verification: { state: 'withdrawn' }, inMock: true,
       };
       return { item: ghost, result: { itemId: r.item_id, outcome: 'skipped', yours: '', key: '', reason: 'Withdrawn: it counts on neither side.', scored: 0, week: null, verification: { state: 'withdrawn' } } };
     }
-    const ex = toExamItem(d, item);
+    let ex: ExamItem;
+    let reasonHtml: string | undefined;
+    try {
+      ex = toExamItem(d, item);
+      reasonHtml = renderedOf(d, item).solution;
+    } catch (e) {
+      if (!(e instanceof BrainError) || (e.code !== 'RenderFailed' && e.code !== 'RenderMissing')) throw e;
+      // One question that cannot be drawn must not take the whole review down; raw TeX is still never shown.
+      ex = {
+        id: item.id, topic: item.topic_id, topicLabel: '', kind: item.type.toLowerCase() as ExamItem['kind'], marks: marksOf(item), negative: '0',
+        stemHtml: 'This question cannot be shown right now. We are re-checking it.', fingerprint: fingerprint(item),
+        verification: { state: 'rechecking', note: 'Not shown while we re-check it.' },
+      };
+    }
     ex.inMock = true;
     const yours = r.your_answer ? toAnswer(item, r.your_answer) : null;
     const result: CheckResult = {
@@ -188,6 +202,7 @@ export function getReview(d: Deps, student: string, now: Date): MockReviewRow[] 
       yours: yours === null ? '' : yours.kind === 'mcq' ? yours.key : yours.kind === 'msq' ? yours.keys.join(', ') : yours.raw,
       key: formatKey(item), reason: item.solution.text, scored: r.marks_awarded, week: null, verification: ex.verification,
     };
+    if (reasonHtml !== undefined) result.reasonHtml = reasonHtml;
     return { item: ex, result };
   });
 }

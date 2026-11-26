@@ -9,8 +9,9 @@
  */
 import { isServable } from '../item/schema.js';
 import { hiddenItemIdsFor, openOverlayRows } from '../disputes/disputes.js';
-import type { MarksView, TodayPlan } from '../../../shared/api-contract.js';
-import { flagsOf, requireFlag, type Deps } from './deps.js';
+import type { MarksView, TaxonomyRow, TodayPlan } from '../../../shared/api-contract.js';
+import { BUCKETS, getMarks as computeMarks } from '../marks/index.js';
+import { flagsOf, renderable, requireFlag, type Deps } from './deps.js';
 import { topicLabel } from './practice.js';
 import { fmtDay, mockLine } from './mock.js';
 
@@ -32,7 +33,7 @@ export function getToday(d: Deps, student: string, now: Date, minutes = 30): Tod
     if (t) doneByTopic.set(t, (doneByTopic.get(t) ?? 0) + r.n);
   }
   const pool = d.pack.items
-    .filter((i) => i.pool === 'practice' && isServable(i, overlay) && !hidden.has(i.id) && !recent.has(i.id) && (i.type !== 'NAT' || flags.nat))
+    .filter((i) => i.pool === 'practice' && isServable(i, overlay) && renderable(d, i) && !hidden.has(i.id) && !recent.has(i.id) && (i.type !== 'NAT' || flags.nat))
     .sort((a, b) => (doneByTopic.get(a.topic_id) ?? 0) - (doneByTopic.get(b.topic_id) ?? 0) || a.id.localeCompare(b.id));
 
   const chosen: typeof pool = [];
@@ -60,14 +61,41 @@ export function getToday(d: Deps, student: string, now: Date, minutes = 30): Tod
   };
 }
 
-/** Marks tab. The 80% range and the taxonomy (B5 analytics) are not built: the range is null with a plain reason. */
+const BUCKET_LABEL: Record<TaxonomyRow['bucket'], string> = {
+  TIME: 'Ran out of time',
+  EXAMCRAFT: 'Answered too fast (a guess)',
+  CALC: 'Arithmetic slip',
+  CONCEPT: 'Concept gap',
+  UNCLASSIFIED: 'Unclassified',
+};
+const round1 = (n: number): number => Math.round(n * 10) / 10;
+
+/**
+ * Marks tab: the B5 range and mistake taxonomy, mapped to the contract. `section_marks` comes from the
+ * pack. The range is the bootstrap's 80% interval, or "needs more" with its fixed sentence. UNCLASSIFIED
+ * is a row like any other: it is never hidden or guessed into a bucket.
+ */
 export function getMarks(d: Deps, student: string, now: Date): MarksView {
-  void d; void student; void now;
-  return {
-    range: null,
-    basis: 'Your marks range appears after you finish the mock or reach 30 practice attempts.',
-    lastWeek: null,
-    lost: [],
-  };
+  void now;
+  const section = d.pack.section_marks;
+  if (section === null) {
+    return { range: null, basis: 'This exam has no section marks set, so no marks range can be shown.', lastWeek: null, lost: [], status: 'needs_more' };
+  }
+  const v = computeMarks(d.db, student, { section_marks: section, ctx: d.mockCtx });
+  const taxonomy: TaxonomyRow[] = (BUCKETS.map((b) => ({ bucket: b, label: BUCKET_LABEL[b], wrong: v.taxonomy.totals[b] })) as TaxonomyRow[]).filter((r) => r.wrong > 0);
+  const out: MarksView = { range: null, basis: '', lastWeek: null, lost: [], taxonomy, wrongTotal: v.taxonomy.wrong_total };
+  if (v.score) out.score = { score: v.score.score, outOf: v.score.max_marks, label: v.score.label };
+  if (v.range.status === 'ok') {
+    out.status = 'ok';
+    out.range = { low: round1(v.range.low), high: round1(v.range.high), of: v.range.section_marks };
+    out.basis = v.range.label;
+    out.lowN = v.range.low_n;
+    out.attempts = v.range.n;
+  } else {
+    out.status = 'needs_more';
+    out.basis = v.range.message;
+    out.attempts = v.range.attempts;
+  }
+  return out;
 }
 export { fmtDay };

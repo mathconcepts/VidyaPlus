@@ -53,6 +53,12 @@ export interface CheckResult {
   yours: string;
   key: string;
   reason: string;
+  /**
+   * `reason` pre-rendered (KaTeX + MathML, server-sanitised, E5/E8). Optional so an older brain or a
+   * test double can omit it; the app falls back to the plain `reason`. The only other HTML in this
+   * contract is `stemHtml` and `ItemOption.html`; the app sets innerHTML from these fields alone.
+   */
+  reasonHtml?: string;
   /** Marks scored on this item (can be negative on MCQ). */
   scored: number;
   /** Counted, never estimated (DR12). Present only on a correct answer. */
@@ -140,11 +146,31 @@ export interface MockReviewRow {
   result: CheckResult;
 }
 
+/** One row of the mistake taxonomy (B5). UNCLASSIFIED is a real row, never hidden or guessed. */
+export interface TaxonomyRow {
+  bucket: 'TIME' | 'EXAMCRAFT' | 'CALC' | 'CONCEPT' | 'UNCLASSIFIED';
+  label: string;
+  /** Wrong answers in this bucket (counted, not marks). */
+  wrong: number;
+}
+
 export interface MarksView {
   range: { low: number; high: number; of: number } | null;
+  /** The basis line: "estimate from N attempts", or the needs-more message when `range` is null. */
   basis: string;
   lastWeek: string | null;
+  /** Legacy marks-lost rows. The brain sends `taxonomy` instead and leaves this empty. */
   lost: { label: string; marks: number }[];
+  /** Backward compatible additions (all optional). */
+  status?: 'ok' | 'needs_more';
+  /** Few attempts behind the range, so it is wide. */
+  lowN?: boolean;
+  attempts?: number;
+  taxonomy?: TaxonomyRow[];
+  /** Total wrong answers the taxonomy covers. */
+  wrongTotal?: number;
+  /** The scored mock's score, once the student has finished it. */
+  score?: { score: number; outOf: number; label: string };
 }
 
 export type ReportContext = 'item' | 'mock';

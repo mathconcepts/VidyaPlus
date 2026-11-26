@@ -8,6 +8,7 @@ import { fingerprint, type Item } from '../../item/schema.js';
 import { makeDeps, type Deps } from '../../service/deps.js';
 import { makeSessionResolver } from '../../session/resolve.js';
 import { registerForm } from '../../mock/attempts.js';
+import { renderOnSync } from '../../render/index.js';
 import { createApp, type AppConfig } from '../app.js';
 import { GATE_LIKE } from '../../scoring/__tests__/fixtures.js';
 
@@ -77,12 +78,13 @@ export interface Harness {
   call: (method: string, path: string, o?: { as?: keyof typeof USERS | 'nobody' | string; body?: unknown; origin?: string | null; raw?: string; contentType?: string | null }) => Promise<{ status: number; headers: Headers; json: any; text: string }>;
 }
 
-export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockForm?: boolean } = {}): Promise<Harness> {
+export async function harness(opts: { pack?: Pack; rateLimit?: number; withMockForm?: boolean; render?: boolean } = {}): Promise<Harness> {
   const db = openStore(':memory:');
   const pack = opts.pack ?? makePack();
   for (const [k, u] of Object.entries(USERS)) {
     upsertStudent(db, { student_hash: studentHash(k), dt_user_hash: hashId(u.user, SALT), tier: u.tier, entitled_until: u.until }, T0);
   }
+  if (opts.render !== false) renderOnSync(db, pack.items, { now: T0 }); // what runtime boot does
   const deps = makeDeps(db, pack);
   if (opts.withMockForm !== false) {
     registerForm(db, { form_version: 'f1', items: pack.items.filter((i) => i.pool === 'mock'), timing: pack.timing, planned_close: '2026-12-20' }, T0);

@@ -4,7 +4,13 @@
  * The brain never imports pack code; it reads this artifact only (plan section 3, Ownership).
  *
  * exam.json: { version, marking, timing, topics: [{id, label, weight_marks}],
- *              tiers: { <tier>: {flags} }, mock?: { form_version, opens_on, closes_on, planned_close } }
+ *              tiers: { <tier>: {flags} }, mock?: { form_version, opens_on, closes_on, planned_close },
+ *              section_marks?: number }
+ *
+ * `section_marks` is the marks the exam section carries (the "of N" under the marks range). It must be a
+ * positive finite number. When absent it defaults to the sum of the topics' `weight_marks` (the pack's own
+ * statement of what the section is worth); when that is also 0 the pack has no section marks and
+ * /v1/marks says so instead of guessing.
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -35,6 +41,8 @@ export interface Pack {
   topics: Topic[];
   tiers: TierTemplate;
   mock: MockConfig | null;
+  /** Marks the exam section carries; null when the pack states none (see header). */
+  section_marks: number | null;
   items: Item[];
   byId: Map<string, Item>;
 }
@@ -57,8 +65,18 @@ export function parseItem(raw: unknown, where: string): Item {
   return o as unknown as Item;
 }
 
+/** Positive finite number, else the topics' weight sum, else null. A wrong type or sign is an error, never a silent default. */
+export function parseSectionMarks(raw: unknown, topics: readonly Topic[]): number | null {
+  if (raw !== undefined && raw !== null) {
+    if (typeof raw !== 'number' || !Number.isFinite(raw) || raw <= 0) throw new BrainError('InvalidItem', 'exam.json section_marks must be a positive number');
+    return raw;
+  }
+  const sum = topics.reduce((a, t) => a + (Number.isFinite(t.weight_marks) ? t.weight_marks : 0), 0);
+  return sum > 0 ? sum : null;
+}
+
 export function buildPack(input: {
-  version: string; marking: unknown; timing: unknown; topics: Topic[]; tiers: TierTemplate; mock?: MockConfig | null; items: unknown[];
+  version: string; marking: unknown; timing: unknown; topics: Topic[]; tiers: TierTemplate; mock?: MockConfig | null; section_marks?: unknown; items: unknown[];
 }): Pack {
   const items = input.items.map((r, i) => parseItem(r, `item #${i + 1}`));
   const byId = new Map<string, Item>();
@@ -68,6 +86,7 @@ export function buildPack(input: {
   }
   return {
     version: input.version,
+    section_marks: parseSectionMarks(input.section_marks, input.topics),
     marking: parseExamMarking(input.marking),
     timing: parseExamTiming(input.timing),
     topics: input.topics,
@@ -89,6 +108,7 @@ export function loadPack(dir: string): Pack {
     topics: (exam.topics ?? []) as Topic[],
     tiers: (exam.tiers ?? {}) as TierTemplate,
     mock: (exam.mock ?? null) as MockConfig | null,
+    section_marks: exam.section_marks,
     items: lines.map((l) => JSON.parse(l) as unknown),
   });
 }

@@ -22,6 +22,7 @@ export interface Started {
 export async function startServer(env: Env, opts: { fetchImpl?: typeof fetch; log?: (l: Record<string, unknown>) => void } = {}): Promise<Started> {
   const rt = openRuntime(env);
   const log = opts.log ?? ((l) => process.stderr.write(`${JSON.stringify(l)}\n`));
+  for (const f of rt.render.failed) log({ level: 'warn', msg: 'item not renderable, not served', item_id: f.item_id, code: f.code, detail: f.message });
   ensureMockForm(rt, new Date(), (m) => log({ level: 'warn', msg: m }));
   const salt = need(env, 'VIDHYA_HASH_SALT');
   const lookup = rt.db.prepare('SELECT student_hash FROM registry WHERE dt_user_hash = ?');

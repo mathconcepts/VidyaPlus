@@ -10,8 +10,8 @@ import { hiddenItemIdsFor, openOverlayRows } from '../disputes/disputes.js';
 import { entitledAt, getStudent } from '../registry/registry.js';
 import { acceptPracticeAnswer } from '../mock/practice.js';
 import type { Answer, CheckOutcome, CheckRequest, CheckResult, ExamItem, TodayItemRef, TopicRow } from '../../../shared/api-contract.js';
-import { answerToResponse, formatKey, formatNegative, formatYours, gradeItem, marksOf, optionKey, textToHtml, verificationOf } from './grade.js';
-import { requireFlag, type Deps } from './deps.js';
+import { answerToResponse, formatKey, formatNegative, formatYours, gradeItem, marksOf, optionKey, verificationOf } from './grade.js';
+import { renderable, renderedOf, requireFlag, type Deps } from './deps.js';
 
 export function topicLabel(d: Deps, topicId: string): string {
   return d.pack.topics.find((t) => t.id === topicId)?.label ?? topicId;
@@ -27,6 +27,7 @@ export function servablePractice(d: Deps, student: string, id: string): Item {
 }
 
 export function toExamItem(d: Deps, item: Item): ExamItem {
+  const html = renderedOf(d, item); // throws RenderFailed / RenderMissing: an unrenderable item is not served
   const out: ExamItem = {
     id: item.id,
     topic: item.topic_id,
@@ -34,11 +35,11 @@ export function toExamItem(d: Deps, item: Item): ExamItem {
     kind: item.type.toLowerCase() as ExamItem['kind'],
     marks: marksOf(item),
     negative: formatNegative(item, d.pack.marking),
-    stemHtml: textToHtml(item.stem),
+    stemHtml: html.stem,
     fingerprint: fingerprint(item),
     verification: verificationOf(item),
   };
-  if (item.options) out.options = item.options.map((o, i) => ({ key: optionKey(i), html: textToHtml(o) }));
+  if (item.options) out.options = item.options.map((o, i) => ({ key: optionKey(i), html: html.options[i]! }));
   return out;
 }
 
@@ -46,10 +47,11 @@ export function serveItem(d: Deps, student: string, id: string, now: Date): Exam
   // E12: entitlement is judged when the item is SERVED. NAT needs its flag.
   const probe = servablePractice(d, student, id);
   requireFlag(d, student, now, probe.type === 'NAT' ? 'nat' : 'exam_page');
+  const out = toExamItem(d, probe); // render first: an unrenderable item must not be recorded as served
   d.db.prepare('INSERT INTO practice_serves (student_hash, item_id, fingerprint, served_at) VALUES (?, ?, ?, ?)').run(
     student, id, fingerprint(probe), now.toISOString(),
   );
-  return toExamItem(d, probe);
+  return out;
 }
 
 function weekCounts(d: Deps, student: string, topicId: string, now: Date): { right: number; total: number } {
@@ -77,6 +79,7 @@ export function checkPractice(d: Deps, student: string, id: string, req: CheckRe
   if (!decision.counts) throw new BrainError('AccessEnded', 'this question was opened after access ended');
 
   const g = gradeItem(item, response, d.pack.marking);
+  const reasonHtml = renderedOf(d, item).solution; // before any write
   const key = `${student}:${id}:${req.idempotencyKey ?? randomUUID()}`;
   if (req.elapsedMs !== undefined && (!Number.isInteger(req.elapsedMs) || req.elapsedMs < 0)) throw new BrainError('BadRequest', 'elapsedMs must be a whole number >= 0');
   d.db
@@ -93,6 +96,7 @@ export function checkPractice(d: Deps, student: string, id: string, req: CheckRe
     yours: formatYours(req.answer),
     key: formatKey(item),
     reason: item.solution.text,
+    reasonHtml,
     scored: g.marks_awarded,
     week: g.correct ? { right: wk.right, total: wk.total, topicNoun: topicLabel(d, item.topic_id).toLowerCase() } : null,
     verification: verificationOf(item),
@@ -106,7 +110,7 @@ export function listTopics(d: Deps, student: string): TopicRow[] {
   return d.pack.topics.map((t) => ({
     id: t.id,
     label: t.label,
-    natCount: d.pack.items.filter((i) => i.pool === 'practice' && i.type === 'NAT' && i.topic_id === t.id && isServable(i, overlay) && !hidden.has(i.id)).length,
+    natCount: d.pack.items.filter((i) => i.pool === 'practice' && i.type === 'NAT' && i.topic_id === t.id && isServable(i, overlay) && renderable(d, i) && !hidden.has(i.id)).length,
   }));
 }
 
@@ -114,7 +118,7 @@ export function topicItems(d: Deps, student: string, topicId: string): TodayItem
   const overlay = openOverlayRows(d.db);
   const hidden = hiddenItemIdsFor(d.db, student);
   return d.pack.items
-    .filter((i) => i.pool === 'practice' && i.topic_id === topicId && isServable(i, overlay) && !hidden.has(i.id))
+    .filter((i) => i.pool === 'practice' && i.topic_id === topicId && isServable(i, overlay) && renderable(d, i) && !hidden.has(i.id))
     .map((i) => ({ id: i.id, topicLabel: topicLabel(d, i.topic_id), kind: i.type.toLowerCase() as TodayItemRef['kind'] }));
 }
 

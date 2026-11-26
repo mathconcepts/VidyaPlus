@@ -77,16 +77,6 @@ function reduce(n: number, d: number): string {
   return `${n / k}/${d / k}`;
 }
 
-export function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-/**
- * Plain text to safe HTML. KaTeX pre-render (E5/E8) is a later step; until then every stem and
- * option is escaped, so item content can never inject markup.
- */
-export const textToHtml = (s: string): string => escapeHtml(s);
-
 export function marksOf(item: Item): 1 | 2 {
   if (item.marks !== 1 && item.marks !== 2) throw new BrainError('InvalidItem', `item ${item.id} has ${item.marks} marks; the app shows 1 or 2`);
   return item.marks;

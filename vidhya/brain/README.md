@@ -30,7 +30,9 @@ npm start                          # = build, then node dist/brain/src/server.js
 | `LOGIN_PATH` | default `/login`; `GET /v1/login?return=` redirects here, with the return path forced under `/exam/` |
 | `BUILD_ID` | reported in `/health`, `/v1/session` and the `X-Vidhya-Build` header |
 
-`exam.json` is what the pack build writes from `exam.yaml`: `{ version, marking, timing, topics, tiers, mock }`.
+`exam.json` is what the pack build writes from `exam.yaml`: `{ version, marking, timing, topics, tiers, mock, section_marks? }`. `section_marks` is the marks the exam section carries (the "of N" under the marks range): a positive number; when absent it defaults to the sum of the topics' `weight_marks`; when that is 0 too, `/v1/marks` says no section marks are set.
+
+At boot the brain renders every pack item's stem, options and solution to KaTeX HTML (`renderOnSync`, idempotent per fingerprint and KaTeX version). Items are served only from those stored rows: an item whose render failed or is missing is left out of topics, Today and the mock form, and a direct request gets `RenderFailed` / `RenderMissing` (503). Raw TeX is never a fallback.
 
 ### Routes
 
@@ -60,4 +62,4 @@ HTTP tests run a real server beside a stub DeepTutor auth server; the no-leak co
 
 ## Not built yet
 
-KaTeX pre-render at sync (stems and options are HTML-escaped until then), the full B4 planner (Today uses a small starter planner and shows no marks estimate), the B5 marks range and taxonomy (`/v1/marks` returns `range: null`), ledger sync, and the real HTTP `ExamApi` client in `vidhya/exam`.
+The full B4 planner (Today uses a small starter planner and shows no marks estimate) and ledger sync.
