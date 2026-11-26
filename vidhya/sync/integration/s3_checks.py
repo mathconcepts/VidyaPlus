@@ -83,7 +83,7 @@ class Client:
 
 def dexec(args: list[str], stdin: str | None = None, env: dict | None = None) -> subprocess.CompletedProcess:
     envs = [x for k, v in (env or {}).items() for x in ("-e", f"{k}={v}")]
-    return subprocess.run([*DOCKER, "exec", "-i", "-w", "/app", *envs, CONTAINER, *args], input=stdin,
+    return subprocess.run([*DOCKER, "exec", "-i", "-u", "deeptutor", "-w", "/app", *envs, CONTAINER, *args], input=stdin,
                           capture_output=True, text=True)
 
 
@@ -242,7 +242,7 @@ def main() -> int:
     # lock timeout: hold a write lock from another process
     holder_code = ("import sqlite3,time;c=sqlite3.connect('/app/data/users/%s/user/chat_history.db',timeout=30);"
                    "c.execute('BEGIN IMMEDIATE');print('held',flush=True);time.sleep(12);c.rollback()" % uid)
-    holder = subprocess.Popen([*DOCKER, "exec", "-i", CONTAINER, "python", "-c", holder_code], stdout=subprocess.PIPE, text=True)
+    holder = subprocess.Popen([*DOCKER, "exec", "-i", "-u", "deeptutor", CONTAINER, "python", "-c", holder_code], stdout=subprocess.PIPE, text=True)
     holder.stdout.readline()
     t0 = time.time()
     rc, body = run_sync("servable-v2", uid)
@@ -330,6 +330,10 @@ def main() -> int:
 
     # ------------------------------------------------------------------------- guards
     h = bank_hash(uid)
+    pr = subprocess.run([*DOCKER, "exec", "-i", "-w", "/app", CONTAINER, "python", "/vidhya-sync/applier/vidhya_sync_applier.py"],
+                        input=json.dumps({"mode": "apply", "students": []}), capture_output=True, text=True)
+    record("S-guard-root", "the applier refuses to run as root (a root-written store would lock DeepTutor out of the student's DB; found when a first sync created a student's store as root and DeepTutor answered 500 PermissionError)",
+           pr.returncode == 5 and "InvalidRequest" in pr.stdout, f"exit={pr.returncode}; {pr.stdout.strip()[:200]}")
     rc, body = run_sync("servable-v1", uid, "--expected-version", "9.9.9")
     record("S-guard-version", "DeepTutor version != pinned -> StoreSchemaMismatch, whole run aborts before any write",
            rc == 4 and (body.get("error") or {}).get("code") == "StoreSchemaMismatch" and bank_hash(uid) == h, f"exit={rc}; {body.get('error')}")
@@ -346,7 +350,7 @@ def main() -> int:
     rc, body = run_sync("servable-empty", uid)
     record("S-guard-empty", "an empty servable set never empties the banks (refused before the applier is called)",
            rc == 7 and bank_hash(uid) == h, f"exit={rc}; {body.get('error')}")
-    hold = subprocess.Popen([*DOCKER, "exec", "-i", CONTAINER, "python", "-c",
+    hold = subprocess.Popen([*DOCKER, "exec", "-i", "-u", "deeptutor", CONTAINER, "python", "-c",
                              "import fcntl,time;f=open('/app/data/vidhya/sync.lock','a+');fcntl.flock(f,fcntl.LOCK_EX);print('held',flush=True);time.sleep(8)"],
                             stdout=subprocess.PIPE, text=True)
     hold.stdout.readline()

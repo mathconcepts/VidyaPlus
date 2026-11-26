@@ -448,6 +448,9 @@ def run(req: dict) -> tuple[dict, int]:
     if mode == "users":
         return {"ok": True, "error": None, "users": list_user_ids(data_root)}, 0
 
+    if mode == "apply" and os.geteuid() == 0 and not os.environ.get("VIDHYA_SYNC_ALLOW_ROOT"):
+        # A root-owned store directory or WAL file would lock DeepTutor (uid 1000) out of the student's DB.
+        raise SyncError("run the applier as DeepTutor's runtime user (docker exec -u deeptutor), not root", "InvalidRequest")
     version, normalize_question, PracticeStore, initialize_practice = _deeptutor()
     expected = req.get("expected_version")
     if expected and version != expected:
