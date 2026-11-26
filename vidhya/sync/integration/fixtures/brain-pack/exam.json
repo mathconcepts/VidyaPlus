@@ -1,0 +1,35 @@
+{
+ "version": "0.0.1",
+ "marking": {
+  "mcq_negative": {
+   "1": 0.3333333333333333,
+   "2": 0.6666666666666666
+  },
+  "mcq_negative_fallback_divisor": 3,
+  "msq_negative": 0,
+  "msq_partial_credit": false,
+  "nat_negative": 0,
+  "nat_epsilon": 1e-06
+ },
+ "timing": {
+  "total_minutes": 180,
+  "total_marks": 100
+ },
+ "topics": [
+  {
+   "id": "synthetic-topic",
+   "label": "synthetic-topic",
+   "weight_marks": 5
+  }
+ ],
+ "tiers": {
+  "pilot": {
+   "exam_page": true,
+   "nat": true,
+   "mock": false,
+   "today_card": true,
+   "disputes": true,
+   "tutor_mcp": true
+  }
+ }
+}

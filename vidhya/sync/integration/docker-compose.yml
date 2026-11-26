@@ -46,6 +46,49 @@ services:
         condition: service_healthy
     networks: [dt]
 
+  # The real brain, built from vidhya/brain with a SYNTHETIC pack (fixtures/brain-pack), so the sync
+  # command's /v1/servable can be exercised end to end. Migration is its own one-shot step (E13); the
+  # server refuses to start on an old schema. Reachable on loopback only. The sync command reads
+  #   VIDHYA_BRAIN_URL=http://127.0.0.1:${BRAIN_PORT:-8080}  VIDHYA_BRAIN_TOKEN=$SYNC_TOKEN
+  # (the container sees a private bridge address, which /v1/servable accepts; there is no proxy header).
+  brain-migrate:
+    build: { context: ../.., dockerfile: brain/Dockerfile }
+    image: vidhya-it-brain
+    command: ["node", "dist/brain/src/cli/vidhya.js", "migrate", "/data/brain.db", "/data/backups"]
+    volumes:
+      - "${BRAIN_DATA:-./.run/brain}:/data"
+    networks: [dt]
+
+  brain:
+    image: vidhya-it-brain
+    container_name: vidhya-it-brain
+    depends_on:
+      brain-migrate:
+        condition: service_completed_successfully
+      deeptutor:
+        condition: service_healthy
+    environment:
+      VIDHYA_DB: /data/brain.db
+      PACK_DIR: /pack
+      DEEPTUTOR_URL: http://deeptutor:8001
+      VIDHYA_HASH_SALT: it-synthetic-salt
+      APP_ORIGIN: http://127.0.0.1:${BRAIN_PORT:-8080}
+      SYNC_TOKEN: ${SYNC_TOKEN:-it-sync-token-synthetic}
+      BUILD_ID: it
+      HOST: 0.0.0.0
+      PORT: "8080"
+    volumes:
+      - "${BRAIN_DATA:-./.run/brain}:/data"
+      - "./fixtures/brain-pack:/pack:ro"
+    ports:
+      - "127.0.0.1:${BRAIN_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.status<500?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [dt]
+
 networks:
   dt:
     driver: bridge
