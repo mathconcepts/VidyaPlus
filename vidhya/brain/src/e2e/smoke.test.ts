@@ -20,6 +20,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 const SALT = 'smoke-salt';
 const ORIGIN = 'https://learn.smoke.test';
 const EXAM = path.resolve(__dirname, '../../../exam/src/api');
+const SYNC = path.resolve(__dirname, '../../../sync/src');
 
 let dir: string;
 let dt: Server;
@@ -70,7 +71,7 @@ beforeAll(async () => {
   });
   await new Promise<void>((r) => dt.listen(0, '127.0.0.1', r));
   brain = await startServer(
-    { VIDHYA_DB: dbFile, PACK_DIR: pack, DEEPTUTOR_URL: `http://127.0.0.1:${(dt.address() as AddressInfo).port}`, VIDHYA_HASH_SALT: SALT, APP_ORIGIN: ORIGIN, PORT: '0', BUILD_ID: 'smoke-build' },
+    { VIDHYA_DB: dbFile, PACK_DIR: pack, DEEPTUTOR_URL: `http://127.0.0.1:${(dt.address() as AddressInfo).port}`, VIDHYA_HASH_SALT: SALT, APP_ORIGIN: ORIGIN, PORT: '0', BUILD_ID: 'smoke-build', SYNC_TOKEN: 'smoke-sync-token' },
     { log: () => undefined },
   );
   base = `http://127.0.0.1:${brain.port}`;
@@ -169,5 +170,18 @@ describe('HttpExamApi against the real brain', () => {
     expect(got).toHaveLength(1);
     expect(got[0]).toMatchObject({ itemId: 'p1', outcome: 'correct' });
     expect(api.waiting()).toBe(0);
+  });
+});
+
+describe('vidhya sync\'s HttpServableSource against the real brain', () => {
+  it('reads /v1/servable with the bearer secret: practice MCQ and MSQ only, with keys; wrong token refused', async () => {
+    const { HttpServableSource } = await import(/* @vite-ignore */ `${SYNC}/servable.ts`);
+    const ok = await new HttpServableSource(base, 'smoke-sync-token').fetch({ pool: 'practice', types: ['MCQ', 'MSQ'] });
+    expect(ok.packVersion).toBe('smoke-1');
+    expect(ok.items.map((i: { id: string }) => i.id).sort()).toEqual(['math1', 'p1', 'p2', 'p4']);
+    expect(ok.items.every((i: { pool: string; type: string }) => i.pool === 'practice' && i.type !== 'NAT')).toBe(true);
+    expect(ok.items.find((i: { id: string }) => i.id === 'p1')).toMatchObject({ key: 1 });
+    await expect(new HttpServableSource(base, 'wrong').fetch({ pool: 'practice', types: ['MCQ'] })).rejects.toMatchObject({ code: 'BrainUnavailable' });
+    await expect(new HttpServableSource(base, undefined).fetch({ pool: 'practice', types: ['MCQ'] })).rejects.toThrow(/401/);
   });
 });

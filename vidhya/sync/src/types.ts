@@ -11,9 +11,10 @@ export interface ServableQuery {
 }
 
 /**
- * Assumed /v1/servable body (the HTTP server is built elsewhere): the release
+ * The brain's /v1/servable body (brain/src/service/servable.ts): the practice-pool
  * items that are verified and not in the status overlay, with their keys.
- * The route is loopback/bearer only, never the student-facing surface.
+ * The route is internal-network + bearer (SYNC_TOKEN) only, never the student surface,
+ * and never returns a mock-pool item.
  */
 export interface ServableResponse {
   pack_version: string;
