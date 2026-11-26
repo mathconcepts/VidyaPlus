@@ -1,0 +1,6 @@
+{
+  "name": "@vidhya/shared",
+  "private": true,
+  "type": "module",
+  "description": "Browser-safe modules imported by path by both the brain and the /exam app (no imports, no build)."
+}
