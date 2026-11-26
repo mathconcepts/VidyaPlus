@@ -1,0 +1,96 @@
+name: Brain integration
+
+# Plan T21 / R11 / R22: the tests that need a REAL DeepTutor. The pinned DeepTutor image
+# (by digest; verified byte-identical to upstream/deeptutor) runs in docker compose beside
+# redis, and these run against it with synthetic accounts and synthetic items only:
+#   - the session contract (the brain's real resolver vs. a real dt_token, S1)
+#   - S3 (a)-(g): sync transactions, events capture, in-place update (R9), MSQ, 404 on a deleted id
+#   - sync idempotence: run twice -> no change; kill mid-run -> re-run completes; drift = 0
+#   - S2: grants.mcp_tools -> the MCP tool is in the student's tool view and runs (stand-in server)
+#   - the real tutor chat with a spend cap: only when the VIDHYA_IT_LLM_KEY secret exists (R22)
+# The brain HTTP server (/v1, /mcp, /health) is built on another branch; when it lands, add it as
+# a service in vidhya/sync/integration/docker-compose.yml and point `vidhya sync --brain` at it.
+on:
+  pull_request:
+    paths:
+      - "vidhya/brain/**"
+      - "vidhya/sync/**"
+      - "upstream/**"
+      - "scripts/upstream/**"
+      - ".github/workflows/brain-integration.yml"
+  schedule:
+    - cron: "17 21 * * *" # nightly, 02:47 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brain-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vidhya/sync
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: install brain deps (the sync package imports the brain's schema module)
+        working-directory: vidhya/brain
+        run: npm ci
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: DeepTutor is pristine and the image matches it
+        run: |
+          scripts/upstream/check-pristine.sh
+          vidhya/sync/integration/verify-image-pin.sh
+      - name: Bring up DeepTutor, run the session contract, S1-S3 and the sync checks
+        run: vidhya/sync/integration/run-all.sh
+        env:
+          VIDHYA_IT_LLM_KEY: ${{ secrets.VIDHYA_IT_LLM_KEY }}
+      - name: Results
+        if: always()
+        run: |
+          for f in vidhya/sync/integration/.run/s3-results.json vidhya/sync/integration/.run/s2-results.json; do
+            [ -f "$f" ] && python3 - "$f" <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, sys
+          rows = json.load(open(sys.argv[1]))
+          print(f"### {sys.argv[1].split('/')[-1]}\n\n| check | status |\n|---|---|")
+          for r in rows: print(f"| {r['id']} | {r['status']} |")
+          PY
+          done
+          true
+      - name: DeepTutor logs on failure
+        if: failure()
+        run: docker compose -f vidhya/sync/integration/docker-compose.yml logs --tail=200 deeptutor
+      - name: Tear down
+        if: always()
+        run: vidhya/sync/integration/down.sh
+      - name: Open an issue when the nightly run fails
+        if: failure() && github.event_name == 'schedule'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title: `brain-integration failed (nightly ${new Date().toISOString().slice(0,10)})`,
+              body: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
