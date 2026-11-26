@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -9,6 +9,8 @@ function Host({ showWrite = true }: { showWrite?: boolean }) {
   return <NatEntry value={v} onChange={setV} markingNote="no negative marks · blank counts as skipped" showWrite={showWrite} />;
 }
 const field = () => screen.getByLabelText('Your answer') as HTMLInputElement;
+
+afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('NatEntry (DR15, T30)', () => {
   it('the field is inputmode="none" so the system keyboard never opens', () => {
@@ -75,11 +77,24 @@ describe('NatEntry (DR15, T30)', () => {
     expect(pressKey('-2', '−')).toBe('2');
   });
 
-  it('Write is a disabled placeholder (T31 is out of scope) and is absent in the mock', () => {
-    const { unmount } = render(<Host />);
-    expect(screen.getByRole('button', { name: /Write your answer/ })).toBeDisabled();
-    unmount();
+  it('Write is off by default: the flag stays off until the recogniser clears its accuracy gate', () => {
+    render(<Host />);
+    expect(screen.queryByRole('button', { name: /Write|handwriting/i })).not.toBeInTheDocument();
+  });
+
+  it('Write is absent when showWrite is false (the mock is keypad-only, DR15b)', () => {
+    vi.stubEnv('VITE_EXAM_HANDWRITING', '1');
     render(<Host showWrite={false} />);
-    expect(screen.queryByRole('button', { name: /Write/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Write|handwriting/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Number keypad' })).toBeInTheDocument();
+  });
+
+  it('Write is an enabled toggle in practice (flag on), labelled, and the keypad stays', () => {
+    vi.stubEnv('VITE_EXAM_HANDWRITING', '1');
+    render(<Host />);
+    const w = screen.getByRole('button', { name: 'Write your answer by hand' });
+    expect(w).toBeEnabled();
+    expect(w).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('group', { name: 'Number keypad' })).toBeInTheDocument();
   });
 });

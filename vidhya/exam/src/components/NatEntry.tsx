@@ -1,6 +1,6 @@
-import { useId, useState } from 'react';
+import { lazy, Suspense, useId, useState } from 'react';
 import { TextField } from '@vidhya/ui/components/TextField';
-import { Button } from '@vidhya/ui/components/Button';
+import { handwritingEnabled } from '../features';
 import { tryParseNat } from '@vidhya/shared/nat-input';
 
 /** Reading of the typed text with the SAME parser the grader uses (E4, DR15). */
@@ -10,6 +10,9 @@ export function readsAs(raw: string): { state: 'empty' } | { state: 'ok'; text: 
   if (!r.ok) return { state: 'bad', hint: r.hint };
   return { state: 'ok', text: String(r.value).replace('-', '−') };
 }
+
+// The pad, TF.js and the model load on the first tap of Write (T31, E11): not in the first-load budget.
+const HandwritingPad = lazy(() => import('../handwriting/HandwritingPad'));
 
 const KEYS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'] as const;
 
@@ -30,12 +33,15 @@ export function NatEntry({ value, onChange, markingNote, showWrite = true, disab
   value: string;
   onChange: (v: string) => void;
   markingNote: string;
-  /** The mock is keypad-only, like GATE (DR15b). */
+  /** Practice only: the mock is keypad-only, like GATE (DR15b). */
   showWrite?: boolean;
   disabled?: boolean;
 }) {
   const readsId = useId();
   const [note, setNote] = useState<string | null>(null);
+  const [writing, setWriting] = useState(false);
+  const padId = useId();
+  const canWrite = showWrite && handwritingEnabled();
   const reading = readsAs(value);
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -67,9 +73,16 @@ export function NatEntry({ value, onChange, markingNote, showWrite = true, disab
             onKeyDown={onKeyDown}
           />
         </div>
-        {showWrite && (
-          // TODO(T31): handwriting pad (lazy-loaded on-device digit model, practice only). Out of scope for this wave; keep the slot.
-          <Button variant="grey" tone="neutral" size="lg" disabled ariaLabel="Write your answer (not available yet)">Write</Button>
+        {canWrite && (
+          <button
+            type="button"
+            className="write-toggle"
+            aria-pressed={writing}
+            aria-controls={writing ? padId : undefined}
+            aria-label={writing ? 'Close handwriting pad' : 'Write your answer by hand'}
+            disabled={disabled}
+            onClick={() => setWriting(w => !w)}
+          >Write</button>
         )}
       </div>
       <p id={readsId} aria-live="polite" style={{ fontSize: 'var(--text-subhead)', color: reading.state === 'bad' ? 'var(--red-ink)' : 'var(--text-secondary)', margin: '8px 2px 0' }}>
@@ -78,6 +91,13 @@ export function NatEntry({ value, onChange, markingNote, showWrite = true, disab
         {reading.state === 'bad' && <>Doesn't read as a number yet · {reading.hint}</>}
         {note && <> {note}</>}
       </p>
+      {canWrite && writing && !disabled && (
+        <div id={padId} onKeyDown={e => { if (e.key === 'Escape') setWriting(false); }}>
+          <Suspense fallback={<p role="status" className="hw-note">Loading handwriting reader…</p>}>
+            <HandwritingPad onConfirm={text => { setNote(null); onChange(text); setWriting(false); }} />
+          </Suspense>
+        </div>
+      )}
       <div className="keypad" role="group" aria-label="Number keypad">
         {KEYS.slice(0, 9).map(k => <button key={k} type="button" onClick={() => press(k)}>{k}</button>)}
         <button type="button" onClick={() => press('0')}>0</button>
