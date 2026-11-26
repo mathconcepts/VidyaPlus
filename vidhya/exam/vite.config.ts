@@ -44,10 +44,20 @@ function katexAssets(): Plugin {
 }
 
 // /exam is served by the Exam Brain at /exam/ (plan section 22, amendment of 24 Nov).
-export default defineConfig({
-  base: '/exam/',
-  plugins: [react(), katexAssets()],
-  define: { __BUILD_ID__: JSON.stringify(buildId()) },
+// `--mode demo` (npm run build:demo) is the static look-and-feel build: relative asset paths so it runs under any
+// sub-path of any static host. It turns handwriting on (VITE_EXAM_HANDWRITING=1) and swaps in synthetic data (src/demo/).
+export default defineConfig(({ mode }) => ({
+  base: mode === 'demo' ? './' : '/exam/',
+  plugins: [
+    react(),
+    katexAssets(),
+    // Demo only: an inline icon, so a host that has no /favicon.ico at its root does not log a 404.
+    ...(mode === 'demo' ? [{ name: 'vidhya-demo-favicon', transformIndexHtml: () => [{ tag: 'link', attrs: { rel: 'icon', href: 'data:,' }, injectTo: 'head' as const }] }] : []),
+  ],
+  define: {
+    __BUILD_ID__: JSON.stringify(buildId()),
+    ...(mode === 'demo' ? { 'import.meta.env.VITE_EXAM_HANDWRITING': JSON.stringify('1') } : {}),
+  },
   resolve: {
     alias: {
       // The one NAT parser, shared with the brain (E4). Imported by path, not copied.
@@ -70,4 +80,4 @@ export default defineConfig({
     include: ['src/**/*.test.{ts,tsx}'],
     css: false,
   },
-});
+}));

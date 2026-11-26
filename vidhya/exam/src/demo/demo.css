@@ -1,0 +1,29 @@
+/* Demo-only chrome. Colours come from the Clarity tokens, so light and dark both work. */
+:root { --demo-bar-h: 36px; }
+.demo-bar {
+  position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: var(--demo-bar-h); padding: 0 var(--gutter);
+  background: var(--surface-sunken); color: var(--text-primary); border-bottom: var(--hairline) solid var(--separator);
+  font-size: var(--text-subhead);
+}
+.demo-text { font-weight: var(--weight-semibold); font-size: var(--text-footnote); line-height: 1.25; padding: 4px 0; }
+.demo-toggle { flex: none; }
+.demo-toggle, .demo-actions button {
+  min-height: 32px; padding: 0 10px; border-radius: var(--radius-sm); border: var(--hairline) solid var(--separator);
+  background: var(--surface-card); color: var(--text-primary); font: inherit; cursor: pointer;
+}
+.demo-toggle[aria-expanded="true"] { box-shadow: inset 0 0 0 2px var(--ink); }
+.demo-bar ~ .shell .titlebar { top: var(--demo-bar-h); }
+.demo-panel {
+  position: fixed; z-index: 40; top: var(--demo-bar-h); right: 0; width: min(380px, 100vw); max-height: calc(100vh - var(--demo-bar-h));
+  overflow: auto; padding: 14px var(--gutter) 18px; background: var(--surface-card); color: var(--text-primary);
+  border-left: var(--hairline) solid var(--separator); border-bottom: var(--hairline) solid var(--separator);
+  box-shadow: var(--shadow-card); font-size: var(--text-subhead);
+}
+.demo-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.demo-field select { min-height: 40px; border-radius: var(--radius-sm); border: var(--hairline) solid var(--separator); background: var(--surface-canvas); color: var(--text-primary); font: inherit; padding: 0 8px; }
+.demo-check { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.demo-check input { width: 20px; height: 20px; }
+.demo-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.demo-hint { color: var(--text-secondary); margin: 12px 0 0; line-height: var(--leading-normal); }
+.demo-bar button:focus-visible, .demo-panel :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }

@@ -60,7 +60,7 @@ export function NatEntry({ value, onChange, markingNote, showWrite = true, disab
   return (
     <div>
       <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <TextField
             ariaLabel="Your answer"
             value={value}

@@ -67,6 +67,25 @@ describe('guards', () => {
   });
 });
 
+describe('the demo build stays out of production (static look-and-feel build)', () => {
+  const stripped = (f: string) => fs.readFileSync(f, 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+  it('nothing outside src/demo imports src/demo except main.tsx, by dynamic import behind MODE === "demo"', () => {
+    const importers = prod.filter(f => !rel(f).startsWith('demo/') && /from\s+'(\.\/|\.\.\/)+demo\//.test(stripped(f)));
+    expect(importers.map(rel)).toEqual([]);
+    const main = stripped(path.join(SRC, 'main.tsx'));
+    expect(main).toMatch(/import\.meta\.env\.MODE\s*===\s*'demo'/);
+    expect(main).toContain("import('./demo/mount')");
+    expect(main).not.toMatch(/from\s+'\.\/demo/);
+  });
+  it('the demo API is never chosen by chooseApi (api/choose.ts has no demo path)', () => {
+    expect(stripped(path.join(SRC, 'api/choose.ts'))).not.toMatch(/demo/i);
+  });
+  it('src/demo files do not import the real HTTP client or the fake', () => {
+    const bad = prod.filter(f => rel(f).startsWith('demo/') && /from\s+'(\.\.\/)+api\/(http|fake|choose)'/.test(stripped(f)));
+    expect(bad.map(rel)).toEqual([]);
+  });
+});
+
 describe('handwriting stays out of the first load (T31, E8, E11)', () => {
   const stripped = (f: string) => fs.readFileSync(f, 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
   /** Static, value-carrying imports (`import type` is erased by the compiler and ships nothing). */

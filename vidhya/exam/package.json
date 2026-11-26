@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:demo": "vite build --mode demo --outDir dist-demo",
+    "gen:demo": "vite-node scripts/gen-demo-items.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "check-budget": "node scripts/check-budget.mjs"
