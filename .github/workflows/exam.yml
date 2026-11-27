@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
       - name: Typecheck (ui, exam)
         run: npm run typecheck
-      - name: Tests (ui, exam: components, axe light and dark, contrast, guards)
+      - name: "Tests (ui, exam: components, axe light and dark, contrast, guards)"
         run: npm test
       - name: First-load budget (250 KB gzipped JS + CSS + fonts)
         run: npm run check-budget --workspace @vidhya/exam
