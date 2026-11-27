@@ -4,7 +4,7 @@ integration test (plan §8, §9 "S-sync", T21), run against the pinned DeepTutor
 with ONE synthetic test student and synthetic items only. stdlib only.
 
 Prereqs: ./up.sh has run; `npm ci && npm run build` in vidhya/sync and `npm ci` in vidhya/brain.
-Env: SUDO=sudo (if docker needs it), DT_DATA (host data dir, default ./.run/data),
+Env: SUDO=sudo (if docker needs it), DT_DATA (host data dir, default $VIDHYA_IT_STATE/data, outside the repo),
      IT_STUDENT_USER / IT_STUDENT_PASS, DT_BACKEND_PORT.
 
 Exit 0 only if every check PASSes. Writes .run/s3-results.json (check id, status, evidence).
@@ -28,7 +28,7 @@ FIX = HERE / "fixtures"
 DOCKER = (os.environ.get("SUDO", "") + " docker").split()
 CONTAINER = os.environ.get("IT_CONTAINER", "vidhya-it-deeptutor")
 BACKEND = f"http://127.0.0.1:{os.environ.get('DT_BACKEND_PORT', '8001')}"
-DT_DATA = pathlib.Path(os.environ.get("DT_DATA", HERE / ".run" / "data"))
+DT_DATA = pathlib.Path(os.environ.get("DT_DATA") or pathlib.Path(os.environ.get("VIDHYA_IT_STATE") or pathlib.Path(os.environ.get("RUNNER_TEMP") or os.environ.get("TMPDIR") or "/tmp") / "vidhya-it") / "data")
 STUDENT = os.environ.get("IT_STUDENT_USER", "it-student-1")
 PASSWORD = os.environ.get("IT_STUDENT_PASS", "it-student-pass-1234")
 EVENTS = DT_DATA / "vidhya" / "events.jsonl"
@@ -123,10 +123,18 @@ def bank_hash(uid: str) -> str:
     return hashlib.sha256(json.dumps([rows, rows2, rows3, rows4], sort_keys=True).encode()).hexdigest()
 
 
+# events.jsonl sits in DeepTutor's data dir, which the container owns (its own uid, private modes).
+# Read and clear it from inside the container, as DeepTutor's user, so the host user's uid never matters.
+EVENTS_IN_CONTAINER = "/app/data/vidhya/events.jsonl"
+
+
 def events_lines() -> list[dict]:
-    if not EVENTS.exists():
-        return []
-    return [json.loads(x) for x in EVENTS.read_text().splitlines() if x.strip()]
+    p = dexec(["sh", "-c", f"cat {EVENTS_IN_CONTAINER} 2>/dev/null || true"])
+    return [json.loads(x) for x in p.stdout.splitlines() if x.strip()]
+
+
+def clear_events() -> None:
+    dexec(["rm", "-f", EVENTS_IN_CONTAINER])
 
 
 # ------------------------------------------------------------------------------- sync
@@ -185,8 +193,7 @@ def main() -> int:
     # ------------------------------------------------------------------ clean slate
     rc, body = run_sync("servable-empty", uid, "--allow-mass-remove")
     assert rc == 0, body
-    if EVENTS.exists():
-        EVENTS.unlink()
+    clear_events()
 
     # -------------------------------------------------------------------- seed v1
     rc, body = run_sync("servable-v1", uid)

@@ -8,7 +8,7 @@
 # image or a bumped upstream/ cannot drift apart unnoticed.
 #
 # Usage (from this directory):
-#   ./up.sh            # prepares ./.run/data, starts the stack, creates the admin + test student
+#   ./up.sh            # prepares $DT_DATA (outside the repo), starts the stack, creates the admin + test student
 #   ./down.sh
 #
 # Ports bind to loopback only. The sandbox-runner and PocketBase sidecars of
@@ -33,7 +33,7 @@ services:
       - "127.0.0.1:${DT_BACKEND_PORT:-8001}:8001"
       - "127.0.0.1:${DT_FRONTEND_PORT:-3782}:3782"
     volumes:
-      - "${DT_DATA:-./.run/data}:/app/data"
+      - "${DT_DATA:-/tmp/vidhya-it/data}:/app/data"
       - "${VIDHYA_SYNC_DIR:-..}:/vidhya-sync:ro"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8001/health/ready"]
@@ -54,13 +54,15 @@ services:
   brain-migrate:
     build: { context: ../.., dockerfile: brain/Dockerfile }
     image: vidhya-it-brain
+    pull_policy: build
     command: ["node", "dist/brain/src/cli/vidhya.js", "migrate", "/data/brain.db", "/data/backups"]
     volumes:
-      - "${BRAIN_DATA:-./.run/brain}:/data"
+      - "${BRAIN_DATA:-/tmp/vidhya-it/brain}:/data"
     networks: [dt]
 
   brain:
     image: vidhya-it-brain
+    pull_policy: never   # built by brain-migrate above; never pulled
     container_name: vidhya-it-brain
     depends_on:
       brain-migrate:
@@ -78,7 +80,7 @@ services:
       HOST: 0.0.0.0
       PORT: "8080"
     volumes:
-      - "${BRAIN_DATA:-./.run/brain}:/data"
+      - "${BRAIN_DATA:-/tmp/vidhya-it/brain}:/data"
       - "./fixtures/brain-pack:/pack:ro"
     ports:
       - "127.0.0.1:${BRAIN_PORT:-8080}:8080"

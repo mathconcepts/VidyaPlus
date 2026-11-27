@@ -49,6 +49,9 @@ jobs:
 
   integration:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write   # the nightly failure step opens an issue
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4

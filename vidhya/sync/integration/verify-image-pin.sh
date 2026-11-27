@@ -10,7 +10,7 @@ DOCKER="${SUDO:-} docker"
 IMG="$(sed -n 's/^ *image: *\(ghcr.io\/hkuds\/deeptutor@sha256:[0-9a-f]*\) *$/\1/p' "$HERE/docker-compose.yml")"
 [ -n "$IMG" ] || { echo "no pinned deeptutor image in docker-compose.yml" >&2; exit 1; }
 $DOCKER image inspect "$IMG" >/dev/null 2>&1 || $DOCKER pull "$IMG" >/dev/null
-TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+TMP="$(mktemp -d)"; trap '${SUDO:-} rm -rf "$TMP"' EXIT   # docker cp output is owned by docker's user
 cid="$($DOCKER create "$IMG")"
 $DOCKER cp "$cid:/app/deeptutor" "$TMP/deeptutor" >/dev/null; $DOCKER rm "$cid" >/dev/null
 tree() { (cd "$1" && find deeptutor -name __pycache__ -prune -o -type f -print | LC_ALL=C sort | xargs sha256sum | sha256sum | cut -d' ' -f1); }
