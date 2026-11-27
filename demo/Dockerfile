@@ -28,6 +28,9 @@ COPY frontend/package*.json frontend/
 RUN cd frontend && npm ci
 
 COPY frontend/ frontend/
+# The frontend imports Clarity tokens and components from the shared package
+# (vite alias @vidhya/ui → ../vidhya/ui); React resolves from frontend/.
+COPY vidhya/ui/ vidhya/ui/
 COPY src/ src/
 COPY tsconfig*.json ./
 # scripts/ + data/ — needed to regenerate the DB-less static bundles below
